@@ -285,6 +285,10 @@ public class NurseSharkEntity extends TamableAnimal implements GeoEntity {
       this.goalSelector.addGoal(23, new AvoidEntityGoal(this, AxodileEntity.class, 16.0F, 1.0, 1.2));
    }
 
+   public boolean removeWhenFarAway(double distanceToClosestPlayer) {
+      return !this.isTame();
+   }
+
    protected Vec3 getPassengerAttachmentPoint(Entity entity, EntityDimensions dimensions, float f) {
       return super.getPassengerAttachmentPoint(entity, dimensions, f).add(0.0, 0.5, 0.0);
    }
@@ -365,13 +369,9 @@ public class NurseSharkEntity extends TamableAnimal implements GeoEntity {
             this.level().broadcastEntityEvent(this, (byte)6);
          }
 
-         this.setPersistenceRequired();
          retval = InteractionResult.sidedSuccess(this.level().isClientSide());
       } else {
          retval = super.mobInteract(sourceentity, hand);
-         if (retval == InteractionResult.SUCCESS || retval == InteractionResult.CONSUME) {
-            this.setPersistenceRequired();
-         }
       }
 
       double x = this.getX();
