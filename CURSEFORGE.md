@@ -30,7 +30,7 @@ Only the NeoForge 1.21.1 target is currently verified. Do not mix this file's in
 ### Installation
 
 1. Install Minecraft 1.21.1 with NeoForge 21.1.x.
-2. Install GeckoLib 4.x for the same Minecraft version. Dependency link placeholder: `GECKOLIB_CURSEFORGE_URL`.
+2. Install [GeckoLib 4.x](https://www.curseforge.com/minecraft/mc-mods/geckolib) for the same Minecraft version.
 3. Download the Dwurdy Sharks jar for Minecraft 1.21.1 and place it in your `mods` folder.
 4. Launch the game and explore the oceans.
 
