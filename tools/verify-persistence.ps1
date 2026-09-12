@@ -20,6 +20,9 @@ if ($persistenceCalls) {
 
 $metadata = Get-Content (Join-Path $root 'src/main/resources/META-INF/neoforge.mods.toml') -Raw
 if ($metadata -notmatch 'modId="benssharks"') { throw 'The compatibility mod id must remain benssharks.' }
+if ($metadata -notmatch 'modId="neoforge"\s+type="required"\s+versionRange="\[21\.1,21\.2\)"') {
+    throw 'NeoForge 21.1.x must remain the declared target range.'
+}
 if ($metadata -notmatch 'modId="geckolib"\s+type="required"\s+versionRange="\[4,5\)"') {
     throw 'GeckoLib 4.x must remain a required dependency.'
 }
