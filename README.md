@@ -2,6 +2,10 @@
 
 > **All the sharks. Maintained.**
 
+<p align="center">
+  <img src="assets/dwurdy-sharks-banner.png" alt="Dwurdy Sharks underwater banner" width="960">
+</p>
+
 Dwurdy Sharks is a community maintenance fork of **[Ben's Sharks](https://github.com/PaoloBen/BensSharks)** by **benndevs / PaoloBen** for Minecraft 1.21.1 and NeoForge. It keeps the original mod's marine life and items available while addressing a serious entity-persistence bug.
 
 This is an independent, community-run fork. It is not the original project, and no endorsement or sponsorship by the original author is implied. Please give the original project the credit it deserves:

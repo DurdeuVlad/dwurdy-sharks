@@ -2,6 +2,11 @@
 
 These prompts are written for image models such as Midjourney, DALL·E, or SDXL. Generate the artwork without lettering, then add the official title in a design tool so the text stays clean and editable.
 
+## Generated project assets
+
+- [Dwurdy Sharks banner](../assets/dwurdy-sharks-banner.png) — 1920×480
+- [Dwurdy Sharks profile icon](../assets/dwurdy-sharks-profile-64.png) — 64×64
+
 ## Banner prompt — 1920×480
 
 ```text
