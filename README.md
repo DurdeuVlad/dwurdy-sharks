@@ -20,7 +20,7 @@ Dwurdy Sharks keeps the original mod ID, `benssharks`, and is drop-in compatible
 
 ## What is included
 
-- A 26+ marine entity roster, representing **26 registered marine entity types**, including Great White, Megalodon, Basking Shark, Axodile, Barracuda, Krill, Land Shark, and more
+- **26 registered marine entity types** — 23 living/hostile marine mobs plus projectile and particle helpers — including Great White, Megalodon, Basking Shark, Axodile, Barracuda, Krill, Land Shark, and more
 - Shark-tooth items and weapons, including the Shark Tooth Club and Megalodon Tooth
 - Jagged armor
 - Shark Plush

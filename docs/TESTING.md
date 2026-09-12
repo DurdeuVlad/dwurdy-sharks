@@ -9,10 +9,21 @@ Java 21. Run:
 .\gradlew.bat clean build
 ```
 
+Run the static regression guard as well:
+
+```powershell
+pwsh -NoProfile -File tools/verify-persistence.ps1
+```
+
 The build must finish successfully and produce a jar in `build/libs/`. The
 repository currently has no automated JUnit/GameTest sources, so a passing
 Gradle build is a compilation and packaging check, not a claim of complete
 in-game coverage.
+
+For a dedicated-server smoke boot, run `./gradlew runServer --no-daemon` (or
+`.\gradlew.bat runServer --no-daemon` on Windows), confirm the log reaches
+`Done`, then stop the test server. This confirms that NeoForge can discover the
+mod and its required GeckoLib dependency on the target version.
 
 ## Persistent-shark regression check
 

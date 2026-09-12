@@ -2,7 +2,7 @@
 
 ## Summary
 
-**All the sharks. Maintained.** A credited community fork of Ben's Sharks for NeoForge 1.21.1, with a 26+ marine entity roster and the wild-shark despawn fix.
+**All the sharks. Maintained.** A credited community fork of Ben's Sharks for NeoForge 1.21.1, with 26 registered marine entity types and the wild-shark despawn fix.
 
 ## Description
 
@@ -12,7 +12,7 @@
 
 ### What you get
 
-- 🦈 **26 registered marine entity types / a 26+ roster**, including Great White, Megalodon, Basking Shark, Axodile, Barracuda, Krill, Land Shark, and more
+- 🦈 **26 registered marine entity types** — 23 living/hostile marine mobs plus projectile and particle helpers — including Great White, Megalodon, Basking Shark, Axodile, Barracuda, Krill, Land Shark, and more
 - 🦷 Shark-tooth items and weapons
 - 🛡️ Jagged armor
 - 🧸 Shark Plush for your base
@@ -22,8 +22,8 @@
 ### Requirements
 
 - Minecraft **1.21.1**
-- **NeoForge 21.1.x** — download link placeholder: `NEOFORGE_DOWNLOAD_URL`
-- **GeckoLib 4.x** — required dependency; add the final project link here before publishing: `GECKOLIB_CURSEFORGE_URL`
+- **[NeoForge 21.1.x](https://neoforged.net/)**
+- **[GeckoLib 4.x](https://www.curseforge.com/minecraft/mc-mods/geckolib)** — required dependency
 
 Only the NeoForge 1.21.1 target is currently verified. Do not mix this file's instructions with a different Minecraft version or loader.
 

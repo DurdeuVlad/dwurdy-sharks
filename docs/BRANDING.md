@@ -46,6 +46,6 @@ Negative prompt: readable text, fake words, watermark, signature, photorealism, 
 
 All three options are 150 characters or fewer.
 
-1. `The maintained Ben's Sharks fork for NeoForge 1.21.1: a 26+ marine entity roster, shark gear, plushies, food, and fixed wild-shark despawning.`
-2. `Dive into a 26+ marine entity roster and shark gear—now maintained for NeoForge 1.21.1, with wild sharks despawning and tamed sharks persisting.`
-3. `Ben's Sharks, kept swimming: a credited NeoForge 1.21.1 fork with a 26+ marine entity roster and a fix for persistent wild sharks.`
+1. `Maintained Ben's Sharks fork for NeoForge 1.21.1: 26 registered marine entity types, shark gear, plushies, food, and fixed wild-shark despawning.`
+2. `Dive into 26 registered entity types and shark gear for NeoForge 1.21.1—with wild sharks despawning and tamed sharks persisting.`
+3. `Ben's Sharks, kept swimming: a credited NeoForge 1.21.1 fork with 26 registered entity types and a fix for persistent wild sharks.`

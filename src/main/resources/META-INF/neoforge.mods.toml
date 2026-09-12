@@ -19,7 +19,7 @@ enumExtensions="META-INF/enumextensions.json"
 [[dependencies.benssharks]]
 modId="neoforge"
 type="required"
-versionRange="[21.1.65,)"
+versionRange="[21.1,22)"
 ordering="AFTER"
 side="BOTH"
 
