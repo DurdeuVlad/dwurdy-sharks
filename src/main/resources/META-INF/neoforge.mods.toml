@@ -1,0 +1,43 @@
+modLoader="javafml"
+loaderVersion="[4,)"
+license="GNU Lesser General Public License version 3 (LGPLv3)"
+
+[[mods]]
+modId="benssharks"
+version="1.2.7"
+displayName="Dwurdy Sharks"
+displayURL="https://github.com/DurdeuVlad/dwurdy-sharks"
+logoFile="logo.png"
+credits="Community maintenance fork of Ben's Sharks, originally a solo project by benndevs (1st Year Computer Science student)."
+authors="benndevs, Dwurdy"
+description="A simplistic approach towards one of the ocean's most complex creatures. Maintained fork of Ben's Sharks — fixes the persistent-shark despawn bug (upstream issue #7) and keeps the mod alive on NeoForge 1.21.1."
+enumExtensions="META-INF/enumextensions.json"
+
+# Start of user code block mod configuration
+# End of user code block mod configuration
+
+[[dependencies.benssharks]]
+modId="neoforge"
+type="required"
+versionRange="[21.1.65,)"
+ordering="AFTER"
+side="BOTH"
+
+[[dependencies.benssharks]]
+modId="minecraft"
+type="required"
+versionRange="[1.21.1]"
+ordering="AFTER"
+side="BOTH"
+
+
+[[dependencies.benssharks]]
+modId="geckolib"
+type="optional"
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"
+
+
+# Start of user code block dependencies configuration
+# End of user code block dependencies configuration

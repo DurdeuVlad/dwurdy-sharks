@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smoking",
+  "category": "food",
+  "experience": 1,
+  "cookingtime": 100,
+  "ingredient": {
+    "item": "benssharks:raw_barracuda"
+  },
+  "result": {
+    "id": "benssharks:cooked_barracuda"
+  }
+}

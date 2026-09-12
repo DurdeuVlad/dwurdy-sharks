@@ -1,0 +1,13 @@
+{
+  "entries": [
+    {
+      "enum": "net/minecraft/world/entity/raid/Raid$RaiderType",
+      "name": "BENSSHARKS_THALASSOGER",
+      "constructor": "(Ljava/util/function/Supplier;[I)V",
+      "parameters": {
+        "class": "net/mcreator/sharks/entity/ThalassogerEntity",
+        "field": "RAIDER_TYPE"
+      }
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+build/
+decomp/
+jar_orig/
+runs/
+.gradle/
+*.orig
+*.bak

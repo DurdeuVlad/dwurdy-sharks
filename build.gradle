@@ -1,0 +1,31 @@
+plugins {
+    id 'java-library'
+    id 'net.neoforged.gradle.userdev' version '7.0.185'
+}
+
+group = 'com.dwurdy'
+version = mod_version
+
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(21)
+}
+
+repositories {
+    maven { url = 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/' }
+}
+
+dependencies {
+    implementation "net.neoforged:neoforge:${neo_version}"
+    implementation 'software.bernie.geckolib:geckolib-neoforge-1.21.1:4.7.3'
+}
+
+jar {
+    manifest {
+        attributes([
+            'Specification-Title'   : mod_name,
+            'Specification-Vendor'  : 'Dwurdy',
+            'Implementation-Title'  : mod_name,
+            'Implementation-Version': mod_version
+        ])
+    }
+}

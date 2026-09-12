@@ -1,0 +1,15 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": [
+    "deep_ocean",
+    "ocean",
+    "cold_ocean",
+    "deep_cold_ocean"
+  ],
+  "spawners": {
+    "type": "benssharks:blue_shark",
+    "weight": 10,
+    "minCount": 1,
+    "maxCount": 2
+  }
+}

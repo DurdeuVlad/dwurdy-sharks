@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:smithing_transform",
+  "template": [],
+  "base": {
+    "item": "benssharks:axoleather"
+  },
+  "addition": {
+    "item": "minecraft:turtle_scute"
+  },
+  "result": {
+    "id": "benssharks:axoscute"
+  }
+}

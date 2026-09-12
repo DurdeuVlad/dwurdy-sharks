@@ -1,0 +1,17 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": [
+    "deep_lukewarm_ocean",
+    "deep_ocean",
+    "lukewarm_ocean",
+    "ocean",
+    "warm_ocean",
+    "beach"
+  ],
+  "spawners": {
+    "type": "benssharks:remora",
+    "weight": 12,
+    "minCount": 3,
+    "maxCount": 3
+  }
+}

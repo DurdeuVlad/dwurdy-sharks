@@ -1,0 +1,16 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": [
+    "cold_ocean",
+    "deep_cold_ocean",
+    "deep_frozen_ocean",
+    "frozen_ocean",
+    "snowy_beach"
+  ],
+  "spawners": {
+    "type": "benssharks:axodile",
+    "weight": 13,
+    "minCount": 1,
+    "maxCount": 3
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": [
+    "cold_ocean",
+    "deep_cold_ocean",
+    "deep_frozen_ocean",
+    "frozen_ocean"
+  ],
+  "spawners": {
+    "type": "benssharks:greenland_shark",
+    "weight": 4,
+    "minCount": 1,
+    "maxCount": 1
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "replace": false,
+  "values": [
+    "benssharks:barracuda",
+    "benssharks:whitetip_shark",
+    "benssharks:greenland_shark",
+    "benssharks:greater_axodile",
+    "benssharks:pilot_fish",
+    "benssharks:whale_shark",
+    "benssharks:krill",
+    "benssharks:lemon_shark",
+    "benssharks:land_shark",
+    "benssharks:megalodon",
+    "benssharks:bull_shark",
+    "benssharks:basking_shark",
+    "benssharks:blacktip_reef_shark",
+    "benssharks:cookiecutter_shark",
+    "benssharks:mako_shark",
+    "benssharks:bonnethead_shark",
+    "benssharks:blue_shark",
+    "benssharks:axodile",
+    "benssharks:tiger_shark",
+    "benssharks:remora",
+    "benssharks:nurse_shark",
+    "benssharks:greatwhiteshark"
+  ]
+}
