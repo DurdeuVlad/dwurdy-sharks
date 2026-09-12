@@ -559,13 +559,9 @@ public class LandSharkEntity extends TamableAnimal implements GeoEntity {
             this.level().broadcastEntityEvent(this, (byte)6);
          }
 
-         this.setPersistenceRequired();
          retval = InteractionResult.sidedSuccess(this.level().isClientSide());
       } else {
          retval = super.mobInteract(sourceentity, hand);
-         if (retval == InteractionResult.SUCCESS || retval == InteractionResult.CONSUME) {
-            this.setPersistenceRequired();
-         }
       }
 
       double x = this.getX();

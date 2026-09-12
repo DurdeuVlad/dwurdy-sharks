@@ -2,6 +2,7 @@ build/
 decomp/
 jar_orig/
 runs/
+run/
 .gradle/
 *.orig
 *.bak
