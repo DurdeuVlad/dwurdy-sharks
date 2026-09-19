@@ -15,10 +15,22 @@ Run the static regression guard as well:
 pwsh -NoProfile -File tools/verify-persistence.ps1
 ```
 
-The build must finish successfully and produce a jar in `build/libs/`. The
-repository currently has no automated JUnit/GameTest sources, so a passing
-Gradle build is a compilation and packaging check, not a claim of complete
-in-game coverage.
+The build must finish successfully and produce a jar in `build/libs/`. A
+passing Gradle build is a compilation and packaging check, not a claim of
+complete in-game coverage.
+
+## GameTest suite
+
+`src/main/java/net/mcreator/sharks/gametest/BenssharksGameTests.java`
+registers five behavioral tests (aggression gamerule on/off, filter-feeder
+passivity, tamed-owner exclusion, and the tamed-follow land gate). Run them
+with:
+
+```powershell
+.\gradlew.bat runGameTestServer
+```
+
+The run passes when the log reports `All 5 required tests passed`.
 
 For a dedicated-server smoke boot, run `./gradlew runServer --no-daemon` (or
 `.\gradlew.bat runServer --no-daemon` on Windows), confirm the log reaches
