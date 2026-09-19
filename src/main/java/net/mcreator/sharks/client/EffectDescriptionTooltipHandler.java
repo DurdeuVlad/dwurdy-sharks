@@ -1,5 +1,6 @@
 package net.mcreator.sharks.client;
 
+import java.util.List;
 import net.mcreator.sharks.BenssharksMod;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
@@ -17,10 +18,7 @@ import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 public class EffectDescriptionTooltipHandler {
    @SubscribeEvent
    public static void onGatherEffectTooltips(GatherEffectScreenTooltipsEvent event) {
-      String key = event.getEffectInstance().getDescriptionId() + ".description";
-      if (Language.getInstance().has(key)) {
-         event.getTooltip().add(Component.translatable(key).withStyle(ChatFormatting.GRAY));
-      }
+      addDescription(event.getEffectInstance(), event.getTooltip());
    }
 
    @SubscribeEvent
@@ -31,10 +29,14 @@ public class EffectDescriptionTooltipHandler {
       }
 
       for (MobEffectInstance instance : contents.getAllEffects()) {
-         String key = instance.getDescriptionId() + ".description";
-         if (Language.getInstance().has(key)) {
-            event.getToolTip().add(Component.translatable(key).withStyle(ChatFormatting.GRAY));
-         }
+         addDescription(instance, event.getToolTip());
+      }
+   }
+
+   private static void addDescription(MobEffectInstance instance, List<Component> tooltip) {
+      String key = instance.getDescriptionId() + ".description";
+      if (key.startsWith("effect." + BenssharksMod.MODID + ".") && Language.getInstance().has(key)) {
+         tooltip.add(Component.translatable(key).withStyle(ChatFormatting.GRAY));
       }
    }
 }
