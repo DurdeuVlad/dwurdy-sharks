@@ -3,6 +3,7 @@ package net.mcreator.sharks.entity;
 import java.util.List;
 import javax.annotation.Nullable;
 import net.mcreator.sharks.init.BenssharksModEntities;
+import net.mcreator.sharks.procedures.AggressiveSharksProcedureProcedure;
 import net.mcreator.sharks.procedures.BlacktipReefSharkEntityIsHurtProcedure;
 import net.mcreator.sharks.procedures.BlacktipReefSharkOnEntityTickUpdateProcedure;
 import net.mcreator.sharks.procedures.BlacktipReefSharkOnInitialEntitySpawnProcedure;
@@ -190,6 +191,15 @@ public class BlacktipReefSharkEntity extends Animal implements GeoEntity {
       this.targetSelector.addGoal(15, new NearestAttackableTargetGoal(this, Frog.class, true, true));
       this.targetSelector.addGoal(16, new NearestAttackableTargetGoal(this, Tadpole.class, true, true));
       this.targetSelector.addGoal(17, new NearestAttackableTargetGoal(this, Chicken.class, true, true));
+      this.targetSelector.addGoal(18, new NearestAttackableTargetGoal(this, Player.class, true, true) {
+         public boolean canUse() {
+            return super.canUse() && AggressiveSharksProcedureProcedure.execute(BlacktipReefSharkEntity.this.level());
+         }
+
+         public boolean canContinueToUse() {
+            return super.canContinueToUse() && AggressiveSharksProcedureProcedure.execute(BlacktipReefSharkEntity.this.level());
+         }
+      });
       this.goalSelector.addGoal(18, new LeapAtTargetGoal(this, 0.5F));
       this.goalSelector.addGoal(19, new TemptGoal(this, 1.0, Ingredient.of(new ItemLike[]{Items.COD}), false));
       this.goalSelector.addGoal(21, new LookAtPlayerGoal(this, BonnetheadSharkEntity.class, 16.0F));

@@ -9,6 +9,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import net.mcreator.sharks.init.BenssharksModBlockEntities;
 import net.mcreator.sharks.init.BenssharksModBlocks;
 import net.mcreator.sharks.init.BenssharksModEntities;
+import net.mcreator.sharks.init.BenssharksModGameRules;
 import net.mcreator.sharks.init.BenssharksModItems;
 import net.mcreator.sharks.init.BenssharksModMobEffects;
 import net.mcreator.sharks.init.BenssharksModPotions;
@@ -53,6 +54,7 @@ public class BenssharksMod {
       BenssharksModVariables.ATTACHMENT_TYPES.register(modEventBus);
       BenssharksModPotions.REGISTRY.register(modEventBus);
       BenssharksModMobEffects.REGISTRY.register(modEventBus);
+      BenssharksModGameRules.register();
    }
 
    public static <T extends CustomPacketPayload> void addNetworkMessage(

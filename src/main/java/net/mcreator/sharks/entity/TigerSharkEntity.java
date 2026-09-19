@@ -3,6 +3,7 @@ package net.mcreator.sharks.entity;
 import javax.annotation.Nullable;
 import net.mcreator.sharks.init.BenssharksModEntities;
 import net.mcreator.sharks.init.BenssharksModItems;
+import net.mcreator.sharks.procedures.AggressiveSharksProcedureProcedure;
 import net.mcreator.sharks.procedures.TigerSharkEntityIsHurtProcedure;
 import net.mcreator.sharks.procedures.TigerSharkOnEntityTickUpdateProcedure;
 import net.mcreator.sharks.procedures.TigerSharkOnInitialEntitySpawnProcedure;
@@ -169,6 +170,15 @@ public class TigerSharkEntity extends PathfinderMob implements GeoEntity {
       this.targetSelector.addGoal(10, new NearestAttackableTargetGoal(this, Dolphin.class, true, true));
       this.targetSelector.addGoal(11, new NearestAttackableTargetGoal(this, GlowSquid.class, true, true));
       this.targetSelector.addGoal(12, new NearestAttackableTargetGoal(this, Squid.class, true, true));
+      this.targetSelector.addGoal(13, new NearestAttackableTargetGoal(this, Player.class, true, true) {
+         public boolean canUse() {
+            return super.canUse() && AggressiveSharksProcedureProcedure.execute(TigerSharkEntity.this.level());
+         }
+
+         public boolean canContinueToUse() {
+            return super.canContinueToUse() && AggressiveSharksProcedureProcedure.execute(TigerSharkEntity.this.level());
+         }
+      });
       this.goalSelector.addGoal(14, new LookAtPlayerGoal(this, WaterAnimal.class, 128.0F));
       this.goalSelector.addGoal(15, new TemptGoal(this, 1.0, Ingredient.of(new ItemLike[]{(ItemLike)BenssharksModItems.FISH_BUCKET.get()}), false));
       this.goalSelector.addGoal(16, new TemptGoal(this, 1.0, Ingredient.of(new ItemLike[]{Items.COD}), false));

@@ -2,6 +2,7 @@ package net.mcreator.sharks.entity;
 
 import javax.annotation.Nullable;
 import net.mcreator.sharks.init.BenssharksModEntities;
+import net.mcreator.sharks.procedures.AggressiveSharksProcedureProcedure;
 import net.mcreator.sharks.procedures.ShrakEntityDiesProcedure;
 import net.mcreator.sharks.procedures.ShrakEntityIsHurtProcedure;
 import net.mcreator.sharks.procedures.ShrakOnEntityTickUpdateProcedure;
@@ -163,6 +164,15 @@ public class ShrakEntity extends PathfinderMob implements GeoEntity {
       this.targetSelector.addGoal(8, new NearestAttackableTargetGoal(this, Turtle.class, true, true));
       this.targetSelector.addGoal(9, new NearestAttackableTargetGoal(this, GlowSquid.class, true, true));
       this.targetSelector.addGoal(10, new NearestAttackableTargetGoal(this, Squid.class, true, true));
+      this.targetSelector.addGoal(11, new NearestAttackableTargetGoal(this, Player.class, true, true) {
+         public boolean canUse() {
+            return super.canUse() && AggressiveSharksProcedureProcedure.execute(ShrakEntity.this.level());
+         }
+
+         public boolean canContinueToUse() {
+            return super.canContinueToUse() && AggressiveSharksProcedureProcedure.execute(ShrakEntity.this.level());
+         }
+      });
       this.goalSelector.addGoal(12, new LookAtPlayerGoal(this, WaterAnimal.class, 128.0F));
       this.goalSelector.addGoal(13, new AvoidEntityGoal(this, MegalodonEntity.class, 32.0F, 16.0, 16.0));
       this.goalSelector.addGoal(14, new AvoidEntityGoal(this, Dolphin.class, 32.0F, 16.0, 16.0));

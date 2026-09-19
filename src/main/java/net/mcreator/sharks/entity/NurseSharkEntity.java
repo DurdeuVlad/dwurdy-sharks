@@ -4,6 +4,7 @@ import java.util.List;
 import javax.annotation.Nullable;
 import net.mcreator.sharks.init.BenssharksModEntities;
 import net.mcreator.sharks.init.BenssharksModItems;
+import net.mcreator.sharks.procedures.AggressiveSharksProcedureProcedure;
 import net.mcreator.sharks.procedures.IfTamedProcedure;
 import net.mcreator.sharks.procedures.NurseSharkEntityIsHurtProcedure;
 import net.mcreator.sharks.procedures.NurseSharkItIsStruckByLightningProcedure;
@@ -272,6 +273,19 @@ public class NurseSharkEntity extends TamableAnimal implements GeoEntity {
             return super.canContinueToUse() && IfTamedProcedure.execute(entity);
          }
       });
+      this.targetSelector
+         .addGoal(
+            12,
+            new NearestAttackableTargetGoal<>(this, Player.class, 10, true, true, target -> !NurseSharkEntity.this.isOwnedBy(target)) {
+               public boolean canUse() {
+                  return super.canUse() && AggressiveSharksProcedureProcedure.execute(NurseSharkEntity.this.level());
+               }
+
+               public boolean canContinueToUse() {
+                  return super.canContinueToUse() && AggressiveSharksProcedureProcedure.execute(NurseSharkEntity.this.level());
+               }
+            }
+         );
       this.goalSelector.addGoal(12, new PanicGoal(this, 1.2));
       this.goalSelector.addGoal(13, new RandomLookAroundGoal(this));
       this.goalSelector.addGoal(15, new LookAtPlayerGoal(this, WaterAnimal.class, 128.0F));

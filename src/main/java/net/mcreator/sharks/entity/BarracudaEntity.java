@@ -3,6 +3,7 @@ package net.mcreator.sharks.entity;
 import javax.annotation.Nullable;
 import net.mcreator.sharks.init.BenssharksModEntities;
 import net.mcreator.sharks.init.BenssharksModItems;
+import net.mcreator.sharks.procedures.AggressiveSharksProcedureProcedure;
 import net.mcreator.sharks.procedures.BarracudaEntityIsHurtProcedure;
 import net.mcreator.sharks.procedures.BarracudaOnEntityTickUpdateProcedure;
 import net.mcreator.sharks.procedures.BarracudaOnInitialEntitySpawnProcedure;
@@ -167,6 +168,15 @@ public class BarracudaEntity extends PathfinderMob implements GeoEntity {
       this.targetSelector.addGoal(13, new NearestAttackableTargetGoal(this, Pufferfish.class, true, true));
       this.targetSelector.addGoal(14, new NearestAttackableTargetGoal(this, GlowSquid.class, true, true));
       this.targetSelector.addGoal(15, new NearestAttackableTargetGoal(this, Squid.class, true, true));
+      this.targetSelector.addGoal(16, new NearestAttackableTargetGoal(this, Player.class, true, true) {
+         public boolean canUse() {
+            return super.canUse() && AggressiveSharksProcedureProcedure.execute(BarracudaEntity.this.level());
+         }
+
+         public boolean canContinueToUse() {
+            return super.canContinueToUse() && AggressiveSharksProcedureProcedure.execute(BarracudaEntity.this.level());
+         }
+      });
       this.goalSelector.addGoal(16, new AvoidEntityGoal(this, AxodileEntity.class, 6.0F, 1.0, 1.2));
       this.goalSelector.addGoal(17, new AvoidEntityGoal(this, BaskingSharkEntity.class, 6.0F, 1.0, 1.2));
       this.goalSelector.addGoal(18, new AvoidEntityGoal(this, BlacktipReefSharkEntity.class, 6.0F, 1.0, 1.2));

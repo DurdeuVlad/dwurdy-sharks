@@ -2,6 +2,7 @@ package net.mcreator.sharks.entity;
 
 import javax.annotation.Nullable;
 import net.mcreator.sharks.init.BenssharksModEntities;
+import net.mcreator.sharks.procedures.AggressiveSharksProcedureProcedure;
 import net.mcreator.sharks.procedures.CookiecutterSharkOnEntityTickUpdateProcedure;
 import net.mcreator.sharks.procedures.CookiecutterSharkOnInitialEntitySpawnProcedure;
 import net.mcreator.sharks.procedures.CookiecutterSharkRightClickedOnEntityProcedure;
@@ -170,6 +171,15 @@ public class CookiecutterSharkEntity extends PathfinderMob implements GeoEntity 
       this.targetSelector.addGoal(22, new NearestAttackableTargetGoal(this, WhaleSharkEntity.class, true, true));
       this.targetSelector.addGoal(23, new NearestAttackableTargetGoal(this, BaskingSharkEntity.class, true, true));
       this.targetSelector.addGoal(24, new NearestAttackableTargetGoal(this, LandSharkEntity.class, true, true));
+      this.targetSelector.addGoal(25, new NearestAttackableTargetGoal(this, Player.class, true, true) {
+         public boolean canUse() {
+            return super.canUse() && AggressiveSharksProcedureProcedure.execute(CookiecutterSharkEntity.this.level());
+         }
+
+         public boolean canContinueToUse() {
+            return super.canContinueToUse() && AggressiveSharksProcedureProcedure.execute(CookiecutterSharkEntity.this.level());
+         }
+      });
       this.goalSelector
          .addGoal(
             25,

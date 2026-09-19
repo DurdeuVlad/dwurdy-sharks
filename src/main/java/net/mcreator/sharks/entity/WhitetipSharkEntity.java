@@ -2,6 +2,7 @@ package net.mcreator.sharks.entity;
 
 import javax.annotation.Nullable;
 import net.mcreator.sharks.init.BenssharksModEntities;
+import net.mcreator.sharks.procedures.AggressiveSharksProcedureProcedure;
 import net.mcreator.sharks.procedures.WhitetipSharkEntityIsHurtProcedure;
 import net.mcreator.sharks.procedures.WhitetipSharkOnEntityTickUpdateProcedure;
 import net.mcreator.sharks.procedures.WhitetipSharkOnInitialEntitySpawnProcedure;
@@ -182,6 +183,15 @@ public class WhitetipSharkEntity extends PathfinderMob implements GeoEntity {
       this.targetSelector.addGoal(21, new NearestAttackableTargetGoal(this, CookiecutterSharkEntity.class, true, true));
       this.targetSelector.addGoal(22, new NearestAttackableTargetGoal(this, GlowSquid.class, true, true));
       this.targetSelector.addGoal(23, new NearestAttackableTargetGoal(this, Squid.class, true, true));
+      this.targetSelector.addGoal(24, new NearestAttackableTargetGoal(this, Player.class, true, true) {
+         public boolean canUse() {
+            return super.canUse() && AggressiveSharksProcedureProcedure.execute(WhitetipSharkEntity.this.level());
+         }
+
+         public boolean canContinueToUse() {
+            return super.canContinueToUse() && AggressiveSharksProcedureProcedure.execute(WhitetipSharkEntity.this.level());
+         }
+      });
       this.goalSelector.addGoal(25, new LookAtPlayerGoal(this, BlacktipReefSharkEntity.class, 32.0F));
       this.goalSelector.addGoal(26, new LookAtPlayerGoal(this, BonnetheadSharkEntity.class, 32.0F));
       this.goalSelector.addGoal(27, new LookAtPlayerGoal(this, WaterAnimal.class, 32.0F));

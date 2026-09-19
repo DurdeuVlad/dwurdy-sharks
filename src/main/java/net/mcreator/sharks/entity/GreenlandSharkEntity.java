@@ -2,6 +2,7 @@ package net.mcreator.sharks.entity;
 
 import javax.annotation.Nullable;
 import net.mcreator.sharks.init.BenssharksModEntities;
+import net.mcreator.sharks.procedures.AggressiveSharksProcedureProcedure;
 import net.mcreator.sharks.procedures.GreenlandSharkEntityIsHurtProcedure;
 import net.mcreator.sharks.procedures.GreenlandSharkOnEntityTickUpdateProcedure;
 import net.mcreator.sharks.procedures.GreenlandSharkOnInitialEntitySpawnProcedure;
@@ -172,6 +173,15 @@ public class GreenlandSharkEntity extends PathfinderMob implements GeoEntity {
       this.targetSelector.addGoal(12, new NearestAttackableTargetGoal(this, Phantom.class, true, true));
       this.targetSelector.addGoal(13, new NearestAttackableTargetGoal(this, ZombieVillager.class, true, true));
       this.targetSelector.addGoal(14, new NearestAttackableTargetGoal(this, ZombieHorse.class, true, true));
+      this.targetSelector.addGoal(15, new NearestAttackableTargetGoal(this, Player.class, true, true) {
+         public boolean canUse() {
+            return super.canUse() && AggressiveSharksProcedureProcedure.execute(GreenlandSharkEntity.this.level());
+         }
+
+         public boolean canContinueToUse() {
+            return super.canContinueToUse() && AggressiveSharksProcedureProcedure.execute(GreenlandSharkEntity.this.level());
+         }
+      });
       this.goalSelector.addGoal(15, new AvoidEntityGoal(this, MegalodonEntity.class, 32.0F, 1.0, 1.2));
       this.goalSelector.addGoal(16, new AvoidEntityGoal(this, CookiecutterSharkEntity.class, 16.0F, 1.0, 1.2));
       this.goalSelector.addGoal(17, new RandomSwimmingGoal(this, 1.0, 40));

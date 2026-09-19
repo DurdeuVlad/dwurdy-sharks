@@ -3,6 +3,7 @@ package net.mcreator.sharks.entity;
 import java.util.List;
 import javax.annotation.Nullable;
 import net.mcreator.sharks.init.BenssharksModEntities;
+import net.mcreator.sharks.procedures.AggressiveSharksProcedureProcedure;
 import net.mcreator.sharks.procedures.BonnetheadSharkEntityIsHurtProcedure;
 import net.mcreator.sharks.procedures.BonnetheadSharkOnEntityTickUpdateProcedure;
 import net.mcreator.sharks.procedures.BonnetheadSharkOnInitialEntitySpawnProcedure;
@@ -177,6 +178,15 @@ public class BonnetheadSharkEntity extends Animal implements GeoEntity {
       this.targetSelector.addGoal(9, new NearestAttackableTargetGoal(this, Frog.class, true, true));
       this.targetSelector.addGoal(10, new NearestAttackableTargetGoal(this, Tadpole.class, true, true));
       this.targetSelector.addGoal(11, new NearestAttackableTargetGoal(this, Chicken.class, true, true));
+      this.targetSelector.addGoal(12, new NearestAttackableTargetGoal(this, Player.class, true, true) {
+         public boolean canUse() {
+            return super.canUse() && AggressiveSharksProcedureProcedure.execute(BonnetheadSharkEntity.this.level());
+         }
+
+         public boolean canContinueToUse() {
+            return super.canContinueToUse() && AggressiveSharksProcedureProcedure.execute(BonnetheadSharkEntity.this.level());
+         }
+      });
       this.goalSelector.addGoal(12, new LeapAtTargetGoal(this, 0.5F));
       this.goalSelector.addGoal(13, new TemptGoal(this, 1.0, Ingredient.of(new ItemLike[]{Blocks.SEAGRASS.asItem()}), false));
       this.goalSelector.addGoal(14, new RemoveBlockGoal(Blocks.TALL_SEAGRASS, this, 1.0, 32));

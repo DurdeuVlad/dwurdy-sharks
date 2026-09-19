@@ -2,6 +2,7 @@ package net.mcreator.sharks.entity;
 
 import javax.annotation.Nullable;
 import net.mcreator.sharks.init.BenssharksModEntities;
+import net.mcreator.sharks.procedures.AggressiveSharksProcedureProcedure;
 import net.mcreator.sharks.procedures.MegalodonEntityDiesProcedure;
 import net.mcreator.sharks.procedures.MegalodonEntityIsHurtProcedure;
 import net.mcreator.sharks.procedures.MegalodonOnEntityTickUpdateProcedure;
@@ -174,6 +175,15 @@ public class MegalodonEntity extends PathfinderMob implements GeoEntity {
       this.targetSelector.addGoal(18, new NearestAttackableTargetGoal(this, BullSharkEntity.class, true, true));
       this.targetSelector.addGoal(19, new NearestAttackableTargetGoal(this, WhitetipSharkEntity.class, true, true));
       this.targetSelector.addGoal(20, new NearestAttackableTargetGoal(this, LemonSharkEntity.class, true, true));
+      this.targetSelector.addGoal(21, new NearestAttackableTargetGoal(this, Player.class, true, true) {
+         public boolean canUse() {
+            return super.canUse() && AggressiveSharksProcedureProcedure.execute(MegalodonEntity.this.level());
+         }
+
+         public boolean canContinueToUse() {
+            return super.canContinueToUse() && AggressiveSharksProcedureProcedure.execute(MegalodonEntity.this.level());
+         }
+      });
       this.goalSelector.addGoal(22, new LookAtPlayerGoal(this, WaterAnimal.class, 64.0F));
       this.goalSelector.addGoal(23, new AvoidEntityGoal(this, RemoraEntity.class, 32.0F, 16.0, 16.0));
       this.goalSelector.addGoal(24, new AvoidEntityGoal(this, WaterAnimal.class, 64.0F, 1.0, 1.0));

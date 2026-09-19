@@ -4,6 +4,7 @@ import java.util.List;
 import javax.annotation.Nullable;
 import net.mcreator.sharks.init.BenssharksModEntities;
 import net.mcreator.sharks.init.BenssharksModItems;
+import net.mcreator.sharks.procedures.AggressiveSharksProcedureProcedure;
 import net.mcreator.sharks.procedures.LemonSharkEntityIsHurtProcedure;
 import net.mcreator.sharks.procedures.LemonSharkOnEntityTickUpdateProcedure;
 import net.mcreator.sharks.procedures.LemonSharkOnInitialEntitySpawnProcedure;
@@ -169,6 +170,15 @@ public class LemonSharkEntity extends Animal implements GeoEntity {
       this.targetSelector.addGoal(8, new NearestAttackableTargetGoal(this, BarracudaEntity.class, true, true));
       this.targetSelector.addGoal(9, new NearestAttackableTargetGoal(this, GlowSquid.class, true, true));
       this.targetSelector.addGoal(10, new NearestAttackableTargetGoal(this, Squid.class, true, true));
+      this.targetSelector.addGoal(11, new NearestAttackableTargetGoal(this, Player.class, true, true) {
+         public boolean canUse() {
+            return super.canUse() && AggressiveSharksProcedureProcedure.execute(LemonSharkEntity.this.level());
+         }
+
+         public boolean canContinueToUse() {
+            return super.canContinueToUse() && AggressiveSharksProcedureProcedure.execute(LemonSharkEntity.this.level());
+         }
+      });
       this.goalSelector.addGoal(12, new TemptGoal(this, 1.0, Ingredient.of(new ItemLike[]{(ItemLike)BenssharksModItems.FISH_BUCKET.get()}), false));
       this.goalSelector.addGoal(13, new TemptGoal(this, 1.0, Ingredient.of(new ItemLike[]{Items.COD}), false));
       this.goalSelector.addGoal(14, new TemptGoal(this, 1.0, Ingredient.of(new ItemLike[]{Items.SALMON}), false));
