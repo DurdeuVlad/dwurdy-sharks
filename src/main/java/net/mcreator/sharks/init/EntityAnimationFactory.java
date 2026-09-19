@@ -34,7 +34,7 @@ public class EntityAnimationFactory {
    @SubscribeEvent
    public static void onEntityTick(Pre event) {
       if (event != null && event.getEntity() != null) {
-         if (!(event.getEntity() instanceof GeoEntity) && !(event.getEntity() instanceof ThalassogerEntity)) {
+         if (!(event.getEntity() instanceof GeoEntity)) {
             return;
          }
 
