@@ -4,7 +4,7 @@ license="GNU Lesser General Public License version 3 (LGPLv3)"
 
 [[mods]]
 modId="benssharks"
-version="1.2.7"
+version="1.2.8"
 displayName="Dwurdy Sharks"
 displayURL="https://github.com/DurdeuVlad/dwurdy-sharks"
 logoFile="logo.png"
