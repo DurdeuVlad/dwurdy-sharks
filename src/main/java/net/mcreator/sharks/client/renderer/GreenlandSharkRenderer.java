@@ -18,7 +18,7 @@ public class GreenlandSharkRenderer extends GeoEntityRenderer<GreenlandSharkEnti
    }
 
    public RenderType getRenderType(GreenlandSharkEntity animatable, ResourceLocation texture, MultiBufferSource bufferSource, float partialTick) {
-      return RenderType.entityTranslucent(this.getTextureLocation(animatable));
+      return RenderType.entityCutoutNoCull(this.getTextureLocation(animatable));
    }
 
    public void preRender(

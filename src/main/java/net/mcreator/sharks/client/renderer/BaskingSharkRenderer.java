@@ -18,7 +18,7 @@ public class BaskingSharkRenderer extends GeoEntityRenderer<BaskingSharkEntity> 
    }
 
    public RenderType getRenderType(BaskingSharkEntity animatable, ResourceLocation texture, MultiBufferSource bufferSource, float partialTick) {
-      return RenderType.entityTranslucent(this.getTextureLocation(animatable));
+      return RenderType.entityCutoutNoCull(this.getTextureLocation(animatable));
    }
 
    public void preRender(
