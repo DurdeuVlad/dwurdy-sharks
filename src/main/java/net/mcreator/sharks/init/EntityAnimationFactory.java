@@ -27,12 +27,17 @@ import net.mcreator.sharks.entity.WhitetipSharkEntity;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.tick.EntityTickEvent.Pre;
+import software.bernie.geckolib.animatable.GeoEntity;
 
 @EventBusSubscriber
 public class EntityAnimationFactory {
    @SubscribeEvent
    public static void onEntityTick(Pre event) {
       if (event != null && event.getEntity() != null) {
+         if (!(event.getEntity() instanceof GeoEntity) && !(event.getEntity() instanceof ThalassogerEntity)) {
+            return;
+         }
+
          if (event.getEntity() instanceof ShrakEntity syncable) {
             String animation = syncable.getSyncedAnimation();
             if (!animation.equals("undefined")) {

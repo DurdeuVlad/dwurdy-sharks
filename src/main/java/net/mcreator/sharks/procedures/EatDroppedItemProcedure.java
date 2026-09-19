@@ -37,11 +37,15 @@ import net.neoforged.bus.api.Event;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.tick.EntityTickEvent.Pre;
+import software.bernie.geckolib.animatable.GeoEntity;
 
 @EventBusSubscriber
 public class EatDroppedItemProcedure {
    @SubscribeEvent
    public static void onEntityTick(Pre event) {
+      if (!(event.getEntity() instanceof GeoEntity)) {
+         return;
+      }
       execute(event, event.getEntity().level(), event.getEntity().getX(), event.getEntity().getY(), event.getEntity().getZ(), event.getEntity());
    }
 

@@ -16,6 +16,9 @@ import net.neoforged.neoforge.event.tick.EntityTickEvent.Pre;
 public class StopFloatingProcedure {
    @SubscribeEvent
    public static void onEntityTick(Pre event) {
+      if (!(event.getEntity() instanceof MegalodonEntity)) {
+         return;
+      }
       execute(event, event.getEntity().level(), event.getEntity().getX(), event.getEntity().getZ(), event.getEntity());
    }
 

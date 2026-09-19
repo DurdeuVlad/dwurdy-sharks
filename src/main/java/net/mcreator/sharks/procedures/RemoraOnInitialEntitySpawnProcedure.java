@@ -20,6 +20,9 @@ import net.neoforged.neoforge.event.tick.EntityTickEvent.Pre;
 public class RemoraOnInitialEntitySpawnProcedure {
    @SubscribeEvent
    public static void onEntityTick(Pre event) {
+      if (!(event.getEntity() instanceof RemoraEntity)) {
+         return;
+      }
       execute(event, event.getEntity().level(), event.getEntity().getX(), event.getEntity().getY(), event.getEntity().getZ(), event.getEntity());
    }
 
