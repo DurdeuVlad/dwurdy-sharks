@@ -16,6 +16,9 @@ import net.neoforged.neoforge.event.tick.EntityTickEvent.Pre;
 public class BleedingImmunityProcedure {
    @SubscribeEvent
    public static void onEntityTick(Pre event) {
+      if (!(event.getEntity() instanceof LivingEntity)) {
+         return;
+      }
       execute(event, event.getEntity());
    }
 

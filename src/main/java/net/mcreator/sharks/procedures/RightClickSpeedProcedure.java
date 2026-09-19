@@ -17,6 +17,9 @@ import net.neoforged.neoforge.event.tick.EntityTickEvent.Pre;
 public class RightClickSpeedProcedure {
    @SubscribeEvent
    public static void onEntityTick(Pre event) {
+      if (!(event.getEntity() instanceof NurseSharkEntity)) {
+         return;
+      }
       execute(event, event.getEntity());
    }
 
