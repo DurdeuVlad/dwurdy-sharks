@@ -49,7 +49,7 @@ public class SharkAttackSoundProcedure {
                _level.playSound(
                   null,
                   BlockPos.containing(sourceentity.getX(), sourceentity.getY(), sourceentity.getZ()),
-                  (SoundEvent)BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("benssharks:axodile.bite")),
+                  (SoundEvent)BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("dwurdysharks:axodile.bite")),
                   SoundSource.NEUTRAL,
                   0.45F,
                   1.0F
@@ -59,7 +59,7 @@ public class SharkAttackSoundProcedure {
                   sourceentity.getX(),
                   sourceentity.getY(),
                   sourceentity.getZ(),
-                  (SoundEvent)BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("benssharks:axodile.bite")),
+                  (SoundEvent)BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("dwurdysharks:axodile.bite")),
                   SoundSource.NEUTRAL,
                   0.45F,
                   1.0F,
@@ -73,7 +73,7 @@ public class SharkAttackSoundProcedure {
                _levelx.playSound(
                   null,
                   BlockPos.containing(sourceentity.getX(), sourceentity.getY(), sourceentity.getZ()),
-                  (SoundEvent)BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("benssharks:axodile.bite")),
+                  (SoundEvent)BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("dwurdysharks:axodile.bite")),
                   SoundSource.NEUTRAL,
                   0.6F,
                   -1.0F
@@ -83,7 +83,7 @@ public class SharkAttackSoundProcedure {
                   sourceentity.getX(),
                   sourceentity.getY(),
                   sourceentity.getZ(),
-                  (SoundEvent)BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("benssharks:axodile.bite")),
+                  (SoundEvent)BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("dwurdysharks:axodile.bite")),
                   SoundSource.NEUTRAL,
                   0.6F,
                   -1.0F,
@@ -169,7 +169,7 @@ public class SharkAttackSoundProcedure {
                _levelxxxxx.playSound(
                   null,
                   BlockPos.containing(sourceentity.getX(), sourceentity.getY(), sourceentity.getZ()),
-                  (SoundEvent)BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("benssharks:shark.chomp")),
+                  (SoundEvent)BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("dwurdysharks:shark.chomp")),
                   SoundSource.NEUTRAL,
                   0.7F,
                   1.1F
@@ -179,7 +179,7 @@ public class SharkAttackSoundProcedure {
                   sourceentity.getX(),
                   sourceentity.getY(),
                   sourceentity.getZ(),
-                  (SoundEvent)BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("benssharks:shark.chomp")),
+                  (SoundEvent)BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("dwurdysharks:shark.chomp")),
                   SoundSource.NEUTRAL,
                   0.7F,
                   1.1F,
@@ -193,7 +193,7 @@ public class SharkAttackSoundProcedure {
                _levelxxxxxx.playSound(
                   null,
                   BlockPos.containing(sourceentity.getX(), sourceentity.getY(), sourceentity.getZ()),
-                  (SoundEvent)BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("benssharks:shark.chomp")),
+                  (SoundEvent)BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("dwurdysharks:shark.chomp")),
                   SoundSource.NEUTRAL,
                   0.7F,
                   3.0F
@@ -203,7 +203,7 @@ public class SharkAttackSoundProcedure {
                   sourceentity.getX(),
                   sourceentity.getY(),
                   sourceentity.getZ(),
-                  (SoundEvent)BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("benssharks:shark.chomp")),
+                  (SoundEvent)BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("dwurdysharks:shark.chomp")),
                   SoundSource.NEUTRAL,
                   0.7F,
                   3.0F,
@@ -217,7 +217,7 @@ public class SharkAttackSoundProcedure {
                _levelxxxxxxx.playSound(
                   null,
                   BlockPos.containing(sourceentity.getX(), sourceentity.getY(), sourceentity.getZ()),
-                  (SoundEvent)BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("benssharks:shark.chomp")),
+                  (SoundEvent)BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("dwurdysharks:shark.chomp")),
                   SoundSource.NEUTRAL,
                   0.7F,
                   2.0F
@@ -227,7 +227,7 @@ public class SharkAttackSoundProcedure {
                   sourceentity.getX(),
                   sourceentity.getY(),
                   sourceentity.getZ(),
-                  (SoundEvent)BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("benssharks:shark.chomp")),
+                  (SoundEvent)BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("dwurdysharks:shark.chomp")),
                   SoundSource.NEUTRAL,
                   0.7F,
                   2.0F,
@@ -241,7 +241,7 @@ public class SharkAttackSoundProcedure {
                _levelxxxxxxxx.playSound(
                   null,
                   BlockPos.containing(sourceentity.getX(), sourceentity.getY(), sourceentity.getZ()),
-                  (SoundEvent)BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("benssharks:shark.chomp")),
+                  (SoundEvent)BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("dwurdysharks:shark.chomp")),
                   SoundSource.NEUTRAL,
                   0.7F,
                   1.1F
@@ -251,7 +251,7 @@ public class SharkAttackSoundProcedure {
                   sourceentity.getX(),
                   sourceentity.getY(),
                   sourceentity.getZ(),
-                  (SoundEvent)BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("benssharks:shark.chomp")),
+                  (SoundEvent)BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("dwurdysharks:shark.chomp")),
                   SoundSource.NEUTRAL,
                   0.7F,
                   1.1F,
@@ -265,7 +265,7 @@ public class SharkAttackSoundProcedure {
                _levelxxxxxxxxx.playSound(
                   null,
                   BlockPos.containing(sourceentity.getX(), sourceentity.getY(), sourceentity.getZ()),
-                  (SoundEvent)BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("benssharks:shark.chomp")),
+                  (SoundEvent)BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("dwurdysharks:shark.chomp")),
                   SoundSource.NEUTRAL,
                   1.0F,
                   -5.0F
@@ -275,7 +275,7 @@ public class SharkAttackSoundProcedure {
                   sourceentity.getX(),
                   sourceentity.getY(),
                   sourceentity.getZ(),
-                  (SoundEvent)BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("benssharks:shark.chomp")),
+                  (SoundEvent)BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("dwurdysharks:shark.chomp")),
                   SoundSource.NEUTRAL,
                   1.0F,
                   -5.0F,
@@ -313,7 +313,7 @@ public class SharkAttackSoundProcedure {
                _levelxxxxxxxxxxx.playSound(
                   null,
                   BlockPos.containing(sourceentity.getX(), sourceentity.getY(), sourceentity.getZ()),
-                  (SoundEvent)BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("benssharks:shark.chomp")),
+                  (SoundEvent)BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("dwurdysharks:shark.chomp")),
                   SoundSource.NEUTRAL,
                   0.7F,
                   -0.5F
@@ -323,7 +323,7 @@ public class SharkAttackSoundProcedure {
                   sourceentity.getX(),
                   sourceentity.getY(),
                   sourceentity.getZ(),
-                  (SoundEvent)BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("benssharks:shark.chomp")),
+                  (SoundEvent)BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("dwurdysharks:shark.chomp")),
                   SoundSource.NEUTRAL,
                   0.7F,
                   -0.5F,
@@ -337,7 +337,7 @@ public class SharkAttackSoundProcedure {
                _levelxxxxxxxxxxxx.playSound(
                   null,
                   BlockPos.containing(sourceentity.getX(), sourceentity.getY(), sourceentity.getZ()),
-                  (SoundEvent)BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("benssharks:shark.chomp")),
+                  (SoundEvent)BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("dwurdysharks:shark.chomp")),
                   SoundSource.NEUTRAL,
                   0.7F,
                   -0.1F
@@ -347,7 +347,7 @@ public class SharkAttackSoundProcedure {
                   sourceentity.getX(),
                   sourceentity.getY(),
                   sourceentity.getZ(),
-                  (SoundEvent)BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("benssharks:shark.chomp")),
+                  (SoundEvent)BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("dwurdysharks:shark.chomp")),
                   SoundSource.NEUTRAL,
                   0.7F,
                   -0.1F,
@@ -385,7 +385,7 @@ public class SharkAttackSoundProcedure {
                _levelxxxxxxxxxxxxxx.playSound(
                   null,
                   BlockPos.containing(sourceentity.getX(), sourceentity.getY(), sourceentity.getZ()),
-                  (SoundEvent)BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("benssharks:shark.chomp")),
+                  (SoundEvent)BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("dwurdysharks:shark.chomp")),
                   SoundSource.NEUTRAL,
                   0.7F,
                   2.0F
@@ -395,7 +395,7 @@ public class SharkAttackSoundProcedure {
                   sourceentity.getX(),
                   sourceentity.getY(),
                   sourceentity.getZ(),
-                  (SoundEvent)BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("benssharks:shark.chomp")),
+                  (SoundEvent)BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("dwurdysharks:shark.chomp")),
                   SoundSource.NEUTRAL,
                   0.7F,
                   2.0F,

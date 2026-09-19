@@ -10,11 +10,11 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 public class BenssharksModTabs {
-   public static final DeferredRegister<CreativeModeTab> REGISTRY = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, "benssharks");
+   public static final DeferredRegister<CreativeModeTab> REGISTRY = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, "dwurdysharks");
    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> BENS_SHARKS = REGISTRY.register(
       "bens_sharks",
       () -> CreativeModeTab.builder()
-         .title(Component.translatable("item_group.benssharks.bens_sharks"))
+         .title(Component.translatable("item_group.dwurdysharks.bens_sharks"))
          .icon(() -> new ItemStack((ItemLike)BenssharksModBlocks.SHARK_PLUSH_BLOCK.get()))
          .displayItems((parameters, tabData) -> {
             tabData.accept((ItemLike)BenssharksModItems.AXODILE_SPAWN_EGG.get());

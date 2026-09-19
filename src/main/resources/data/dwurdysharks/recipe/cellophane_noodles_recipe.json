@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "a",
+    "a",
+    "a"
+  ],
+  "key": {
+    "a": {
+      "item": "dwurdysharks:starch"
+    }
+  },
+  "result": {
+    "id": "dwurdysharks:cellophane_noodles",
+    "count": 1
+  }
+}

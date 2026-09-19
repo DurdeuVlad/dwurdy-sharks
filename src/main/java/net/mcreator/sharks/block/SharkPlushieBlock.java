@@ -66,7 +66,7 @@ public class SharkPlushieBlock extends BaseEntityBlock implements SimpleWaterlog
                   () -> (SoundEvent)BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("block.wool.step")),
                   () -> (SoundEvent)BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("block.wool.place")),
                   () -> (SoundEvent)BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("block.wool.hit")),
-                  () -> (SoundEvent)BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("benssharks:squeak"))
+                  () -> (SoundEvent)BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("dwurdysharks:squeak"))
                )
             )
             .strength(1.0F)

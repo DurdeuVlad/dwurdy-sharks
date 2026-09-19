@@ -10,15 +10,15 @@ import software.bernie.geckolib.model.data.EntityModelData;
 
 public class GreaterAxodileModel extends GeoModel<GreaterAxodileEntity> {
    public ResourceLocation getAnimationResource(GreaterAxodileEntity entity) {
-      return ResourceLocation.parse("benssharks:animations/greateraxodile.animation.json");
+      return ResourceLocation.parse("dwurdysharks:animations/greateraxodile.animation.json");
    }
 
    public ResourceLocation getModelResource(GreaterAxodileEntity entity) {
-      return ResourceLocation.parse("benssharks:geo/greateraxodile.geo.json");
+      return ResourceLocation.parse("dwurdysharks:geo/greateraxodile.geo.json");
    }
 
    public ResourceLocation getTextureResource(GreaterAxodileEntity entity) {
-      return ResourceLocation.parse("benssharks:textures/entities/" + entity.getTexture() + ".png");
+      return ResourceLocation.parse("dwurdysharks:textures/entities/" + entity.getTexture() + ".png");
    }
 
    public void setCustomAnimations(GreaterAxodileEntity animatable, long instanceId, AnimationState animationState) {

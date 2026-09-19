@@ -223,7 +223,7 @@ public class MegalodonRightClickedOnEntityProcedure {
                   }
 
                   if (sourceentity instanceof ServerPlayer _player) {
-                     AdvancementHolder _adv = _player.server.getAdvancements().get(ResourceLocation.parse("benssharks:land_shark_achievement"));
+                     AdvancementHolder _adv = _player.server.getAdvancements().get(ResourceLocation.parse("dwurdysharks:land_shark_achievement"));
                      if (_adv != null) {
                         AdvancementProgress _ap = _player.getAdvancements().getOrStartProgress(_adv);
                         if (!_ap.isDone()) {
@@ -307,7 +307,7 @@ public class MegalodonRightClickedOnEntityProcedure {
                }
 
                if (sourceentity instanceof ServerPlayer _playerx) {
-                  AdvancementHolder _adv = _playerx.server.getAdvancements().get(ResourceLocation.parse("benssharks:land_shark_achievement"));
+                  AdvancementHolder _adv = _playerx.server.getAdvancements().get(ResourceLocation.parse("dwurdysharks:land_shark_achievement"));
                   if (_adv != null) {
                      AdvancementProgress _ap = _playerx.getAdvancements().getOrStartProgress(_adv);
                      if (!_ap.isDone()) {

@@ -6,14 +6,14 @@ import software.bernie.geckolib.model.GeoModel;
 
 public class WhaleSharkModel extends GeoModel<WhaleSharkEntity> {
    public ResourceLocation getAnimationResource(WhaleSharkEntity entity) {
-      return ResourceLocation.parse("benssharks:animations/whaleshark.animation.json");
+      return ResourceLocation.parse("dwurdysharks:animations/whaleshark.animation.json");
    }
 
    public ResourceLocation getModelResource(WhaleSharkEntity entity) {
-      return ResourceLocation.parse("benssharks:geo/whaleshark.geo.json");
+      return ResourceLocation.parse("dwurdysharks:geo/whaleshark.geo.json");
    }
 
    public ResourceLocation getTextureResource(WhaleSharkEntity entity) {
-      return ResourceLocation.parse("benssharks:textures/entities/" + entity.getTexture() + ".png");
+      return ResourceLocation.parse("dwurdysharks:textures/entities/" + entity.getTexture() + ".png");
    }
 }

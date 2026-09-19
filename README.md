@@ -29,7 +29,7 @@ Dwurdy Sharks is a community maintenance fork of **[Ben's Sharks](https://github
 
 | 🌊 Deep-sea content | 🛠️ Maintained lifecycle | 🔁 Safe upgrade path |
 | --- | --- | --- |
-| 26 registered marine entity types, shark-tooth gear, armor, plushies, and food | Wild sharks despawn normally; tamed sharks still persist | The original `benssharks` mod ID is preserved |
+| 26 registered marine entity types, shark-tooth gear, armor, plushies, and food | Wild sharks despawn normally; tamed sharks still persist | Own `dwurdysharks` mod ID since 1.3.0 |
 
 ## Download
 
@@ -49,7 +49,7 @@ Dwurdy Sharks keeps the original content and compatibility surface while restori
 
 - **Wild sharks can despawn again.**
 - **Tamed sharks still persist.**
-- **Existing worlds and modpacks keep the `benssharks` mod ID.**
+- **Runs under its own `dwurdysharks` mod ID since 1.3.0.**
 - **The fix tracks upstream [issue #7](https://github.com/PaoloBen/BensSharks/issues/7).**
 
 ## Features
@@ -73,14 +73,14 @@ The fork fixes the persistent-shark despawn regression without changing the inte
 
 ## Migration
 
-Dwurdy Sharks is designed as a drop-in upgrade for **Ben's Sharks 1.2.6** on Minecraft 1.21.1.
+Dwurdy Sharks replaces **Ben's Sharks** on Minecraft 1.21.1.
 
 1. Stop the game or server and make a world backup.
 2. Remove the Ben's Sharks jar from `mods/`.
 3. Add the Dwurdy Sharks jar.
 4. Keep the rest of the modpack unchanged and launch normally.
 
-The mod ID remains `benssharks`, so existing worlds, entity data, and modpack references continue to resolve. **Do not install both jars at the same time.**
+> **⚠️ Breaking change in 1.3.0:** the mod ID changed from `benssharks` to `dwurdysharks`. Worlds saved by Ben's Sharks or Dwurdy Sharks ≤1.2.8 contain `benssharks:*` entity, item, block, effect, and sound identifiers that this build does not resolve — those objects will be missing after loading such a world under 1.3.0. **Back up your world first**, and do not load both jars at the same time.
 
 ## Requirements
 
@@ -112,7 +112,7 @@ Pull requests are welcome. Keep changes focused, preserve the original mod's att
 - the files or version branch affected;
 - the checks or live tests you ran.
 
-Please avoid changing the `benssharks` mod ID or breaking existing world compatibility without a clear migration plan. Read [CONTRIBUTING.md](CONTRIBUTING.md) before opening a PR.
+Please avoid changing the `dwurdysharks` mod ID or breaking existing world compatibility without a clear migration plan. Read [CONTRIBUTING.md](CONTRIBUTING.md) before opening a PR.
 
 ## Credits
 

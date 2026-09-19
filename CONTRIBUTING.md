@@ -6,7 +6,7 @@ the fork compatible with existing worlds and modpacks.
 
 ## Before opening a pull request
 
-- Keep the mod id `benssharks` unchanged unless a migration plan is included.
+- Keep the mod id `dwurdysharks` unchanged unless a migration plan is included.
 - Preserve attribution to benndevs and do not imply upstream endorsement.
 - Keep version-specific changes on the matching Minecraft branch.
 - Do not claim support for a Minecraft version or loader until its build and

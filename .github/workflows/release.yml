@@ -1,0 +1,92 @@
+name: Release
+
+# Publishes the built jar to CurseForge. Runs only on version tags (v*) or a
+# manual dispatch — never on ordinary branch pushes.
+#
+# Required repository configuration before triggering:
+#   Variable: CURSEFORGE_PROJECT_ID — the Dwurdy Sharks CurseForge project ID
+#             (do NOT reuse upstream Ben's Sharks project 987388)
+#   Secret:   CURSEFORGE_TOKEN      — CurseForge API token with upload rights
+# The "Require release configuration" step fails fast if either is missing.
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  publish-curseforge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up Java 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Make Gradle wrapper executable
+        run: chmod +x gradlew
+
+      - name: Verify persistence regression guard
+        shell: pwsh
+        run: ./tools/verify-persistence.ps1
+
+      - name: Run GameTest suite
+        run: ./gradlew runGameTestServer --no-daemon
+
+      - name: Build mod
+        run: ./gradlew build --no-daemon
+
+      - name: Read mod version
+        id: props
+        run: |
+          MOD_VERSION=$(grep -E '^mod_version=' gradle.properties | cut -d= -f2 | tr -d '[:space:]')
+          echo "mod_version=$MOD_VERSION" >> "$GITHUB_OUTPUT"
+          echo "Release version: $MOD_VERSION"
+
+      - name: Require release configuration
+        env:
+          CF_ID: ${{ vars.CURSEFORGE_PROJECT_ID }}
+          CF_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
+        run: |
+          if [ -z "$CF_ID" ]; then
+            echo "Repository variable CURSEFORGE_PROJECT_ID is not set." >&2
+            echo "Create a CurseForge project for Dwurdy Sharks and set its project ID first." >&2
+            exit 1
+          fi
+          if [ -z "$CF_TOKEN" ]; then
+            echo "Repository secret CURSEFORGE_TOKEN is not set." >&2
+            exit 1
+          fi
+
+      - name: Publish to CurseForge
+        uses: Kira-NT/mc-publish@v3
+        with:
+          curseforge-id: ${{ vars.CURSEFORGE_PROJECT_ID }}
+          curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
+          files: build/libs/!(*-@(dev|sources|javadoc)).jar
+          name: Dwurdy Sharks ${{ steps.props.outputs.mod_version }} for Minecraft 1.21.1
+          version: ${{ steps.props.outputs.mod_version }}
+          version-type: release
+          changelog-file: docs/releases/v${{ steps.props.outputs.mod_version }}-mc1.21.1.md
+          loaders: |
+            neoforge
+          environment: client | server
+          game-versions: |
+            1.21.1
+          java: |
+            Java 21
+          dependencies: |
+            geckolib(required){curseforge:388172}
+          retry-attempts: 3
+          fail-mode: fail

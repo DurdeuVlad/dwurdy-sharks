@@ -10,15 +10,15 @@ import software.bernie.geckolib.model.data.EntityModelData;
 
 public class LandSharkModel extends GeoModel<LandSharkEntity> {
    public ResourceLocation getAnimationResource(LandSharkEntity entity) {
-      return ResourceLocation.parse("benssharks:animations/land_shark.animation.json");
+      return ResourceLocation.parse("dwurdysharks:animations/land_shark.animation.json");
    }
 
    public ResourceLocation getModelResource(LandSharkEntity entity) {
-      return ResourceLocation.parse("benssharks:geo/land_shark.geo.json");
+      return ResourceLocation.parse("dwurdysharks:geo/land_shark.geo.json");
    }
 
    public ResourceLocation getTextureResource(LandSharkEntity entity) {
-      return ResourceLocation.parse("benssharks:textures/entities/" + entity.getTexture() + ".png");
+      return ResourceLocation.parse("dwurdysharks:textures/entities/" + entity.getTexture() + ".png");
    }
 
    public void setCustomAnimations(LandSharkEntity animatable, long instanceId, AnimationState animationState) {

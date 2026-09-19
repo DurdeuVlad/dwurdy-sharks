@@ -15,7 +15,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 
 public class Modelunknown<T extends Entity> extends EntityModel<T> {
-   public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath("benssharks", "modelunknown"), "main");
+   public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath("dwurdysharks", "modelunknown"), "main");
    public final ModelPart Shark;
    public final ModelPart Torso;
    public final ModelPart Torso2;

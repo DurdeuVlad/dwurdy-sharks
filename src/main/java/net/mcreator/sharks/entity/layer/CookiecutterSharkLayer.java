@@ -12,7 +12,7 @@ import software.bernie.geckolib.renderer.GeoRenderer;
 import software.bernie.geckolib.renderer.layer.GeoRenderLayer;
 
 public class CookiecutterSharkLayer extends GeoRenderLayer<CookiecutterSharkEntity> {
-   private static final ResourceLocation LAYER = ResourceLocation.parse("benssharks:textures/entities/cookiering.png");
+   private static final ResourceLocation LAYER = ResourceLocation.parse("dwurdysharks:textures/entities/cookiering.png");
 
    public CookiecutterSharkLayer(GeoRenderer<CookiecutterSharkEntity> entityRenderer) {
       super(entityRenderer);

@@ -6,14 +6,14 @@ import software.bernie.geckolib.model.GeoModel;
 
 public class SharkPlushieBlockModel extends GeoModel<SharkPlushieTileEntity> {
    public ResourceLocation getAnimationResource(SharkPlushieTileEntity animatable) {
-      return ResourceLocation.parse("benssharks:animations/blahaj.animation.json");
+      return ResourceLocation.parse("dwurdysharks:animations/blahaj.animation.json");
    }
 
    public ResourceLocation getModelResource(SharkPlushieTileEntity animatable) {
-      return ResourceLocation.parse("benssharks:geo/blahaj.geo.json");
+      return ResourceLocation.parse("dwurdysharks:geo/blahaj.geo.json");
    }
 
    public ResourceLocation getTextureResource(SharkPlushieTileEntity animatable) {
-      return ResourceLocation.parse("benssharks:textures/block/blahaj.png");
+      return ResourceLocation.parse("dwurdysharks:textures/block/blahaj.png");
    }
 }

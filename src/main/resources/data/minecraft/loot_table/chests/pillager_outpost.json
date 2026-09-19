@@ -9,7 +9,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "benssharks:mutated_egg",
+          "name": "dwurdysharks:mutated_egg",
           "weight": 1,
           "functions": [
             {
@@ -23,7 +23,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "benssharks:shark_fin",
+          "name": "dwurdysharks:shark_fin",
           "weight": 1,
           "functions": [
             {

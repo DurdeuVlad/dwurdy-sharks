@@ -47,7 +47,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.DeferredRegister.Items;
 
 public class BenssharksModItems {
-   public static final Items REGISTRY = DeferredRegister.createItems("benssharks");
+   public static final Items REGISTRY = DeferredRegister.createItems("dwurdysharks");
    public static final DeferredItem<Item> GREATWHITESHARK_SPAWN_EGG = REGISTRY.register(
       "greatwhiteshark_spawn_egg", () -> new DeferredSpawnEggItem(BenssharksModEntities.GREATWHITESHARK, -9667702, -3089945, new Properties())
    );

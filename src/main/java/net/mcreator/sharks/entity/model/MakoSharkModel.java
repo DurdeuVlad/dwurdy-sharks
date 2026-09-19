@@ -6,14 +6,14 @@ import software.bernie.geckolib.model.GeoModel;
 
 public class MakoSharkModel extends GeoModel<MakoSharkEntity> {
    public ResourceLocation getAnimationResource(MakoSharkEntity entity) {
-      return ResourceLocation.parse("benssharks:animations/makoshark.animation.json");
+      return ResourceLocation.parse("dwurdysharks:animations/makoshark.animation.json");
    }
 
    public ResourceLocation getModelResource(MakoSharkEntity entity) {
-      return ResourceLocation.parse("benssharks:geo/makoshark.geo.json");
+      return ResourceLocation.parse("dwurdysharks:geo/makoshark.geo.json");
    }
 
    public ResourceLocation getTextureResource(MakoSharkEntity entity) {
-      return ResourceLocation.parse("benssharks:textures/entities/" + entity.getTexture() + ".png");
+      return ResourceLocation.parse("dwurdysharks:textures/entities/" + entity.getTexture() + ".png");
    }
 }

@@ -20,14 +20,14 @@ public class SharkToothClubLivingEntityIsHitWithToolProcedure {
                _level.playSound(
                   null,
                   BlockPos.containing(x, y, z),
-                  (SoundEvent)BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("benssharks:club_hit")),
+                  (SoundEvent)BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("dwurdysharks:club_hit")),
                   SoundSource.NEUTRAL,
                   1.0F,
                   1.0F
                );
             } else {
                _level.playLocalSound(
-                  x, y, z, (SoundEvent)BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("benssharks:club_hit")), SoundSource.NEUTRAL, 1.0F, 1.0F, false
+                  x, y, z, (SoundEvent)BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("dwurdysharks:club_hit")), SoundSource.NEUTRAL, 1.0F, 1.0F, false
                );
             }
          }

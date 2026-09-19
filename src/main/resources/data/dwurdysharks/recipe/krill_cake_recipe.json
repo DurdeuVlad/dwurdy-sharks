@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "dwurdysharks:krill_item"
+    },
+    {
+      "item": "dwurdysharks:krill_item"
+    },
+    {
+      "item": "minecraft:potato"
+    },
+    {
+      "item": "dwurdysharks:krill_item"
+    },
+    {
+      "item": "minecraft:dried_kelp"
+    }
+  ],
+  "result": {
+    "id": "dwurdysharks:krill_cake",
+    "count": 1
+  }
+}

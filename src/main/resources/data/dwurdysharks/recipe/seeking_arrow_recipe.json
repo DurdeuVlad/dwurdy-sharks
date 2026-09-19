@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smithing_transform",
+  "template": {
+    "item": "minecraft:bow"
+  },
+  "base": {
+    "item": "dwurdysharks:maelstrom"
+  },
+  "addition": {
+    "item": "minecraft:tide_armor_trim_smithing_template"
+  },
+  "result": {
+    "id": "dwurdysharks:maelstrom_bow"
+  }
+}

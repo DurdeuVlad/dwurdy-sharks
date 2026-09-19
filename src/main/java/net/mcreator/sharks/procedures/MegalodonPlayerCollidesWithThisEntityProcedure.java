@@ -14,7 +14,7 @@ public class MegalodonPlayerCollidesWithThisEntityProcedure {
    public static void execute(Entity sourceentity) {
       if (sourceentity != null) {
          if (sourceentity instanceof Player && sourceentity instanceof ServerPlayer _player) {
-            AdvancementHolder _adv = _player.server.getAdvancements().get(ResourceLocation.parse("benssharks:the_meg"));
+            AdvancementHolder _adv = _player.server.getAdvancements().get(ResourceLocation.parse("dwurdysharks:the_meg"));
             if (_adv != null) {
                AdvancementProgress _ap = _player.getAdvancements().getOrStartProgress(_adv);
                if (!_ap.isDone()) {

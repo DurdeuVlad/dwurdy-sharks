@@ -13,7 +13,7 @@ import net.neoforged.fml.common.EventBusSubscriber.Bus;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent.RegisterRenderers;
 
 @EventBusSubscriber(
-   modid = "benssharks",
+   modid = "dwurdysharks",
    value = {Dist.CLIENT},
    bus = Bus.MOD
 )

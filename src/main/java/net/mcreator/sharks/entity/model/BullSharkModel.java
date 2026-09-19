@@ -6,14 +6,14 @@ import software.bernie.geckolib.model.GeoModel;
 
 public class BullSharkModel extends GeoModel<BullSharkEntity> {
    public ResourceLocation getAnimationResource(BullSharkEntity entity) {
-      return ResourceLocation.parse("benssharks:animations/bull_shark.animation.json");
+      return ResourceLocation.parse("dwurdysharks:animations/bull_shark.animation.json");
    }
 
    public ResourceLocation getModelResource(BullSharkEntity entity) {
-      return ResourceLocation.parse("benssharks:geo/bull_shark.geo.json");
+      return ResourceLocation.parse("dwurdysharks:geo/bull_shark.geo.json");
    }
 
    public ResourceLocation getTextureResource(BullSharkEntity entity) {
-      return ResourceLocation.parse("benssharks:textures/entities/" + entity.getTexture() + ".png");
+      return ResourceLocation.parse("dwurdysharks:textures/entities/" + entity.getTexture() + ".png");
    }
 }

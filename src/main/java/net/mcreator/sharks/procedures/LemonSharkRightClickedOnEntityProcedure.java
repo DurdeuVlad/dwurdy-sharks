@@ -107,7 +107,7 @@ public class LemonSharkRightClickedOnEntityProcedure {
                   }
 
                   if (sourceentity instanceof ServerPlayer _player) {
-                     AdvancementHolder _adv = _player.server.getAdvancements().get(ResourceLocation.parse("benssharks:pleasure"));
+                     AdvancementHolder _adv = _player.server.getAdvancements().get(ResourceLocation.parse("dwurdysharks:pleasure"));
                      if (_adv != null) {
                         AdvancementProgress _ap = _player.getAdvancements().getOrStartProgress(_adv);
                         if (!_ap.isDone()) {
@@ -180,7 +180,7 @@ public class LemonSharkRightClickedOnEntityProcedure {
                }
 
                if (sourceentity instanceof ServerPlayer _playerx) {
-                  AdvancementHolder _adv = _playerx.server.getAdvancements().get(ResourceLocation.parse("benssharks:pleasure"));
+                  AdvancementHolder _adv = _playerx.server.getAdvancements().get(ResourceLocation.parse("dwurdysharks:pleasure"));
                   if (_adv != null) {
                      AdvancementProgress _ap = _playerx.getAdvancements().getOrStartProgress(_adv);
                      if (!_ap.isDone()) {

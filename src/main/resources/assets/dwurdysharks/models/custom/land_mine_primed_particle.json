@@ -1,0 +1,6 @@
+{
+  "parent": "dwurdysharks:displaysettings/landmine.item",
+  "textures": {
+    "particle": "dwurdysharks:block/landminedefault"
+  }
+}

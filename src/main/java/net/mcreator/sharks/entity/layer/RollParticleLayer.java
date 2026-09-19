@@ -12,7 +12,7 @@ import software.bernie.geckolib.renderer.GeoRenderer;
 import software.bernie.geckolib.renderer.layer.GeoRenderLayer;
 
 public class RollParticleLayer extends GeoRenderLayer<RollParticleEntity> {
-   private static final ResourceLocation LAYER = ResourceLocation.parse("benssharks:textures/entities/rollparticle.png");
+   private static final ResourceLocation LAYER = ResourceLocation.parse("dwurdysharks:textures/entities/rollparticle.png");
 
    public RollParticleLayer(GeoRenderer<RollParticleEntity> entityRenderer) {
       super(entityRenderer);

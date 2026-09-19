@@ -16,7 +16,7 @@ import net.minecraft.world.entity.Entity;
 
 public class ModelSeekingArrow<T extends Entity> extends EntityModel<T> {
    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(
-      ResourceLocation.fromNamespaceAndPath("benssharks", "model_seeking_arrow"), "main"
+      ResourceLocation.fromNamespaceAndPath("dwurdysharks", "model_seeking_arrow"), "main"
    );
    public final ModelPart SeekingArrow;
    public final ModelPart Arrow;

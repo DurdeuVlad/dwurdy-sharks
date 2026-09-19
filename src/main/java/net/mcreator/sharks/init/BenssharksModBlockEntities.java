@@ -12,7 +12,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 public class BenssharksModBlockEntities {
-   public static final DeferredRegister<BlockEntityType<?>> REGISTRY = DeferredRegister.create(BuiltInRegistries.BLOCK_ENTITY_TYPE, "benssharks");
+   public static final DeferredRegister<BlockEntityType<?>> REGISTRY = DeferredRegister.create(BuiltInRegistries.BLOCK_ENTITY_TYPE, "dwurdysharks");
    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<?>> LAND_MINE = register(
       "land_mine", BenssharksModBlocks.LAND_MINE, LandMineTileEntity::new
    );

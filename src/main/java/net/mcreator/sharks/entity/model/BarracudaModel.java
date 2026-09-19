@@ -6,14 +6,14 @@ import software.bernie.geckolib.model.GeoModel;
 
 public class BarracudaModel extends GeoModel<BarracudaEntity> {
    public ResourceLocation getAnimationResource(BarracudaEntity entity) {
-      return ResourceLocation.parse("benssharks:animations/barracuda.animation.json");
+      return ResourceLocation.parse("dwurdysharks:animations/barracuda.animation.json");
    }
 
    public ResourceLocation getModelResource(BarracudaEntity entity) {
-      return ResourceLocation.parse("benssharks:geo/barracuda.geo.json");
+      return ResourceLocation.parse("dwurdysharks:geo/barracuda.geo.json");
    }
 
    public ResourceLocation getTextureResource(BarracudaEntity entity) {
-      return ResourceLocation.parse("benssharks:textures/entities/" + entity.getTexture() + ".png");
+      return ResourceLocation.parse("dwurdysharks:textures/entities/" + entity.getTexture() + ".png");
    }
 }

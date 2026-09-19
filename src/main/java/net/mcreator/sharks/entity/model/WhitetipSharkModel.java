@@ -6,14 +6,14 @@ import software.bernie.geckolib.model.GeoModel;
 
 public class WhitetipSharkModel extends GeoModel<WhitetipSharkEntity> {
    public ResourceLocation getAnimationResource(WhitetipSharkEntity entity) {
-      return ResourceLocation.parse("benssharks:animations/whitetip.animation.json");
+      return ResourceLocation.parse("dwurdysharks:animations/whitetip.animation.json");
    }
 
    public ResourceLocation getModelResource(WhitetipSharkEntity entity) {
-      return ResourceLocation.parse("benssharks:geo/whitetip.geo.json");
+      return ResourceLocation.parse("dwurdysharks:geo/whitetip.geo.json");
    }
 
    public ResourceLocation getTextureResource(WhitetipSharkEntity entity) {
-      return ResourceLocation.parse("benssharks:textures/entities/" + entity.getTexture() + ".png");
+      return ResourceLocation.parse("dwurdysharks:textures/entities/" + entity.getTexture() + ".png");
    }
 }

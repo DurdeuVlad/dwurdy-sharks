@@ -1,0 +1,38 @@
+{
+  "axodile.bite": {
+    "subtitle": "subtitles.axodile.bite",
+    "sounds": [
+      {
+        "name": "dwurdysharks:axodile_bite",
+        "stream": false
+      }
+    ]
+  },
+  "shark.chomp": {
+    "subtitle": "subtitles.shark.chomp",
+    "sounds": [
+      {
+        "name": "dwurdysharks:chomp",
+        "stream": false
+      }
+    ]
+  },
+  "squeak": {
+    "subtitle": "subtitles.squeak",
+    "sounds": [
+      {
+        "name": "dwurdysharks:squeak",
+        "stream": false
+      }
+    ]
+  },
+  "club_hit": {
+    "subtitle": "subtitles.club_hit",
+    "sounds": [
+      {
+        "name": "dwurdysharks:clubhit",
+        "stream": false
+      }
+    ]
+  }
+}

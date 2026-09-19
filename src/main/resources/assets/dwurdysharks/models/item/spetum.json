@@ -1,0 +1,6 @@
+{
+  "parent": "dwurdysharks:displaysettings/spetum",
+  "textures": {
+    "layer0": "dwurdysharks:item/spetum"
+  }
+}

@@ -7,17 +7,17 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 public class BenssharksModSounds {
-   public static final DeferredRegister<SoundEvent> REGISTRY = DeferredRegister.create(Registries.SOUND_EVENT, "benssharks");
+   public static final DeferredRegister<SoundEvent> REGISTRY = DeferredRegister.create(Registries.SOUND_EVENT, "dwurdysharks");
    public static final DeferredHolder<SoundEvent, SoundEvent> AXODILE_BITE = REGISTRY.register(
-      "axodile.bite", () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath("benssharks", "axodile.bite"))
+      "axodile.bite", () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath("dwurdysharks", "axodile.bite"))
    );
    public static final DeferredHolder<SoundEvent, SoundEvent> SHARK_CHOMP = REGISTRY.register(
-      "shark.chomp", () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath("benssharks", "shark.chomp"))
+      "shark.chomp", () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath("dwurdysharks", "shark.chomp"))
    );
    public static final DeferredHolder<SoundEvent, SoundEvent> SQUEAK = REGISTRY.register(
-      "squeak", () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath("benssharks", "squeak"))
+      "squeak", () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath("dwurdysharks", "squeak"))
    );
    public static final DeferredHolder<SoundEvent, SoundEvent> CLUB_HIT = REGISTRY.register(
-      "club_hit", () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath("benssharks", "club_hit"))
+      "club_hit", () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath("dwurdysharks", "club_hit"))
    );
 }

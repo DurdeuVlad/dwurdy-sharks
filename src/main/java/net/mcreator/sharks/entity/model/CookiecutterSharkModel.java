@@ -6,14 +6,14 @@ import software.bernie.geckolib.model.GeoModel;
 
 public class CookiecutterSharkModel extends GeoModel<CookiecutterSharkEntity> {
    public ResourceLocation getAnimationResource(CookiecutterSharkEntity entity) {
-      return ResourceLocation.parse("benssharks:animations/cookiecutter.animation.json");
+      return ResourceLocation.parse("dwurdysharks:animations/cookiecutter.animation.json");
    }
 
    public ResourceLocation getModelResource(CookiecutterSharkEntity entity) {
-      return ResourceLocation.parse("benssharks:geo/cookiecutter.geo.json");
+      return ResourceLocation.parse("dwurdysharks:geo/cookiecutter.geo.json");
    }
 
    public ResourceLocation getTextureResource(CookiecutterSharkEntity entity) {
-      return ResourceLocation.parse("benssharks:textures/entities/" + entity.getTexture() + ".png");
+      return ResourceLocation.parse("dwurdysharks:textures/entities/" + entity.getTexture() + ".png");
    }
 }

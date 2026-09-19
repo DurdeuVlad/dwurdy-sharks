@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "dwurdysharks:custom/land_mine_particle"
+    },
+    "facing=east": {
+      "model": "dwurdysharks:custom/land_mine_particle",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "dwurdysharks:custom/land_mine_particle",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "dwurdysharks:custom/land_mine_particle",
+      "y": 270
+    }
+  }
+}

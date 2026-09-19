@@ -1,0 +1,13 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": [
+    "deep_ocean",
+    "ocean"
+  ],
+  "spawners": {
+    "type": "dwurdysharks:greatwhiteshark",
+    "weight": 7,
+    "minCount": 1,
+    "maxCount": 1
+  }
+}

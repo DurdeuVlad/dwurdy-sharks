@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "a a",
+    "aaa",
+    "aaa"
+  ],
+  "key": {
+    "a": {
+      "item": "dwurdysharks:axoscute"
+    }
+  },
+  "result": {
+    "id": "dwurdysharks:jagged_chestplate",
+    "count": 1
+  }
+}

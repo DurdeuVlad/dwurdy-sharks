@@ -14,7 +14,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
 public class SeekerSharkProjectileRenderer extends EntityRenderer<SeekerSharkProjectileEntity> {
-   private static final ResourceLocation texture = ResourceLocation.parse("benssharks:textures/entities/seekershark.png");
+   private static final ResourceLocation texture = ResourceLocation.parse("dwurdysharks:textures/entities/seekershark.png");
    private final Modelunknown model;
 
    public SeekerSharkProjectileRenderer(Context context) {

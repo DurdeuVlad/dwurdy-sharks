@@ -36,9 +36,9 @@ Only the NeoForge 1.21.1 target is currently verified. Do not mix this file's in
 
 ### Migration from Ben's Sharks
 
-You can swap **Ben's Sharks 1.2.6** for **Dwurdy Sharks** in an existing 1.21.1 NeoForge world without changing the mod ID. The fork keeps `benssharks`, so existing world and entity identifiers remain compatible.
-
 Before migrating, stop the game and make a world or server backup. Remove the old Ben's Sharks jar before adding Dwurdy Sharks; never load both jars together. After the swap, tamed sharks still persist, while wild sharks are once again allowed to despawn normally.
+
+> **⚠️ Breaking change in 1.3.0:** Dwurdy Sharks now registers under its own `dwurdysharks` mod ID instead of `benssharks`. Worlds saved by Ben's Sharks or Dwurdy Sharks ≤1.2.8 contain `benssharks:*` entity, item, block, effect, and sound identifiers that 1.3.0 does not resolve — those modded objects will be missing if you load an old world under 1.3.0. Always back up first. To keep an existing world fully intact, stay on Dwurdy Sharks 1.2.8, which still uses the `benssharks` ID.
 
 ### Links
 

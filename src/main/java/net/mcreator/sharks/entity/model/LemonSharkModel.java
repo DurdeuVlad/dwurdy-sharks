@@ -6,14 +6,14 @@ import software.bernie.geckolib.model.GeoModel;
 
 public class LemonSharkModel extends GeoModel<LemonSharkEntity> {
    public ResourceLocation getAnimationResource(LemonSharkEntity entity) {
-      return ResourceLocation.parse("benssharks:animations/lemon.animation.json");
+      return ResourceLocation.parse("dwurdysharks:animations/lemon.animation.json");
    }
 
    public ResourceLocation getModelResource(LemonSharkEntity entity) {
-      return ResourceLocation.parse("benssharks:geo/lemon.geo.json");
+      return ResourceLocation.parse("dwurdysharks:geo/lemon.geo.json");
    }
 
    public ResourceLocation getTextureResource(LemonSharkEntity entity) {
-      return ResourceLocation.parse("benssharks:textures/entities/" + entity.getTexture() + ".png");
+      return ResourceLocation.parse("dwurdysharks:textures/entities/" + entity.getTexture() + ".png");
    }
 }

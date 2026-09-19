@@ -6,14 +6,14 @@ import software.bernie.geckolib.model.GeoModel;
 
 public class LandMinePrimedBlockModel extends GeoModel<LandMinePrimedTileEntity> {
    public ResourceLocation getAnimationResource(LandMinePrimedTileEntity animatable) {
-      return ResourceLocation.parse("benssharks:animations/landmineprimed.animation.json");
+      return ResourceLocation.parse("dwurdysharks:animations/landmineprimed.animation.json");
    }
 
    public ResourceLocation getModelResource(LandMinePrimedTileEntity animatable) {
-      return ResourceLocation.parse("benssharks:geo/landmineprimed.geo.json");
+      return ResourceLocation.parse("dwurdysharks:geo/landmineprimed.geo.json");
    }
 
    public ResourceLocation getTextureResource(LandMinePrimedTileEntity animatable) {
-      return ResourceLocation.parse("benssharks:textures/block/landminedefault.png");
+      return ResourceLocation.parse("dwurdysharks:textures/block/landminedefault.png");
    }
 }

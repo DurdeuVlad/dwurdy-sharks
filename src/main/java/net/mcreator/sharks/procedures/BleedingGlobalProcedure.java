@@ -74,7 +74,7 @@ public class BleedingGlobalProcedure {
                   .getEnchantmentLevel(
                      world.registryAccess()
                         .lookupOrThrow(Registries.ENCHANTMENT)
-                        .getOrThrow(ResourceKey.create(Registries.ENCHANTMENT, ResourceLocation.parse("benssharks:serrated")))
+                        .getOrThrow(ResourceKey.create(Registries.ENCHANTMENT, ResourceLocation.parse("dwurdysharks:serrated")))
                   )
                != 0
             && (

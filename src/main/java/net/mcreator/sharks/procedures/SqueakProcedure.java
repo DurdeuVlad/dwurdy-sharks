@@ -42,7 +42,7 @@ public class SqueakProcedure {
                      _level.playSound(
                         null,
                         BlockPos.containing(x, y, z),
-                        (SoundEvent)BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("benssharks:squeak")),
+                        (SoundEvent)BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("dwurdysharks:squeak")),
                         SoundSource.NEUTRAL,
                         1.0F,
                         1.0F
@@ -52,7 +52,7 @@ public class SqueakProcedure {
                         x,
                         y,
                         z,
-                        (SoundEvent)BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("benssharks:squeak")),
+                        (SoundEvent)BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("dwurdysharks:squeak")),
                         SoundSource.NEUTRAL,
                         1.0F,
                         1.0F,
@@ -67,7 +67,7 @@ public class SqueakProcedure {
                   _levelx.playSound(
                      null,
                      BlockPos.containing(x, y, z),
-                     (SoundEvent)BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("benssharks:squeak")),
+                     (SoundEvent)BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("dwurdysharks:squeak")),
                      SoundSource.NEUTRAL,
                      1.0F,
                      1.0F
@@ -77,7 +77,7 @@ public class SqueakProcedure {
                      x,
                      y,
                      z,
-                     (SoundEvent)BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("benssharks:squeak")),
+                     (SoundEvent)BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("dwurdysharks:squeak")),
                      SoundSource.NEUTRAL,
                      1.0F,
                      1.0F,

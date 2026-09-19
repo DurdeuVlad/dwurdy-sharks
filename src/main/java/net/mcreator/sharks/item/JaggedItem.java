@@ -62,11 +62,11 @@ public abstract class JaggedItem extends ArmorItem {
                50,
                DeferredHolder.create(Registries.SOUND_EVENT, ResourceLocation.parse("item.armor.equip_turtle")),
                () -> Ingredient.of(new ItemStack[]{new ItemStack((ItemLike)BenssharksModItems.AXOSCUTE.get())}),
-               List.of(new Layer(ResourceLocation.parse("benssharks:jaggedarmor_"))),
+               List.of(new Layer(ResourceLocation.parse("dwurdysharks:jaggedarmor_"))),
                2.0F,
                0.1F
             );
-            registerHelper.register(ResourceLocation.parse("benssharks:jagged"), armorMaterial);
+            registerHelper.register(ResourceLocation.parse("dwurdysharks:jagged"), armorMaterial);
             ARMOR_MATERIAL = BuiltInRegistries.ARMOR_MATERIAL.wrapAsHolder(armorMaterial);
          }
       );

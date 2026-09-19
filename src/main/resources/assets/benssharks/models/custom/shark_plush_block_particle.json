@@ -1,6 +1,0 @@
-{
-  "parent": "benssharks:displaysettings/blahaj.item",
-  "textures": {
-    "particle": "benssharks:block/sharkplushbreak"
-  }
-}

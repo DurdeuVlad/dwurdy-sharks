@@ -6,14 +6,14 @@ import software.bernie.geckolib.model.GeoModel;
 
 public class PilotFishModel extends GeoModel<PilotFishEntity> {
    public ResourceLocation getAnimationResource(PilotFishEntity entity) {
-      return ResourceLocation.parse("benssharks:animations/pilot_fish.animation.json");
+      return ResourceLocation.parse("dwurdysharks:animations/pilot_fish.animation.json");
    }
 
    public ResourceLocation getModelResource(PilotFishEntity entity) {
-      return ResourceLocation.parse("benssharks:geo/pilot_fish.geo.json");
+      return ResourceLocation.parse("dwurdysharks:geo/pilot_fish.geo.json");
    }
 
    public ResourceLocation getTextureResource(PilotFishEntity entity) {
-      return ResourceLocation.parse("benssharks:textures/entities/" + entity.getTexture() + ".png");
+      return ResourceLocation.parse("dwurdysharks:textures/entities/" + entity.getTexture() + ".png");
    }
 }

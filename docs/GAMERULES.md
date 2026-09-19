@@ -12,7 +12,7 @@ out players.
 
 When `true`, the large predatory species additionally hunt players as prey:
 
-- Great white shark (`benssharks:greatwhiteshark`)
+- Great white shark (`dwurdysharks:greatwhiteshark`)
 - Bull shark
 - Tiger shark
 - Mako shark

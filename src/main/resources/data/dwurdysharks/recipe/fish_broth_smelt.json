@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smelting",
+  "category": "food",
+  "experience": 1,
+  "cookingtime": 300,
+  "ingredient": {
+    "item": "dwurdysharks:fish_bucket"
+  },
+  "result": {
+    "id": "dwurdysharks:fish_broth"
+  }
+}

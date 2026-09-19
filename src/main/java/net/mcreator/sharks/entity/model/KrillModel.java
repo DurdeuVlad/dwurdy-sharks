@@ -6,14 +6,14 @@ import software.bernie.geckolib.model.GeoModel;
 
 public class KrillModel extends GeoModel<KrillEntity> {
    public ResourceLocation getAnimationResource(KrillEntity entity) {
-      return ResourceLocation.parse("benssharks:animations/krill.animation.json");
+      return ResourceLocation.parse("dwurdysharks:animations/krill.animation.json");
    }
 
    public ResourceLocation getModelResource(KrillEntity entity) {
-      return ResourceLocation.parse("benssharks:geo/krill.geo.json");
+      return ResourceLocation.parse("dwurdysharks:geo/krill.geo.json");
    }
 
    public ResourceLocation getTextureResource(KrillEntity entity) {
-      return ResourceLocation.parse("benssharks:textures/entities/" + entity.getTexture() + ".png");
+      return ResourceLocation.parse("dwurdysharks:textures/entities/" + entity.getTexture() + ".png");
    }
 }

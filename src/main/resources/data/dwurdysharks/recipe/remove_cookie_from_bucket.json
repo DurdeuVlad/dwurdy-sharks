@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "dwurdysharks:cookiecutter_shark_bucket"
+    }
+  ],
+  "result": {
+    "id": "dwurdysharks:cookiecutter_shark_live",
+    "count": 1
+  }
+}

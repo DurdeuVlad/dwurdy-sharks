@@ -49,8 +49,10 @@ Run a dedicated test world with the built jar and GeckoLib 4.x installed.
 4. Repeat the first check after a failed taming attempt. A failed attempt must
    not turn a wild shark into a permanently persistent entity.
 
-The regression is fixed in the entity persistence paths; the mod id remains
-`benssharks`, so existing saves can be tested in place after making a backup.
+The regression is fixed in the entity persistence paths. As of 1.3.0 the mod
+id is `dwurdysharks` (previously `benssharks`), so worlds saved by older
+versions contain `benssharks:*` identifiers that this build does not resolve —
+test upgrades only on a backup copy.
 
 ## Release evidence
 

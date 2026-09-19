@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "aaa",
+    "bcb",
+    "aaa"
+  ],
+  "key": {
+    "a": {
+      "item": "dwurdysharks:axoscute"
+    },
+    "b": {
+      "item": "dwurdysharks:axoleather"
+    },
+    "c": {
+      "item": "dwurdysharks:mutated_egg"
+    }
+  },
+  "result": {
+    "id": "dwurdysharks:egg_capsule",
+    "count": 1
+  }
+}

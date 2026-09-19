@@ -37,7 +37,7 @@ import net.neoforged.neoforge.registries.NeoForgeRegistries.Keys;
    bus = Bus.MOD
 )
 public class BenssharksModVariables {
-   public static final DeferredRegister<AttachmentType<?>> ATTACHMENT_TYPES = DeferredRegister.create(Keys.ATTACHMENT_TYPES, "benssharks");
+   public static final DeferredRegister<AttachmentType<?>> ATTACHMENT_TYPES = DeferredRegister.create(Keys.ATTACHMENT_TYPES, "dwurdysharks");
 
    @SubscribeEvent
    public static void init(FMLCommonSetupEvent event) {
@@ -122,7 +122,7 @@ public class BenssharksModVariables {
 
    public record SavedDataSyncMessage(int dataType, SavedData data) implements CustomPacketPayload {
       public static final Type<BenssharksModVariables.SavedDataSyncMessage> TYPE = new Type(
-         ResourceLocation.fromNamespaceAndPath("benssharks", "saved_data_sync")
+         ResourceLocation.fromNamespaceAndPath("dwurdysharks", "saved_data_sync")
       );
       public static final StreamCodec<RegistryFriendlyByteBuf, BenssharksModVariables.SavedDataSyncMessage> STREAM_CODEC = StreamCodec.of(
          (buffer, message) -> {

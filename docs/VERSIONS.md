@@ -7,7 +7,7 @@ The only target currently verified by this repository is:
 - Minecraft **1.21.1**
 - **NeoForge 21.1.x**
 - **GeckoLib 4.x**
-- Mod ID: `benssharks`
+- Mod ID: `dwurdysharks` (renamed from `benssharks` in 1.3.0 — breaking change, see release notes)
 
 This documentation does not claim that any other Minecraft version, loader, or launcher artifact has been built, tested, or published. In particular, there is no current claim of a Fabric, Forge, or older-version build.
 
@@ -35,3 +35,17 @@ Before listing another 1.12.x-or-newer target on a mod launcher:
 3. Test installation and the relevant gameplay behavior on that Minecraft version.
 4. Confirm that the mod ID and migration behavior are documented accurately.
 5. Publish only the tested loader/version combination, with no implied support for neighboring versions.
+
+## CurseForge publishing
+
+`.github/workflows/release.yml` publishes to CurseForge when a `v*` tag is
+pushed (or via manual dispatch). It requires two repository settings:
+
+- **Variable** `CURSEFORGE_PROJECT_ID` — the Dwurdy Sharks CurseForge project
+  ID. Do not reuse the upstream Ben's Sharks project (`987388`).
+- **Secret** `CURSEFORGE_TOKEN` — a CurseForge API token with file-upload
+  permission for that project.
+
+The workflow fails fast if either is unset, so a tag push cannot produce a
+misconfigured or misattributed release. The changelog is taken from
+`docs/releases/v<mod_version>-mc1.21.1.md`.

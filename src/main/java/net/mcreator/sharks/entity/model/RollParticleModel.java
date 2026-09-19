@@ -10,15 +10,15 @@ import software.bernie.geckolib.model.data.EntityModelData;
 
 public class RollParticleModel extends GeoModel<RollParticleEntity> {
    public ResourceLocation getAnimationResource(RollParticleEntity entity) {
-      return ResourceLocation.parse("benssharks:animations/roll_particle.animation.json");
+      return ResourceLocation.parse("dwurdysharks:animations/roll_particle.animation.json");
    }
 
    public ResourceLocation getModelResource(RollParticleEntity entity) {
-      return ResourceLocation.parse("benssharks:geo/roll_particle.geo.json");
+      return ResourceLocation.parse("dwurdysharks:geo/roll_particle.geo.json");
    }
 
    public ResourceLocation getTextureResource(RollParticleEntity entity) {
-      return ResourceLocation.parse("benssharks:textures/entities/" + entity.getTexture() + ".png");
+      return ResourceLocation.parse("dwurdysharks:textures/entities/" + entity.getTexture() + ".png");
    }
 
    public void setCustomAnimations(RollParticleEntity animatable, long instanceId, AnimationState animationState) {

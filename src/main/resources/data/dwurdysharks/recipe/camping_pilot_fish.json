@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:campfire_cooking",
+  "category": "food",
+  "experience": 1,
+  "cookingtime": 600,
+  "ingredient": {
+    "item": "dwurdysharks:raw_pilot_fish"
+  },
+  "result": {
+    "id": "dwurdysharks:cooked_pilot_fish"
+  }
+}

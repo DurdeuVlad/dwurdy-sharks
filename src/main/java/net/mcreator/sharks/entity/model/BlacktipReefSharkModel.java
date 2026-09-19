@@ -6,14 +6,14 @@ import software.bernie.geckolib.model.GeoModel;
 
 public class BlacktipReefSharkModel extends GeoModel<BlacktipReefSharkEntity> {
    public ResourceLocation getAnimationResource(BlacktipReefSharkEntity entity) {
-      return ResourceLocation.parse("benssharks:animations/blacktip_reef_shark.animation.json");
+      return ResourceLocation.parse("dwurdysharks:animations/blacktip_reef_shark.animation.json");
    }
 
    public ResourceLocation getModelResource(BlacktipReefSharkEntity entity) {
-      return ResourceLocation.parse("benssharks:geo/blacktip_reef_shark.geo.json");
+      return ResourceLocation.parse("dwurdysharks:geo/blacktip_reef_shark.geo.json");
    }
 
    public ResourceLocation getTextureResource(BlacktipReefSharkEntity entity) {
-      return ResourceLocation.parse("benssharks:textures/entities/" + entity.getTexture() + ".png");
+      return ResourceLocation.parse("dwurdysharks:textures/entities/" + entity.getTexture() + ".png");
    }
 }

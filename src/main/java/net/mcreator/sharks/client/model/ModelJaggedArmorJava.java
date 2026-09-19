@@ -16,7 +16,7 @@ import net.minecraft.world.entity.Entity;
 
 public class ModelJaggedArmorJava<T extends Entity> extends EntityModel<T> {
    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(
-      ResourceLocation.fromNamespaceAndPath("benssharks", "model_jagged_armor_java"), "main"
+      ResourceLocation.fromNamespaceAndPath("dwurdysharks", "model_jagged_armor_java"), "main"
    );
    public final ModelPart bipedHead;
    public final ModelPart bipedBody;

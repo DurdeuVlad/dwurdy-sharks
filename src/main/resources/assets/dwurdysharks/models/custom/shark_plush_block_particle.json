@@ -1,0 +1,6 @@
+{
+  "parent": "dwurdysharks:displaysettings/blahaj.item",
+  "textures": {
+    "particle": "dwurdysharks:block/sharkplushbreak"
+  }
+}

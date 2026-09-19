@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "benssharks:land_mine_primed",
-    "benssharks:land_mine"
+    "dwurdysharks:land_mine_primed",
+    "dwurdysharks:land_mine"
   ]
 }

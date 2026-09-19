@@ -7,7 +7,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 public class BenssharksModPotions {
-   public static final DeferredRegister<Potion> REGISTRY = DeferredRegister.create(Registries.POTION, "benssharks");
+   public static final DeferredRegister<Potion> REGISTRY = DeferredRegister.create(Registries.POTION, "dwurdysharks");
    public static final DeferredHolder<Potion, Potion> POTION_OF_SEALING = REGISTRY.register(
       "potion_of_sealing", () -> new Potion(new MobEffectInstance[]{new MobEffectInstance(BenssharksModMobEffects.SEALING, 3600, 0, false, true)})
    );

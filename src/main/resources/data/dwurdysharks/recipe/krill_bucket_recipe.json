@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "dwurdysharks:krill_item"
+    },
+    {
+      "item": "dwurdysharks:krill_item"
+    },
+    {
+      "item": "dwurdysharks:krill_item"
+    },
+    {
+      "item": "minecraft:bucket"
+    }
+  ],
+  "result": {
+    "id": "dwurdysharks:krill_bucket",
+    "count": 1
+  }
+}

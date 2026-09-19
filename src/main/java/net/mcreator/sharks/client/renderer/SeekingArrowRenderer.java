@@ -14,7 +14,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
 public class SeekingArrowRenderer extends EntityRenderer<SeekingArrowEntity> {
-   private static final ResourceLocation texture = ResourceLocation.parse("benssharks:textures/entities/seekingarrow.png");
+   private static final ResourceLocation texture = ResourceLocation.parse("dwurdysharks:textures/entities/seekingarrow.png");
    private final ModelSeekingArrow model;
 
    public SeekingArrowRenderer(Context context) {

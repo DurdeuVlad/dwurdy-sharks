@@ -151,7 +151,7 @@ public class BullSharkRightClickedOnEntityProcedure {
                }
 
                if (sourceentity instanceof ServerPlayer _player) {
-                  AdvancementHolder _adv = _player.server.getAdvancements().get(ResourceLocation.parse("benssharks:shark_aid"));
+                  AdvancementHolder _adv = _player.server.getAdvancements().get(ResourceLocation.parse("dwurdysharks:shark_aid"));
                   if (_adv != null) {
                      AdvancementProgress _ap = _player.getAdvancements().getOrStartProgress(_adv);
                      if (!_ap.isDone()) {

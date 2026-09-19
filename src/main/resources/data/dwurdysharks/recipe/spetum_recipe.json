@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    " ab",
+    " ca",
+    "d  "
+  ],
+  "key": {
+    "a": {
+      "item": "dwurdysharks:shark_tooth"
+    },
+    "b": {
+      "item": "dwurdysharks:megalodon_tooth"
+    },
+    "c": {
+      "item": "dwurdysharks:axoleather"
+    },
+    "d": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "id": "dwurdysharks:spetum",
+    "count": 1
+  }
+}

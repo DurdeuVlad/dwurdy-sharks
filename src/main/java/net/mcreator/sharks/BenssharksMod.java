@@ -34,10 +34,10 @@ import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@Mod("benssharks")
+@Mod("dwurdysharks")
 public class BenssharksMod {
    public static final Logger LOGGER = LogManager.getLogger(BenssharksMod.class);
-   public static final String MODID = "benssharks";
+   public static final String MODID = "dwurdysharks";
    private static boolean networkingRegistered = false;
    private static final Map<Type<?>, BenssharksMod.NetworkMessage<?>> MESSAGES = new HashMap<>();
    private static final Collection<Tuple<Runnable, Integer>> workQueue = new ConcurrentLinkedQueue<>();
@@ -68,7 +68,7 @@ public class BenssharksMod {
    }
 
    private void registerNetworking(RegisterPayloadHandlersEvent event) {
-      PayloadRegistrar registrar = event.registrar("benssharks");
+      PayloadRegistrar registrar = event.registrar("dwurdysharks");
       MESSAGES.forEach((id, networkMessage) -> registrar.playBidirectional((Type) id, (StreamCodec) networkMessage.reader(), (IPayloadHandler) networkMessage.handler()));
       networkingRegistered = true;
    }

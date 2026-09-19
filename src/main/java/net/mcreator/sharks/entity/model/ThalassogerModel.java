@@ -10,15 +10,15 @@ import software.bernie.geckolib.model.data.EntityModelData;
 
 public class ThalassogerModel extends GeoModel<ThalassogerEntity> {
    public ResourceLocation getAnimationResource(ThalassogerEntity entity) {
-      return ResourceLocation.parse("benssharks:animations/thalassoger.animation.json");
+      return ResourceLocation.parse("dwurdysharks:animations/thalassoger.animation.json");
    }
 
    public ResourceLocation getModelResource(ThalassogerEntity entity) {
-      return ResourceLocation.parse("benssharks:geo/thalassoger.geo.json");
+      return ResourceLocation.parse("dwurdysharks:geo/thalassoger.geo.json");
    }
 
    public ResourceLocation getTextureResource(ThalassogerEntity entity) {
-      return ResourceLocation.parse("benssharks:textures/entities/" + entity.getTexture() + ".png");
+      return ResourceLocation.parse("dwurdysharks:textures/entities/" + entity.getTexture() + ".png");
    }
 
    public void setCustomAnimations(ThalassogerEntity animatable, long instanceId, AnimationState animationState) {
