@@ -146,5 +146,14 @@
   "entity.benssharks.roll_particle": "rolling",
   "entity.benssharks.tiger_shark": "Tiger Shark",
   "effect.benssharks.jaws": "Jaws",
-  "item.benssharks.maelstrom": "Maelstrom"
+  "item.benssharks.maelstrom": "Maelstrom",
+  "effect.benssharks.bleeding.description": "The scent of blood draws nearby predatory sharks toward the afflicted creature. Afflicted sharks also take damage over time.",
+  "effect.benssharks.jaws.description": "Grants water breathing while swimming or submerged.",
+  "effect.benssharks.dryout_effect.description": "An aquatic creature drying out: takes damage while out of water or rain.",
+  "effect.benssharks.sealing.description": "Seals wounds, continuously purging Bleeding, Parasite, Wither and Poison.",
+  "effect.benssharks.parasite.description": "A cookiecutter shark parasite slowly drains the host's health, and emerges as a shark when the host dies.",
+  "effect.benssharks.detached.description": "The parasite has detached from its host.",
+  "effect.benssharks.prey.description": "Marked as prey: nearby bull sharks, megalodons and whitetip sharks will attack.",
+  "effect.benssharks.frenzy.description": "Boosts swim speed and knockback resistance.",
+  "effect.benssharks.fertilized.description": "Internal marker for a shark carrying fertilized eggs."
 }
