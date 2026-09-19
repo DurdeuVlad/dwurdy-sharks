@@ -5,6 +5,8 @@ import net.mcreator.sharks.entity.BlacktipReefSharkEntity;
 import net.mcreator.sharks.entity.BonnetheadSharkEntity;
 import net.mcreator.sharks.entity.NurseSharkEntity;
 import net.mcreator.sharks.entity.ShrakEntity;
+import net.minecraft.core.BlockPos;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -38,23 +40,23 @@ public class FollowIfTamedProcedure {
             && (entity instanceof TamableAnimal _tamEnt ? _tamEnt.getOwner() : null) instanceof LivingEntity _livEnt
             && _tamIsTamedBy.isOwnedBy(_livEnt)
             && !world.getEntitiesOfClass(Player.class, AABB.ofSize(new Vec3(x, y, z), 64.0, 64.0, 64.0), e -> true).isEmpty()) {
-            if (entity instanceof Mob _entity) {
-               _entity.getNavigation()
-                  .moveTo(
-                     (entity instanceof TamableAnimal _tamEntxxxx ? _tamEntxxxx.getOwner() : null).getX(),
-                     (entity instanceof TamableAnimal _tamEntxxx ? _tamEntxxx.getOwner() : null).getY(),
-                     (entity instanceof TamableAnimal _tamEntxx ? _tamEntxx.getOwner() : null).getZ(),
-                     1.0
-                  );
-            }
-
-            if (entity.isInWaterOrBubble()) {
-               if (entity instanceof ShrakEntity) {
-                  ((ShrakEntity)entity).setAnimation("sprint");
+            double _ownerX = _livEnt.getX();
+            double _ownerY = _livEnt.getY();
+            double _ownerZ = _livEnt.getZ();
+            if (world.getFluidState(BlockPos.containing(_ownerX, _ownerY, _ownerZ)).is(FluidTags.WATER)
+               || world.getFluidState(BlockPos.containing(_ownerX, _ownerY - 1.0, _ownerZ)).is(FluidTags.WATER)) {
+               if (entity instanceof Mob _entity) {
+                  _entity.getNavigation().moveTo(_ownerX, _ownerY, _ownerZ, 1.0);
                }
 
-               if (entity instanceof LivingEntity _livingEntity17 && _livingEntity17.getAttributes().hasAttribute(NeoForgeMod.SWIM_SPEED)) {
-                  _livingEntity17.getAttribute(NeoForgeMod.SWIM_SPEED).setBaseValue(1.25);
+               if (entity.isInWaterOrBubble()) {
+                  if (entity instanceof ShrakEntity) {
+                     ((ShrakEntity)entity).setAnimation("sprint");
+                  }
+
+                  if (entity instanceof LivingEntity _livingEntity17 && _livingEntity17.getAttributes().hasAttribute(NeoForgeMod.SWIM_SPEED)) {
+                     _livingEntity17.getAttribute(NeoForgeMod.SWIM_SPEED).setBaseValue(1.25);
+                  }
                }
             }
          }
