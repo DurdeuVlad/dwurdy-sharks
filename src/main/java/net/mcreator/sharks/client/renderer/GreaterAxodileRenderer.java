@@ -18,7 +18,7 @@ public class GreaterAxodileRenderer extends GeoEntityRenderer<GreaterAxodileEnti
    }
 
    public RenderType getRenderType(GreaterAxodileEntity animatable, ResourceLocation texture, MultiBufferSource bufferSource, float partialTick) {
-      return RenderType.entityTranslucent(this.getTextureLocation(animatable));
+      return RenderType.entityCutoutNoCull(this.getTextureLocation(animatable));
    }
 
    public void preRender(

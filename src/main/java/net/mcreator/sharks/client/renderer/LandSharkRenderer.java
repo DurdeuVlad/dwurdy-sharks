@@ -20,7 +20,7 @@ public class LandSharkRenderer extends GeoEntityRenderer<LandSharkEntity> {
    }
 
    public RenderType getRenderType(LandSharkEntity animatable, ResourceLocation texture, MultiBufferSource bufferSource, float partialTick) {
-      return RenderType.entityTranslucent(this.getTextureLocation(animatable));
+      return RenderType.entityCutoutNoCull(this.getTextureLocation(animatable));
    }
 
    public void preRender(

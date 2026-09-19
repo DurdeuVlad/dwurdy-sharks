@@ -18,7 +18,7 @@ public class ShrakRenderer extends GeoEntityRenderer<ShrakEntity> {
    }
 
    public RenderType getRenderType(ShrakEntity animatable, ResourceLocation texture, MultiBufferSource bufferSource, float partialTick) {
-      return RenderType.entityTranslucent(this.getTextureLocation(animatable));
+      return RenderType.entityCutoutNoCull(this.getTextureLocation(animatable));
    }
 
    public void preRender(
