@@ -33,7 +33,7 @@ Dwurdy Sharks is a community maintenance fork of **[Ben's Sharks](https://github
 
 ## Download
 
-Get the tested build from [GitHub Releases](https://github.com/DurdeuVlad/dwurdy-sharks/releases). Place the jar in your instance or server's `mods/` folder alongside the required dependencies.
+The latest release is **Dwurdy Sharks 1.3.0** for Minecraft 1.21.1 + NeoForge. Get the tested jar from [GitHub Releases](https://github.com/DurdeuVlad/dwurdy-sharks/releases) or [CurseForge](https://www.curseforge.com/projects/1693295), and place it in your instance or server's `mods/` folder alongside the required dependencies.
 
 | Target | Status |
 | --- | --- |
@@ -53,6 +53,15 @@ Dwurdy Sharks keeps the original content and compatibility surface while restori
 - **The fix tracks upstream [issue #7](https://github.com/PaoloBen/BensSharks/issues/7).**
 
 ## Features
+
+### 🆕 New in 1.3.0
+
+- **`aggressiveSharks` gamerule** (opt-in, `false` by default): large predatory sharks — great white, bull, tiger, mako, megalodon, and more — actively hunt players. Filter feeders and tamed sharks stay passive. See [docs/GAMERULES.md](docs/GAMERULES.md).
+- **In-game effect descriptions** for the nine custom mob effects, on the effects screen and potion tooltips.
+- **Simplified Chinese localization** (`zh_cn`) covering all 157 lang keys.
+- **Shader-friendly rendering**: sharks render in the cutout pass, fixing invisible sharks above water with shader packs such as Iris "makeup-ultrafast".
+- **Tamed sharks no longer beach themselves** following their owner — they only path through water.
+- Full details and verification evidence: [release notes](docs/releases/v1.3.0-mc1.21.1.md).
 
 ### 🦈 A whole ocean of trouble
 
