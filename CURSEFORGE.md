@@ -19,11 +19,20 @@
 - 🍲 Food and cooking items made from the mod's marine life
 - ✅ A fix for the upstream 1.21.x persistent-shark bug tracked in [issue #7](https://github.com/PaoloBen/BensSharks/issues/7): wild sharks despawn normally, while tamed sharks still persist
 
+### New in 1.3.0
+
+- 🎯 **`aggressiveSharks` gamerule** (opt-in, `false` by default): when enabled, large predatory sharks — great white, bull, tiger, mako, megalodon, and more — actively hunt players. Filter feeders and tamed sharks stay passive. Toggle per world with `/gamerule aggressiveSharks true`.
+- 🧪 **In-game effect descriptions** for the nine custom mob effects, shown on the effects screen and potion tooltips.
+- 🈶 **Simplified Chinese localization** (`zh_cn`) covering all 157 lang keys.
+- 🎨 **Shader-friendly rendering**: sharks now render in the cutout pass, fixing invisible sharks above water with shader packs such as Iris "makeup-ultrafast".
+- 🐕 **Tamed sharks no longer beach themselves** while following their owner — they only path through water.
+
 ### Requirements
 
 - Minecraft **1.21.1**
 - **[NeoForge 21.1.x](https://neoforged.net/)**
 - **[GeckoLib 4.x](https://www.curseforge.com/minecraft/mc-mods/geckolib)** — required dependency
+- **Java 21**
 
 Only the NeoForge 1.21.1 target is currently verified. Do not mix this file's instructions with a different Minecraft version or loader.
 
@@ -34,15 +43,18 @@ Only the NeoForge 1.21.1 target is currently verified. Do not mix this file's in
 3. Download the Dwurdy Sharks jar for Minecraft 1.21.1 and place it in your `mods` folder.
 4. Launch the game and explore the oceans.
 
-### Migration from Ben's Sharks
+### ⚠️ Migrating from Ben's Sharks — important in 1.3.0
 
-Before migrating, stop the game and make a world or server backup. Remove the old Ben's Sharks jar before adding Dwurdy Sharks; never load both jars together. After the swap, tamed sharks still persist, while wild sharks are once again allowed to despawn normally.
+Dwurdy Sharks 1.3.0 registers under its own **`dwurdysharks`** mod ID instead of `benssharks`. Worlds saved by Ben's Sharks or Dwurdy Sharks ≤1.2.8 contain `benssharks:*` entity, item, block, effect, and sound identifiers that 1.3.0 does not resolve — those modded objects will be **missing** if you load an old world under 1.3.0.
 
-> **⚠️ Breaking change in 1.3.0:** Dwurdy Sharks now registers under its own `dwurdysharks` mod ID instead of `benssharks`. Worlds saved by Ben's Sharks or Dwurdy Sharks ≤1.2.8 contain `benssharks:*` entity, item, block, effect, and sound identifiers that 1.3.0 does not resolve — those modded objects will be missing if you load an old world under 1.3.0. Always back up first. To keep an existing world fully intact, stay on Dwurdy Sharks 1.2.8, which still uses the `benssharks` ID.
+1. **Back up your world first.** There is no automatic data migration in this release.
+2. Remove the Ben's Sharks (or Dwurdy Sharks ≤1.2.x) jar and add the new jar. **Never load both jars together.**
+3. To keep an existing world fully intact, stay on a `benssharks`-ID build — Dwurdy Sharks 1.2.7 on [GitHub Releases](https://github.com/DurdeuVlad/dwurdy-sharks/releases), or upstream Ben's Sharks — or start a fresh world on 1.3.0.
 
 ### Links
 
 - Source: https://github.com/DurdeuVlad/dwurdy-sharks
+- Releases & changelogs: https://github.com/DurdeuVlad/dwurdy-sharks/releases
 - Original Ben's Sharks source: https://github.com/PaoloBen/BensSharks
 - Original Modrinth page: https://modrinth.com/mod/bens-sharks
 - Original CurseForge page: https://www.curseforge.com/minecraft/mc-mods/bens-sharks
@@ -50,3 +62,5 @@ Before migrating, stop the game and make a world or server backup. Remove the ol
 ### License
 
 LGPL-3.0, the same license used by the upstream project.
+
+— The Dwurdy Sharks Team
