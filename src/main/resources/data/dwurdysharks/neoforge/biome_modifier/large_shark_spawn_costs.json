@@ -1,0 +1,28 @@
+{
+  "type": "neoforge:add_spawn_costs",
+  "biomes": "#dwurdysharks:shark_spawning_oceans",
+  "entity_types": [
+    "dwurdysharks:axodile",
+    "dwurdysharks:barracuda",
+    "dwurdysharks:basking_shark",
+    "dwurdysharks:blacktip_reef_shark",
+    "dwurdysharks:blue_shark",
+    "dwurdysharks:bonnethead_shark",
+    "dwurdysharks:bull_shark",
+    "dwurdysharks:cookiecutter_shark",
+    "dwurdysharks:greater_axodile",
+    "dwurdysharks:greatwhiteshark",
+    "dwurdysharks:greenland_shark",
+    "dwurdysharks:lemon_shark",
+    "dwurdysharks:mako_shark",
+    "dwurdysharks:megalodon",
+    "dwurdysharks:nurse_shark",
+    "dwurdysharks:tiger_shark",
+    "dwurdysharks:whale_shark",
+    "dwurdysharks:whitetip_shark"
+  ],
+  "spawn_cost": {
+    "energy_budget": 24.0,
+    "charge": 8.0
+  }
+}
