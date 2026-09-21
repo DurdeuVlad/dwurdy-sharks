@@ -1,9 +1,7 @@
 package net.mcreator.sharks.procedures;
 
-import net.mcreator.sharks.BenssharksMod;
 import net.mcreator.sharks.entity.BarracudaEntity;
 import net.mcreator.sharks.init.BenssharksModMobEffects;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.LevelAccessor;
@@ -16,13 +14,9 @@ public class BarracudaOnEntityTickUpdateProcedure {
                ((BarracudaEntity)entity).setAnimation("land");
             }
 
-            BenssharksMod.queueServerWork(600, () -> {
-               if (entity instanceof LivingEntity _entity && !_entity.level().isClientSide()) {
-                  _entity.addEffect(new MobEffectInstance(BenssharksModMobEffects.DRYOUT_EFFECT, 600, 0, true, false));
-               }
-            });
+            DryoutProcedure.dryTick(entity, 600, 600);
          } else if (entity.isInWaterRainOrBubble() && entity instanceof LivingEntity _entity) {
-            _entity.removeEffect(BenssharksModMobEffects.DRYOUT_EFFECT);
+            DryoutProcedure.wetTick(_entity);
          }
 
          if (entity instanceof BarracudaEntity

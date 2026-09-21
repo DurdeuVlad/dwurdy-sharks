@@ -14,6 +14,7 @@ Run the static regression guards as well:
 ```powershell
 pwsh -NoProfile -File tools/verify-persistence.ps1
 pwsh -NoProfile -File tools/verify-spawn-procedures.ps1
+pwsh -NoProfile -File tools/verify-dryout.ps1
 ```
 
 The build must finish successfully and produce a jar in `build/libs/`. A
