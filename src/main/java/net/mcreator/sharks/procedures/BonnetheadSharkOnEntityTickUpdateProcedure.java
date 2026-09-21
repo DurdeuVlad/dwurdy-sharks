@@ -1,10 +1,7 @@
 package net.mcreator.sharks.procedures;
 
-import net.mcreator.sharks.BenssharksMod;
 import net.mcreator.sharks.entity.BonnetheadSharkEntity;
-import net.mcreator.sharks.init.BenssharksModMobEffects;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.LevelAccessor;
@@ -15,13 +12,9 @@ public class BonnetheadSharkOnEntityTickUpdateProcedure {
       if (entity != null) {
          double velocityY = 0.0;
          if (entity instanceof BonnetheadSharkEntity && !entity.isInWaterOrBubble()) {
-            BenssharksMod.queueServerWork(600, () -> {
-               if (entity instanceof LivingEntity _entityx && !_entityx.level().isClientSide()) {
-                  _entityx.addEffect(new MobEffectInstance(BenssharksModMobEffects.DRYOUT_EFFECT, 600, 0, true, false));
-               }
-            });
+            DryoutProcedure.dryTick(entity, 600, 600);
          } else if (entity.isInWaterOrBubble() && entity instanceof LivingEntity _entity) {
-            _entity.removeEffect(BenssharksModMobEffects.DRYOUT_EFFECT);
+            DryoutProcedure.wetTick(_entity);
          }
 
          if (world.getBlockState(BlockPos.containing(x, y, z)).getBlock() == Blocks.TALL_SEAGRASS) {
