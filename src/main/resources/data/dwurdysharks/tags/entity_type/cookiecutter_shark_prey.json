@@ -1,0 +1,27 @@
+{
+  "replace": false,
+  "values": [
+    "dwurdysharks:megalodon",
+    "dwurdysharks:greater_axodile",
+    "dwurdysharks:greenland_shark",
+    "dwurdysharks:greatwhiteshark",
+    "dwurdysharks:tiger_shark",
+    "dwurdysharks:mako_shark",
+    "dwurdysharks:blue_shark",
+    "dwurdysharks:bull_shark",
+    "dwurdysharks:whitetip_shark",
+    "dwurdysharks:lemon_shark",
+    "dwurdysharks:nurse_shark",
+    "dwurdysharks:blacktip_reef_shark",
+    "dwurdysharks:bonnethead_shark",
+    "dwurdysharks:barracuda",
+    "minecraft:glow_squid",
+    "minecraft:squid",
+    "dwurdysharks:axodile",
+    "minecraft:turtle",
+    "minecraft:dolphin",
+    "dwurdysharks:whale_shark",
+    "dwurdysharks:basking_shark",
+    "dwurdysharks:land_shark"
+  ]
+}

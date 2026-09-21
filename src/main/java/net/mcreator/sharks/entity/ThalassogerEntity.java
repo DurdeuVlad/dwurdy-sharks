@@ -3,6 +3,7 @@ package net.mcreator.sharks.entity;
 import java.util.EnumSet;
 import javax.annotation.Nullable;
 import net.mcreator.sharks.init.BenssharksModEntities;
+import net.mcreator.sharks.init.DwurdySharksEntityTypeTags;
 import net.mcreator.sharks.procedures.ThalassogerOnEntityTickUpdateProcedure;
 import net.mcreator.sharks.procedures.ThalassogerThisEntityKillsAnotherOneProcedure;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -32,11 +33,7 @@ import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.Goal.Flag;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.monster.RangedAttackMob;
-import net.minecraft.world.entity.npc.Villager;
-import net.minecraft.world.entity.npc.WanderingTrader;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.raid.Raider;
 import net.minecraft.world.entity.raid.Raid.RaiderType;
 import net.minecraft.world.level.Level;
@@ -95,11 +92,8 @@ public class ThalassogerEntity extends Raider implements RangedAttackMob, GeoEnt
       this.goalSelector.addGoal(4, new AvoidEntityGoal(this, MegalodonEntity.class, 6.0F, 1.0, 1.2));
       this.goalSelector.addGoal(5, new AvoidEntityGoal(this, ShrakEntity.class, 6.0F, 1.0, 1.2));
       this.goalSelector.addGoal(6, new AvoidEntityGoal(this, TigerSharkEntity.class, 6.0F, 1.0, 1.2));
-      this.targetSelector.addGoal(7, new NearestAttackableTargetGoal(this, IronGolem.class, true, true));
-      this.targetSelector.addGoal(8, new NearestAttackableTargetGoal(this, Player.class, true, true));
-      this.targetSelector.addGoal(9, new NearestAttackableTargetGoal(this, Villager.class, true, true));
-      this.targetSelector.addGoal(10, new NearestAttackableTargetGoal(this, WanderingTrader.class, true, true));
-      this.targetSelector.addGoal(11, new NearestAttackableTargetGoal(this, LandSharkEntity.class, true, true));
+      this.targetSelector.addGoal(7, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, true, true,
+         e -> e.getType().is(DwurdySharksEntityTypeTags.THALASSOGER_PREY)));
       this.goalSelector.addGoal(12, new FloatGoal(this));
       this.goalSelector.addGoal(1, new ThalassogerEntity.RangedAttackGoal(this, 1.25, 80, 24.0F) {
          @Override

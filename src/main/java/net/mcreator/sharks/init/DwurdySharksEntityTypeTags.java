@@ -15,6 +15,91 @@ public final class DwurdySharksEntityTypeTags {
       ResourceLocation.fromNamespaceAndPath("dwurdysharks", "ambient_fish")
    );
 
+   public static final TagKey<EntityType<?>> AXODILE_PREY = TagKey.create(
+      Registries.ENTITY_TYPE,
+      ResourceLocation.fromNamespaceAndPath("dwurdysharks", "axodile_prey")
+   );
+   public static final TagKey<EntityType<?>> BARRACUDA_PREY = TagKey.create(
+      Registries.ENTITY_TYPE,
+      ResourceLocation.fromNamespaceAndPath("dwurdysharks", "barracuda_prey")
+   );
+   public static final TagKey<EntityType<?>> BASKING_SHARK_PREY = TagKey.create(
+      Registries.ENTITY_TYPE,
+      ResourceLocation.fromNamespaceAndPath("dwurdysharks", "basking_shark_prey")
+   );
+   public static final TagKey<EntityType<?>> BLACKTIP_REEF_SHARK_PREY = TagKey.create(
+      Registries.ENTITY_TYPE,
+      ResourceLocation.fromNamespaceAndPath("dwurdysharks", "blacktip_reef_shark_prey")
+   );
+   public static final TagKey<EntityType<?>> BLUE_SHARK_PREY = TagKey.create(
+      Registries.ENTITY_TYPE,
+      ResourceLocation.fromNamespaceAndPath("dwurdysharks", "blue_shark_prey")
+   );
+   public static final TagKey<EntityType<?>> BONNETHEAD_SHARK_PREY = TagKey.create(
+      Registries.ENTITY_TYPE,
+      ResourceLocation.fromNamespaceAndPath("dwurdysharks", "bonnethead_shark_prey")
+   );
+   public static final TagKey<EntityType<?>> BULL_SHARK_PREY = TagKey.create(
+      Registries.ENTITY_TYPE,
+      ResourceLocation.fromNamespaceAndPath("dwurdysharks", "bull_shark_prey")
+   );
+   public static final TagKey<EntityType<?>> COOKIECUTTER_SHARK_PREY = TagKey.create(
+      Registries.ENTITY_TYPE,
+      ResourceLocation.fromNamespaceAndPath("dwurdysharks", "cookiecutter_shark_prey")
+   );
+   public static final TagKey<EntityType<?>> GREATER_AXODILE_PREY = TagKey.create(
+      Registries.ENTITY_TYPE,
+      ResourceLocation.fromNamespaceAndPath("dwurdysharks", "greater_axodile_prey")
+   );
+   public static final TagKey<EntityType<?>> GREATWHITESHARK_PREY = TagKey.create(
+      Registries.ENTITY_TYPE,
+      ResourceLocation.fromNamespaceAndPath("dwurdysharks", "greatwhiteshark_prey")
+   );
+   public static final TagKey<EntityType<?>> GREENLAND_SHARK_PREY = TagKey.create(
+      Registries.ENTITY_TYPE,
+      ResourceLocation.fromNamespaceAndPath("dwurdysharks", "greenland_shark_prey")
+   );
+   public static final TagKey<EntityType<?>> LEMON_SHARK_PREY = TagKey.create(
+      Registries.ENTITY_TYPE,
+      ResourceLocation.fromNamespaceAndPath("dwurdysharks", "lemon_shark_prey")
+   );
+   public static final TagKey<EntityType<?>> MAKO_SHARK_PREY = TagKey.create(
+      Registries.ENTITY_TYPE,
+      ResourceLocation.fromNamespaceAndPath("dwurdysharks", "mako_shark_prey")
+   );
+   public static final TagKey<EntityType<?>> MEGALODON_PREY = TagKey.create(
+      Registries.ENTITY_TYPE,
+      ResourceLocation.fromNamespaceAndPath("dwurdysharks", "megalodon_prey")
+   );
+   public static final TagKey<EntityType<?>> PILOT_FISH_TARGETS = TagKey.create(
+      Registries.ENTITY_TYPE,
+      ResourceLocation.fromNamespaceAndPath("dwurdysharks", "pilot_fish_targets")
+   );
+   public static final TagKey<EntityType<?>> REMORA_TARGETS = TagKey.create(
+      Registries.ENTITY_TYPE,
+      ResourceLocation.fromNamespaceAndPath("dwurdysharks", "remora_targets")
+   );
+   public static final TagKey<EntityType<?>> ROLL_PARTICLE_TARGETS = TagKey.create(
+      Registries.ENTITY_TYPE,
+      ResourceLocation.fromNamespaceAndPath("dwurdysharks", "roll_particle_targets")
+   );
+   public static final TagKey<EntityType<?>> THALASSOGER_PREY = TagKey.create(
+      Registries.ENTITY_TYPE,
+      ResourceLocation.fromNamespaceAndPath("dwurdysharks", "thalassoger_prey")
+   );
+   public static final TagKey<EntityType<?>> TIGER_SHARK_PREY = TagKey.create(
+      Registries.ENTITY_TYPE,
+      ResourceLocation.fromNamespaceAndPath("dwurdysharks", "tiger_shark_prey")
+   );
+   public static final TagKey<EntityType<?>> WHALE_SHARK_PREY = TagKey.create(
+      Registries.ENTITY_TYPE,
+      ResourceLocation.fromNamespaceAndPath("dwurdysharks", "whale_shark_prey")
+   );
+   public static final TagKey<EntityType<?>> WHITETIP_SHARK_PREY = TagKey.create(
+      Registries.ENTITY_TYPE,
+      ResourceLocation.fromNamespaceAndPath("dwurdysharks", "whitetip_shark_prey")
+   );
+
    private DwurdySharksEntityTypeTags() {
    }
 }

@@ -1,0 +1,23 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:elder_guardian",
+    "minecraft:guardian",
+    "dwurdysharks:cookiecutter_shark",
+    "dwurdysharks:greater_axodile",
+    "dwurdysharks:axodile",
+    "minecraft:turtle",
+    "minecraft:glow_squid",
+    "minecraft:squid",
+    "dwurdysharks:whale_shark",
+    "dwurdysharks:basking_shark",
+    "dwurdysharks:greenland_shark",
+    "dwurdysharks:greatwhiteshark",
+    "dwurdysharks:tiger_shark",
+    "dwurdysharks:mako_shark",
+    "dwurdysharks:blue_shark",
+    "dwurdysharks:bull_shark",
+    "dwurdysharks:whitetip_shark",
+    "dwurdysharks:lemon_shark"
+  ]
+}

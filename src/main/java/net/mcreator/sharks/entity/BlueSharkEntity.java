@@ -2,6 +2,7 @@ package net.mcreator.sharks.entity;
 
 import javax.annotation.Nullable;
 import net.mcreator.sharks.init.BenssharksModEntities;
+import net.mcreator.sharks.init.DwurdySharksEntityTypeTags;
 import net.mcreator.sharks.init.DwurdySharksBiomeTags;
 import net.mcreator.sharks.init.BenssharksModItems;
 import net.mcreator.sharks.procedures.AggressiveSharksProcedureProcedure;
@@ -25,7 +26,6 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.GlowSquid;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
@@ -47,7 +47,6 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
 import net.minecraft.world.entity.animal.Dolphin;
-import net.minecraft.world.entity.animal.Squid;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.monster.ElderGuardian;
 import net.minecraft.world.entity.monster.Guardian;
@@ -160,11 +159,8 @@ public class BlueSharkEntity extends PathfinderMob implements GeoEntity {
          );
       this.goalSelector.addGoal(2, new PanicGoal(this, 1.2));
       this.targetSelector.addGoal(3, new HurtByTargetGoal(this, new Class[0]).setAlertOthers(new Class[0]));
-      this.targetSelector.addGoal(4, new NearestAttackableTargetGoal(this, CookiecutterSharkEntity.class, true, true));
-      this.targetSelector.addGoal(5, new NearestAttackableTargetGoal(this, Guardian.class, true, true));
-      this.targetSelector.addGoal(6, new NearestAttackableTargetGoal(this, BarracudaEntity.class, true, true));
-      this.targetSelector.addGoal(7, new NearestAttackableTargetGoal(this, GlowSquid.class, true, true));
-      this.targetSelector.addGoal(8, new NearestAttackableTargetGoal(this, Squid.class, true, true));
+      this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, true, true,
+         e -> e.getType().is(DwurdySharksEntityTypeTags.BLUE_SHARK_PREY)));
       this.targetSelector.addGoal(9, new NearestAttackableTargetGoal(this, Player.class, true, true) {
          public boolean canUse() {
             return super.canUse() && AggressiveSharksProcedureProcedure.execute(BlueSharkEntity.this.level());
