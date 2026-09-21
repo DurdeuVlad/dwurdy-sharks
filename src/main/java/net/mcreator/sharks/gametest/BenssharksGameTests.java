@@ -111,6 +111,42 @@ public class BenssharksGameTests {
       });
    }
 
+   @GameTest(template = "pool", batch = "stress_population", timeoutTicks = 1500, required = false)
+   public static void sharkPopulationTickCost(GameTestHelper helper) {
+      ServerLevel level = helper.getLevel();
+      level.getServer().setDifficulty(Difficulty.NORMAL, true);
+      level.getGameRules().getRule(BenssharksModGameRules.AGGRESSIVE_SHARKS).set(true, level.getServer());
+      fillPool(helper);
+      net.minecraft.world.entity.EntityType<?>[] types = new net.minecraft.world.entity.EntityType[]{
+         BenssharksModEntities.BULL_SHARK.get(), BenssharksModEntities.TIGER_SHARK.get(),
+         BenssharksModEntities.MAKO_SHARK.get(), BenssharksModEntities.LEMON_SHARK.get(),
+         BenssharksModEntities.BLUE_SHARK.get(), BenssharksModEntities.BASKING_SHARK.get(),
+         BenssharksModEntities.WHALE_SHARK.get(), BenssharksModEntities.BLACKTIP_REEF_SHARK.get(),
+         BenssharksModEntities.BONNETHEAD_SHARK.get(), BenssharksModEntities.BARRACUDA.get()
+      };
+      int spawned = 0;
+      for (int i = 0; i < 100; i++) {
+         try {
+            helper.spawn(types[i % types.length], 1 + i % 4, 1 + i / 50, 1 + i / 4 % 4);
+            spawned++;
+         } catch (Throwable ignored) {
+         }
+      }
+      placeSurvivalPlayer(helper, 3, 2, 4);
+      int total = spawned;
+      helper.runAtTickTime(1200L, () -> {
+         float mspt = level.getServer().getAverageTickTimeNanos() / 1000000.0F;
+         long alive = level.getEntitiesOfClass(
+            net.minecraft.world.entity.Mob.class,
+            net.minecraft.world.phys.AABB.ofSize(helper.absolutePos(new BlockPos(2, 1, 2)).getCenter(), 40.0, 40.0, 40.0),
+            e -> e.getType().is(net.mcreator.sharks.init.DwurdySharksEntityTypeTags.SHARKS)).size();
+         BenssharksMod.LOGGER.info(
+            "[stress_population] {} sharks spawned, {} alive, server avg tick time {} ms (last 100 ticks, aggressiveSharks=true, survival player present)",
+            total, alive, String.format(java.util.Locale.ROOT, "%.2f", mspt));
+         helper.succeed();
+      });
+   }
+
    private static void fillPool(GameTestHelper helper) {
       for (int x = 0; x <= 4; x++) {
          for (int z = 0; z <= 4; z++) {
