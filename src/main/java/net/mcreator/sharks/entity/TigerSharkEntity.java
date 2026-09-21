@@ -234,7 +234,6 @@ public class TigerSharkEntity extends PathfinderMob implements GeoEntity {
    public void baseTick() {
       super.baseTick();
       TigerSharkOnEntityTickUpdateProcedure.execute(this.level(), this);
-      this.refreshDimensions();
    }
 
    public EntityDimensions getDefaultDimensions(Pose pose) {

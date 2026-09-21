@@ -240,7 +240,6 @@ public class BlueSharkEntity extends PathfinderMob implements GeoEntity {
    public void baseTick() {
       super.baseTick();
       BlueSharkOnEntityTickUpdateProcedure.execute(this.level(), this);
-      this.refreshDimensions();
    }
 
    public EntityDimensions getDefaultDimensions(Pose pose) {

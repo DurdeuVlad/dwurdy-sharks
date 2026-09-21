@@ -166,7 +166,6 @@ public class KrillEntity extends PathfinderMob implements GeoEntity {
    public void baseTick() {
       super.baseTick();
       KrillOnEntityTickUpdateProcedure.execute(this.level(), this);
-      this.refreshDimensions();
    }
 
    public EntityDimensions getDefaultDimensions(Pose pose) {

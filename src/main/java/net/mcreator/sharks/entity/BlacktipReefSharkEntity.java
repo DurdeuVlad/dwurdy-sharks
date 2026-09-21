@@ -279,7 +279,6 @@ public class BlacktipReefSharkEntity extends Animal implements GeoEntity {
    public void baseTick() {
       super.baseTick();
       BlacktipReefSharkOnEntityTickUpdateProcedure.execute(this.level(), this);
-      this.refreshDimensions();
    }
 
    public EntityDimensions getDefaultDimensions(Pose pose) {

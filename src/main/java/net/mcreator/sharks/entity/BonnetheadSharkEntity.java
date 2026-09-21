@@ -280,7 +280,6 @@ public class BonnetheadSharkEntity extends Animal implements GeoEntity {
    public void baseTick() {
       super.baseTick();
       BonnetheadSharkOnEntityTickUpdateProcedure.execute(this.level(), this.getX(), this.getY(), this.getZ(), this);
-      this.refreshDimensions();
    }
 
    public EntityDimensions getDefaultDimensions(Pose pose) {

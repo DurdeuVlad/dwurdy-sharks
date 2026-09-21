@@ -400,7 +400,6 @@ public class NurseSharkEntity extends TamableAnimal implements GeoEntity {
    public void baseTick() {
       super.baseTick();
       NurseSharkOnEntityTickUpdateProcedure.execute(this.level(), this);
-      this.refreshDimensions();
    }
 
    public EntityDimensions getDefaultDimensions(Pose pose) {

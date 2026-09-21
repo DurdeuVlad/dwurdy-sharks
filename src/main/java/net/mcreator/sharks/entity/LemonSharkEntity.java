@@ -239,7 +239,6 @@ public class LemonSharkEntity extends Animal implements GeoEntity {
    public void baseTick() {
       super.baseTick();
       LemonSharkOnEntityTickUpdateProcedure.execute(this.level(), this);
-      this.refreshDimensions();
    }
 
    public EntityDimensions getDefaultDimensions(Pose pose) {

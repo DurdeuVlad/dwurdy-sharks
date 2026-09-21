@@ -226,7 +226,6 @@ public class GreenlandSharkEntity extends PathfinderMob implements GeoEntity {
    public void baseTick() {
       super.baseTick();
       GreenlandSharkOnEntityTickUpdateProcedure.execute(this.level(), this);
-      this.refreshDimensions();
    }
 
    public EntityDimensions getDefaultDimensions(Pose pose) {

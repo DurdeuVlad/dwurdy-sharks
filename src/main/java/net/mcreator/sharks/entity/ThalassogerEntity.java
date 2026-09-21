@@ -139,7 +139,6 @@ public class ThalassogerEntity extends Raider implements RangedAttackMob, GeoEnt
    public void baseTick() {
       super.baseTick();
       ThalassogerOnEntityTickUpdateProcedure.execute();
-      this.refreshDimensions();
    }
 
    public EntityDimensions getDefaultDimensions(Pose pose) {

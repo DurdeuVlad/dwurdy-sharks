@@ -237,7 +237,6 @@ public class BarracudaEntity extends PathfinderMob implements GeoEntity {
    public void baseTick() {
       super.baseTick();
       BarracudaOnEntityTickUpdateProcedure.execute(this.level(), this);
-      this.refreshDimensions();
    }
 
    public EntityDimensions getDefaultDimensions(Pose pose) {
