@@ -6,6 +6,9 @@ import net.mcreator.sharks.init.DwurdySharksEntityTypeTags;
 import net.mcreator.sharks.init.DwurdySharksBiomeTags;
 import net.mcreator.sharks.init.DwurdySharksConfig;
 import net.mcreator.sharks.init.BenssharksModItems;
+import net.mcreator.sharks.procedures.StopRidingBoatProcedure;
+import net.mcreator.sharks.procedures.SharkBleedProcedure;
+import net.mcreator.sharks.procedures.EatDroppedItemProcedure;
 import net.mcreator.sharks.procedures.AggressiveSharksProcedureProcedure;
 import net.mcreator.sharks.procedures.TigerSharkEntityIsHurtProcedure;
 import net.mcreator.sharks.procedures.TigerSharkOnEntityTickUpdateProcedure;
@@ -235,6 +238,9 @@ public class TigerSharkEntity extends PathfinderMob implements GeoEntity {
    public void baseTick() {
       super.baseTick();
       TigerSharkOnEntityTickUpdateProcedure.execute(this.level(), this);
+      EatDroppedItemProcedure.execute(this.level(), this.getX(), this.getY(), this.getZ(), this);
+      SharkBleedProcedure.execute(this.level(), this);
+      StopRidingBoatProcedure.execute(this);
    }
 
    public EntityDimensions getDefaultDimensions(Pose pose) {

@@ -38,9 +38,6 @@ public class NurseSharkEntityIsHurtProcedure {
             }
 
             BenssharksMod.queueServerWork(600, () -> {
-               if (entity instanceof LivingEntity _entityx) {
-                  _entityx.removeEffect(MobEffects.DOLPHINS_GRACE);
-               }
 
                if (entity instanceof NurseSharkEntity) {
                   ((NurseSharkEntity)entity).setAnimation("empty");

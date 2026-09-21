@@ -5,6 +5,8 @@ import net.mcreator.sharks.init.BenssharksModEntities;
 import net.mcreator.sharks.init.DwurdySharksEntityTypeTags;
 import net.mcreator.sharks.init.DwurdySharksBiomeTags;
 import net.mcreator.sharks.init.DwurdySharksConfig;
+import net.mcreator.sharks.procedures.StopRidingBoatProcedure;
+import net.mcreator.sharks.procedures.EatDroppedItemProcedure;
 import net.mcreator.sharks.procedures.GreaterAxodileOnEntityTickUpdateProcedure;
 import net.mcreator.sharks.procedures.GreaterAxodileOnInitialEntitySpawnProcedure;
 import net.mcreator.sharks.procedures.GreaterAxodileThisEntityKillsAnotherOneProcedure;
@@ -190,6 +192,8 @@ public class GreaterAxodileEntity extends PathfinderMob implements GeoEntity {
    public void baseTick() {
       super.baseTick();
       GreaterAxodileOnEntityTickUpdateProcedure.execute(this.level(), this);
+      EatDroppedItemProcedure.execute(this.level(), this.getX(), this.getY(), this.getZ(), this);
+      StopRidingBoatProcedure.execute(this);
    }
 
    public EntityDimensions getDefaultDimensions(Pose pose) {

@@ -38,9 +38,6 @@ public class MakoSharkEntityIsHurtProcedure {
             }
 
             BenssharksMod.queueServerWork(600, () -> {
-               if (entity instanceof LivingEntity _entityx) {
-                  _entityx.removeEffect(BenssharksModMobEffects.FRENZY);
-               }
 
                if (entity instanceof MakoSharkEntity) {
                   ((MakoSharkEntity)entity).setAnimation("empty");

@@ -21,9 +21,6 @@ public class BullSharkEntityIsHurtProcedure {
             }
 
             BenssharksMod.queueServerWork(600, () -> {
-               if (entity instanceof LivingEntity _entityx) {
-                  _entityx.removeEffect(MobEffects.DOLPHINS_GRACE);
-               }
 
                if (entity instanceof BullSharkEntity) {
                   ((BullSharkEntity)entity).setAnimation("empty");

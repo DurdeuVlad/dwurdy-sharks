@@ -38,9 +38,6 @@ public class BlacktipReefSharkEntityIsHurtProcedure {
             }
 
             BenssharksMod.queueServerWork(600, () -> {
-               if (entity instanceof LivingEntity _entityx) {
-                  _entityx.removeEffect(MobEffects.DOLPHINS_GRACE);
-               }
 
                if (entity instanceof BlacktipReefSharkEntity) {
                   ((BlacktipReefSharkEntity)entity).setAnimation("empty");

@@ -5,6 +5,7 @@ import net.mcreator.sharks.init.BenssharksModEntities;
 import net.mcreator.sharks.init.DwurdySharksEntityTypeTags;
 import net.mcreator.sharks.init.DwurdySharksBiomeTags;
 import net.mcreator.sharks.init.DwurdySharksConfig;
+import net.mcreator.sharks.procedures.StopRidingBoatProcedure;
 import net.mcreator.sharks.procedures.AggressiveSharksProcedureProcedure;
 import net.mcreator.sharks.procedures.CookiecutterSharkOnEntityTickUpdateProcedure;
 import net.mcreator.sharks.procedures.CookiecutterSharkOnInitialEntitySpawnProcedure;
@@ -250,6 +251,7 @@ public class CookiecutterSharkEntity extends PathfinderMob implements GeoEntity 
    public void baseTick() {
       super.baseTick();
       CookiecutterSharkOnEntityTickUpdateProcedure.execute(this.level(), this);
+      StopRidingBoatProcedure.execute(this);
    }
 
    public EntityDimensions getDefaultDimensions(Pose pose) {

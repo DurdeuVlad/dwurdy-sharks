@@ -3,6 +3,7 @@ package net.mcreator.sharks.entity;
 import java.util.List;
 import javax.annotation.Nullable;
 import net.mcreator.sharks.init.BenssharksModEntities;
+import net.mcreator.sharks.procedures.SharkBleedProcedure;
 import net.mcreator.sharks.procedures.IfSittingProcedure;
 import net.mcreator.sharks.procedures.IfTamedProcedure;
 import net.mcreator.sharks.procedures.LandSharkEntityIsHurtProcedure;
@@ -575,6 +576,7 @@ public class LandSharkEntity extends TamableAnimal implements GeoEntity {
    public void baseTick() {
       super.baseTick();
       LandSharkOnEntityTickUpdateProcedure.execute(this);
+      SharkBleedProcedure.execute(this.level(), this);
    }
 
    public EntityDimensions getDefaultDimensions(Pose pose) {

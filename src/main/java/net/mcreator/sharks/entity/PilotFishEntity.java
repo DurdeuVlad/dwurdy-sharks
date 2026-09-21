@@ -6,6 +6,7 @@ import net.mcreator.sharks.init.DwurdySharksEntityTypeTags;
 import net.mcreator.sharks.init.DwurdySharksBiomeTags;
 import net.mcreator.sharks.init.DwurdySharksConfig;
 import net.mcreator.sharks.init.BenssharksModItems;
+import net.mcreator.sharks.procedures.StopRidingBoatProcedure;
 import net.mcreator.sharks.procedures.PilotFishOnEntityTickUpdateProcedure;
 import net.mcreator.sharks.procedures.PilotFishOnInitialEntitySpawnProcedure;
 import net.mcreator.sharks.procedures.PilotFishRightClickedOnEntityProcedure;
@@ -207,6 +208,7 @@ public class PilotFishEntity extends PathfinderMob implements GeoEntity {
    public void baseTick() {
       super.baseTick();
       PilotFishOnEntityTickUpdateProcedure.execute(this.level(), this);
+      StopRidingBoatProcedure.execute(this);
    }
 
    public EntityDimensions getDefaultDimensions(Pose pose) {

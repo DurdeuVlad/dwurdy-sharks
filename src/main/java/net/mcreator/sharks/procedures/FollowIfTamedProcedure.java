@@ -1,6 +1,5 @@
 package net.mcreator.sharks.procedures;
 
-import javax.annotation.Nullable;
 import net.mcreator.sharks.entity.BlacktipReefSharkEntity;
 import net.mcreator.sharks.entity.BonnetheadSharkEntity;
 import net.mcreator.sharks.entity.NurseSharkEntity;
@@ -15,27 +14,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.bus.api.Event;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.NeoForgeMod;
-import net.neoforged.neoforge.event.tick.EntityTickEvent.Pre;
 
-@EventBusSubscriber
 public class FollowIfTamedProcedure {
-   @SubscribeEvent
-   public static void onEntityTick(Pre event) {
-      if (!(event.getEntity() instanceof TamableAnimal)) {
-         return;
-      }
-      execute(event, event.getEntity().level(), event.getEntity().getX(), event.getEntity().getY(), event.getEntity().getZ(), event.getEntity());
-   }
-
    public static void execute(LevelAccessor world, double x, double y, double z, Entity entity) {
-      execute(null, world, x, y, z, entity);
-   }
-
-   private static void execute(@Nullable Event event, LevelAccessor world, double x, double y, double z, Entity entity) {
       if (entity != null) {
          if ((entity instanceof TamableAnimal _tamEntx ? _tamEntx.getOwner() : null) instanceof Player
             && (entity instanceof NurseSharkEntity || entity instanceof BonnetheadSharkEntity || entity instanceof BlacktipReefSharkEntity)

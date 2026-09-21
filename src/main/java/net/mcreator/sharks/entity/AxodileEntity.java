@@ -5,6 +5,8 @@ import net.mcreator.sharks.init.BenssharksModEntities;
 import net.mcreator.sharks.init.DwurdySharksEntityTypeTags;
 import net.mcreator.sharks.init.DwurdySharksBiomeTags;
 import net.mcreator.sharks.init.DwurdySharksConfig;
+import net.mcreator.sharks.procedures.StopRidingBoatProcedure;
+import net.mcreator.sharks.procedures.EatDroppedItemProcedure;
 import net.mcreator.sharks.procedures.AxodileOnEntityTickUpdateProcedure;
 import net.mcreator.sharks.procedures.AxodileOnInitialEntitySpawnProcedure;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -189,6 +191,8 @@ public class AxodileEntity extends PathfinderMob implements GeoEntity {
    public void baseTick() {
       super.baseTick();
       AxodileOnEntityTickUpdateProcedure.execute(this.level(), this.getX(), this.getY(), this.getZ(), this);
+      EatDroppedItemProcedure.execute(this.level(), this.getX(), this.getY(), this.getZ(), this);
+      StopRidingBoatProcedure.execute(this);
    }
 
    public EntityDimensions getDefaultDimensions(Pose pose) {

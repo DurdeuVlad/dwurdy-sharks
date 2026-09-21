@@ -21,9 +21,6 @@ public class GreenlandSharkEntityIsHurtProcedure {
             }
 
             BenssharksMod.queueServerWork(600, () -> {
-               if (entity instanceof LivingEntity _entityx) {
-                  _entityx.removeEffect(MobEffects.DOLPHINS_GRACE);
-               }
 
                if (entity instanceof GreenlandSharkEntity) {
                   ((GreenlandSharkEntity)entity).setAnimation("empty");

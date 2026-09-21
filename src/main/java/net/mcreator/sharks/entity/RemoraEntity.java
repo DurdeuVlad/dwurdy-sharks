@@ -6,6 +6,7 @@ import net.mcreator.sharks.init.DwurdySharksEntityTypeTags;
 import net.mcreator.sharks.init.DwurdySharksBiomeTags;
 import net.mcreator.sharks.init.DwurdySharksConfig;
 import net.mcreator.sharks.init.BenssharksModItems;
+import net.mcreator.sharks.procedures.StopRidingBoatProcedure;
 import net.mcreator.sharks.procedures.RemoraOnEntityTickUpdateProcedure;
 import net.mcreator.sharks.procedures.RemoraOnInitialEntitySpawnProcedure;
 import net.mcreator.sharks.procedures.RemoraPlayerCollidesWithThisEntityProcedure;
@@ -236,6 +237,7 @@ public class RemoraEntity extends PathfinderMob implements GeoEntity {
    public void baseTick() {
       super.baseTick();
       RemoraOnEntityTickUpdateProcedure.execute(this.level(), this);
+      StopRidingBoatProcedure.execute(this);
    }
 
    public EntityDimensions getDefaultDimensions(Pose pose) {
