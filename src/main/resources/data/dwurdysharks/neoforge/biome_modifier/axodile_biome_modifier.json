@@ -4,8 +4,7 @@
     "cold_ocean",
     "deep_cold_ocean",
     "deep_frozen_ocean",
-    "frozen_ocean",
-    "snowy_beach"
+    "frozen_ocean"
   ],
   "spawners": {
     "type": "dwurdysharks:axodile",

@@ -2,9 +2,7 @@
   "type": "neoforge:add_spawns",
   "biomes": [
     "lukewarm_ocean",
-    "warm_ocean",
-    "beach",
-    "mangrove_swamp"
+    "warm_ocean"
   ],
   "spawners": {
     "type": "dwurdysharks:blacktip_reef_shark",

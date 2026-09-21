@@ -1,12 +1,9 @@
 {
   "type": "neoforge:add_spawns",
   "biomes": [
-    "beach",
     "lukewarm_ocean",
     "warm_ocean",
-    "ocean",
-    "mangrove_swamp",
-    "stony_shore"
+    "ocean"
   ],
   "spawners": {
     "type": "dwurdysharks:nurse_shark",

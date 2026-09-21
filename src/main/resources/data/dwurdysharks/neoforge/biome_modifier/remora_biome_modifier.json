@@ -5,8 +5,7 @@
     "deep_ocean",
     "lukewarm_ocean",
     "ocean",
-    "warm_ocean",
-    "beach"
+    "warm_ocean"
   ],
   "spawners": {
     "type": "dwurdysharks:remora",
