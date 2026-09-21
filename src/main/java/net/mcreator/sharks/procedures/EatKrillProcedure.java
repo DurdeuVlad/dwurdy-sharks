@@ -1,7 +1,6 @@
 package net.mcreator.sharks.procedures;
 
-import java.util.Comparator;
-import javax.annotation.Nullable;
+import java.util.List;
 import net.mcreator.sharks.entity.BaskingSharkEntity;
 import net.mcreator.sharks.entity.KrillEntity;
 import net.mcreator.sharks.entity.WhaleSharkEntity;
@@ -20,7 +19,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.bus.api.Event;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.tick.EntityTickEvent.Pre;
@@ -29,178 +27,80 @@ import net.neoforged.neoforge.event.tick.EntityTickEvent.Pre;
 public class EatKrillProcedure {
    @SubscribeEvent
    public static void onEntityTick(Pre event) {
-      if (!(event.getEntity() instanceof BaskingSharkEntity) && !(event.getEntity() instanceof WhaleSharkEntity)) {
+      Entity entity = event.getEntity();
+      if (!(entity instanceof BaskingSharkEntity) && !(entity instanceof WhaleSharkEntity)) {
          return;
       }
-      execute(event, event.getEntity().level(), event.getEntity().getX(), event.getEntity().getY(), event.getEntity().getZ(), event.getEntity());
+      if ((entity.tickCount + entity.getId()) % 10 != 0) {
+         return;
+      }
+      execute(entity.level(), entity.getX(), entity.getY(), entity.getZ(), entity);
    }
 
    public static void execute(LevelAccessor world, double x, double y, double z, Entity entity) {
-      execute(null, world, x, y, z, entity);
-   }
+      if (!(entity instanceof BaskingSharkEntity || entity instanceof WhaleSharkEntity)) {
+         return;
+      }
+      Vec3 center = new Vec3(x, y, z);
+      AABB seekBox = AABB.ofSize(center, 8.0, 8.0, 8.0);
+      AABB eatBox = AABB.ofSize(center, 3.0, 3.0, 3.0);
 
-   private static void execute(@Nullable Event event, LevelAccessor world, double x, double y, double z, Entity entity) {
-      if (entity != null) {
-         if ((entity instanceof BaskingSharkEntity || entity instanceof WhaleSharkEntity)
-            && !world.getEntitiesOfClass(KrillEntity.class, AABB.ofSize(new Vec3(x, y, z), 8.0, 8.0, 8.0), e -> true).isEmpty()
-            && world.getEntitiesOfClass(KrillEntity.class, AABB.ofSize(new Vec3(x, y, z), 8.0, 8.0, 8.0), e -> true).stream().sorted((new Object() {
-               Comparator<Entity> compareDistOf(double _x, double _y, double _z) {
-                  return Comparator.comparingDouble(_entcnd -> _entcnd.distanceToSqr(_x, _y, _z));
-               }
-            }).compareDistOf(x, y, z)).findFirst().orElse(null).isAlive()) {
-            if (entity instanceof Mob _entity) {
-               _entity.getNavigation()
-                  .moveTo(
-                     world.getEntitiesOfClass(KrillEntity.class, AABB.ofSize(new Vec3(x, y, z), 8.0, 8.0, 8.0), e -> true).stream().sorted((new Object() {
-                        Comparator<Entity> compareDistOf(double _x, double _y, double _z) {
-                           return Comparator.comparingDouble(_entcnd -> _entcnd.distanceToSqr(_x, _y, _z));
-                        }
-                     }).compareDistOf(x, y, z)).findFirst().orElse(null).getX(),
-                     world.getEntitiesOfClass(KrillEntity.class, AABB.ofSize(new Vec3(x, y, z), 8.0, 8.0, 8.0), e -> true).stream().sorted((new Object() {
-                        Comparator<Entity> compareDistOf(double _x, double _y, double _z) {
-                           return Comparator.comparingDouble(_entcnd -> _entcnd.distanceToSqr(_x, _y, _z));
-                        }
-                     }).compareDistOf(x, y, z)).findFirst().orElse(null).getY(),
-                     world.getEntitiesOfClass(KrillEntity.class, AABB.ofSize(new Vec3(x, y, z), 8.0, 8.0, 8.0), e -> true).stream().sorted((new Object() {
-                        Comparator<Entity> compareDistOf(double _x, double _y, double _z) {
-                           return Comparator.comparingDouble(_entcnd -> _entcnd.distanceToSqr(_x, _y, _z));
-                        }
-                     }).compareDistOf(x, y, z)).findFirst().orElse(null).getZ(),
-                     1.0
-                  );
+      List<KrillEntity> krill = world.getEntitiesOfClass(KrillEntity.class, seekBox, Entity::isAlive);
+      KrillEntity nearestKrill = nearest(krill, x, y, z);
+      if (nearestKrill != null) {
+         if (entity instanceof Mob mob) {
+            mob.getNavigation().moveTo(nearestKrill.getX(), nearestKrill.getY(), nearestKrill.getZ(), 1.0);
+         }
+         if (nearestKrill.getBoundingBox().intersects(eatBox)) {
+            if (!world.isClientSide()) {
+               nearestKrill.discard();
             }
-
-            if (!world.getEntitiesOfClass(KrillEntity.class, AABB.ofSize(new Vec3(x, y, z), 3.0, 3.0, 3.0), e -> true).isEmpty()
-               && world.getEntitiesOfClass(KrillEntity.class, AABB.ofSize(new Vec3(x, y, z), 3.0, 3.0, 3.0), e -> true).stream().sorted((new Object() {
-                  Comparator<Entity> compareDistOf(double _x, double _y, double _z) {
-                     return Comparator.comparingDouble(_entcnd -> _entcnd.distanceToSqr(_x, _y, _z));
-                  }
-               }).compareDistOf(x, y, z)).findFirst().orElse(null).isAlive()) {
-               if (!world.getEntitiesOfClass(KrillEntity.class, AABB.ofSize(new Vec3(x, y, z), 3.0, 3.0, 3.0), e -> true).stream().sorted((new Object() {
-                  Comparator<Entity> compareDistOf(double _x, double _y, double _z) {
-                     return Comparator.comparingDouble(_entcnd -> _entcnd.distanceToSqr(_x, _y, _z));
-                  }
-               }).compareDistOf(x, y, z)).findFirst().orElse(null).level().isClientSide()) {
-                  world.getEntitiesOfClass(KrillEntity.class, AABB.ofSize(new Vec3(x, y, z), 3.0, 3.0, 3.0), e -> true).stream().sorted((new Object() {
-                     Comparator<Entity> compareDistOf(double _x, double _y, double _z) {
-                        return Comparator.comparingDouble(_entcnd -> _entcnd.distanceToSqr(_x, _y, _z));
-                     }
-                  }).compareDistOf(x, y, z)).findFirst().orElse(null).discard();
-               }
-
-               if (world instanceof Level _level) {
-                  if (!_level.isClientSide()) {
-                     _level.playSound(
-                        null,
-                        BlockPos.containing(entity.getX(), entity.getY(), entity.getZ()),
-                        (SoundEvent)BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("entity.panda.bite")),
-                        SoundSource.NEUTRAL,
-                        1.0F,
-                        1.0F
-                     );
-                  } else {
-                     _level.playLocalSound(
-                        entity.getX(),
-                        entity.getY(),
-                        entity.getZ(),
-                        (SoundEvent)BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("entity.panda.bite")),
-                        SoundSource.NEUTRAL,
-                        1.0F,
-                        1.0F,
-                        false
-                     );
-                  }
-               }
-
-               if (entity instanceof LivingEntity _entity) {
-                  _entity.setHealth((entity instanceof LivingEntity _livEnt ? _livEnt.getHealth() : -1.0F) + 1.0F);
-               }
+            playEatSound(world, entity);
+            if (entity instanceof LivingEntity living) {
+               living.setHealth(living.getHealth() + 1.0F);
             }
          }
+      }
 
-         if ((entity instanceof BaskingSharkEntity || entity instanceof WhaleSharkEntity)
-            && !world.getEntitiesOfClass(ItemEntity.class, AABB.ofSize(new Vec3(x, y, z), 8.0, 8.0, 8.0), e -> true).isEmpty()) {
-            Entity var16 = world.getEntitiesOfClass(ItemEntity.class, AABB.ofSize(new Vec3(x, y, z), 8.0, 8.0, 8.0), e -> true).stream().sorted((new Object() {
-               Comparator<Entity> compareDistOf(double _x, double _y, double _z) {
-                  return Comparator.comparingDouble(_entcnd -> _entcnd.distanceToSqr(_x, _y, _z));
-               }
-            }).compareDistOf(x, y, z)).findFirst().orElse(null);
-            if ((var16 instanceof ItemEntity _itemEnt ? _itemEnt.getItem() : ItemStack.EMPTY).getItem() == BenssharksModItems.KRILL_ITEM.get()) {
-               if (entity instanceof Mob _entity) {
-                  _entity.getNavigation()
-                     .moveTo(
-                        world.getEntitiesOfClass(ItemEntity.class, AABB.ofSize(new Vec3(x, y, z), 8.0, 8.0, 8.0), e -> true).stream().sorted((new Object() {
-                           Comparator<Entity> compareDistOf(double _x, double _y, double _z) {
-                              return Comparator.comparingDouble(_entcnd -> _entcnd.distanceToSqr(_x, _y, _z));
-                           }
-                        }).compareDistOf(x, y, z)).findFirst().orElse(null).getX(),
-                        world.getEntitiesOfClass(ItemEntity.class, AABB.ofSize(new Vec3(x, y, z), 8.0, 8.0, 8.0), e -> true).stream().sorted((new Object() {
-                           Comparator<Entity> compareDistOf(double _x, double _y, double _z) {
-                              return Comparator.comparingDouble(_entcnd -> _entcnd.distanceToSqr(_x, _y, _z));
-                           }
-                        }).compareDistOf(x, y, z)).findFirst().orElse(null).getY(),
-                        world.getEntitiesOfClass(ItemEntity.class, AABB.ofSize(new Vec3(x, y, z), 8.0, 8.0, 8.0), e -> true).stream().sorted((new Object() {
-                           Comparator<Entity> compareDistOf(double _x, double _y, double _z) {
-                              return Comparator.comparingDouble(_entcnd -> _entcnd.distanceToSqr(_x, _y, _z));
-                           }
-                        }).compareDistOf(x, y, z)).findFirst().orElse(null).getZ(),
-                        1.0
-                     );
-               }
-
-               if (!world.getEntitiesOfClass(ItemEntity.class, AABB.ofSize(new Vec3(x, y, z), 3.0, 3.0, 3.0), e -> true).isEmpty()) {
-                  Entity _entity = world.getEntitiesOfClass(ItemEntity.class, AABB.ofSize(new Vec3(x, y, z), 3.0, 3.0, 3.0), e -> true)
-                     .stream()
-                     .sorted((new Object() {
-                        Comparator<Entity> compareDistOf(double _x, double _y, double _z) {
-                           return Comparator.comparingDouble(_entcnd -> _entcnd.distanceToSqr(_x, _y, _z));
-                        }
-                     }).compareDistOf(x, y, z))
-                     .findFirst()
-                     .orElse(null);
-                  if ((_entity instanceof ItemEntity _itemEntx ? _itemEntx.getItem() : ItemStack.EMPTY).getItem() == BenssharksModItems.KRILL_ITEM.get()) {
-                     if (!world.getEntitiesOfClass(ItemEntity.class, AABB.ofSize(new Vec3(x, y, z), 3.0, 3.0, 3.0), e -> true).stream().sorted((new Object() {
-                        Comparator<Entity> compareDistOf(double _x, double _y, double _z) {
-                           return Comparator.comparingDouble(_entcnd -> _entcnd.distanceToSqr(_x, _y, _z));
-                        }
-                     }).compareDistOf(x, y, z)).findFirst().orElse(null).level().isClientSide()) {
-                        world.getEntitiesOfClass(ItemEntity.class, AABB.ofSize(new Vec3(x, y, z), 3.0, 3.0, 3.0), e -> true).stream().sorted((new Object() {
-                           Comparator<Entity> compareDistOf(double _x, double _y, double _z) {
-                              return Comparator.comparingDouble(_entcnd -> _entcnd.distanceToSqr(_x, _y, _z));
-                           }
-                        }).compareDistOf(x, y, z)).findFirst().orElse(null).discard();
-                     }
-
-                     if (world instanceof Level _levelx) {
-                        if (!_levelx.isClientSide()) {
-                           _levelx.playSound(
-                              null,
-                              BlockPos.containing(entity.getX(), entity.getY(), entity.getZ()),
-                              (SoundEvent)BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("entity.panda.bite")),
-                              SoundSource.NEUTRAL,
-                              1.0F,
-                              1.0F
-                           );
-                        } else {
-                           _levelx.playLocalSound(
-                              entity.getX(),
-                              entity.getY(),
-                              entity.getZ(),
-                              (SoundEvent)BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("entity.panda.bite")),
-                              SoundSource.NEUTRAL,
-                              1.0F,
-                              1.0F,
-                              false
-                           );
-                        }
-                     }
-
-                     if (entity instanceof LivingEntity _entityx) {
-                        _entityx.setHealth((entity instanceof LivingEntity _livEnt ? _livEnt.getHealth() : -1.0F) + 1.0F);
-                     }
-                  }
-               }
+      List<ItemEntity> items = world.getEntitiesOfClass(ItemEntity.class, seekBox,
+         e -> e.getItem().getItem() == BenssharksModItems.KRILL_ITEM.get());
+      ItemEntity nearestItem = nearest(items, x, y, z);
+      if (nearestItem != null) {
+         if (entity instanceof Mob mob) {
+            mob.getNavigation().moveTo(nearestItem.getX(), nearestItem.getY(), nearestItem.getZ(), 1.0);
+         }
+         if (nearestItem.getBoundingBox().intersects(eatBox)) {
+            if (!world.isClientSide()) {
+               nearestItem.discard();
             }
+            playEatSound(world, entity);
+            if (entity instanceof LivingEntity living) {
+               living.setHealth(living.getHealth() + 1.0F);
+            }
+         }
+      }
+   }
+
+   private static <T extends Entity> T nearest(List<T> entities, double x, double y, double z) {
+      T best = null;
+      double bestDist = Double.MAX_VALUE;
+      for (T e : entities) {
+         double d = e.distanceToSqr(x, y, z);
+         if (d < bestDist) {
+            bestDist = d;
+            best = e;
+         }
+      }
+      return best;
+   }
+
+   private static void playEatSound(LevelAccessor world, Entity entity) {
+      if (world instanceof Level level) {
+         SoundEvent sound = (SoundEvent)BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("entity.panda.bite"));
+         if (!level.isClientSide()) {
+            level.playSound(null, BlockPos.containing(entity.getX(), entity.getY(), entity.getZ()), sound, SoundSource.NEUTRAL, 1.0F, 1.0F);
+         } else {
+            level.playLocalSound(entity.getX(), entity.getY(), entity.getZ(), sound, SoundSource.NEUTRAL, 1.0F, 1.0F, false);
          }
       }
    }

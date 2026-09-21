@@ -100,6 +100,23 @@ public final class DwurdySharksEntityTypeTags {
       ResourceLocation.fromNamespaceAndPath("dwurdysharks", "whitetip_shark_prey")
    );
 
+   public static final TagKey<EntityType<?>> BARRACUDA_FRENZY_CLOSE = TagKey.create(
+      Registries.ENTITY_TYPE,
+      ResourceLocation.fromNamespaceAndPath("dwurdysharks", "barracuda_frenzy_close")
+   );
+   public static final TagKey<EntityType<?>> BARRACUDA_FRENZY_MID = TagKey.create(
+      Registries.ENTITY_TYPE,
+      ResourceLocation.fromNamespaceAndPath("dwurdysharks", "barracuda_frenzy_mid")
+   );
+   public static final TagKey<EntityType<?>> BARRACUDA_FRENZY_FAR = TagKey.create(
+      Registries.ENTITY_TYPE,
+      ResourceLocation.fromNamespaceAndPath("dwurdysharks", "barracuda_frenzy_far")
+   );
+   public static final TagKey<EntityType<?>> DROPPED_FOOD_EATERS = TagKey.create(
+      Registries.ENTITY_TYPE,
+      ResourceLocation.fromNamespaceAndPath("dwurdysharks", "dropped_food_eaters")
+   );
+
    private DwurdySharksEntityTypeTags() {
    }
 }
