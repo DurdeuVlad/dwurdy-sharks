@@ -1,0 +1,13 @@
+{
+  "type": "neoforge:add_spawn_costs",
+  "biomes": "#dwurdysharks:shark_spawning_oceans",
+  "entity_types": [
+    "dwurdysharks:krill",
+    "dwurdysharks:pilot_fish",
+    "dwurdysharks:remora"
+  ],
+  "spawn_cost": {
+    "energy_budget": 64.0,
+    "charge": 4.0
+  }
+}
