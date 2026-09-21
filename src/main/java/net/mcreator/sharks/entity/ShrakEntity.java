@@ -238,7 +238,6 @@ public class ShrakEntity extends PathfinderMob implements GeoEntity {
    public void baseTick() {
       super.baseTick();
       ShrakOnEntityTickUpdateProcedure.execute(this.level(), this);
-      this.refreshDimensions();
    }
 
    public EntityDimensions getDefaultDimensions(Pose pose) {

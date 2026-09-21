@@ -156,7 +156,6 @@ public class RollParticleEntity extends PathfinderMob implements GeoEntity {
    public void baseTick() {
       super.baseTick();
       RollParticleOnEntityTickUpdateProcedure.execute(this.level(), this);
-      this.refreshDimensions();
    }
 
    public EntityDimensions getDefaultDimensions(Pose pose) {

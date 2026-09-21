@@ -189,7 +189,6 @@ public class GreaterAxodileEntity extends PathfinderMob implements GeoEntity {
    public void baseTick() {
       super.baseTick();
       GreaterAxodileOnEntityTickUpdateProcedure.execute(this.level(), this);
-      this.refreshDimensions();
    }
 
    public EntityDimensions getDefaultDimensions(Pose pose) {

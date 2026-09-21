@@ -203,7 +203,6 @@ public class WhaleSharkEntity extends PathfinderMob implements GeoEntity {
    public void baseTick() {
       super.baseTick();
       WhaleSharkOnEntityTickUpdateProcedure.execute(this.level(), this);
-      this.refreshDimensions();
    }
 
    public EntityDimensions getDefaultDimensions(Pose pose) {

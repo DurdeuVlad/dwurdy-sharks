@@ -575,7 +575,6 @@ public class LandSharkEntity extends TamableAnimal implements GeoEntity {
    public void baseTick() {
       super.baseTick();
       LandSharkOnEntityTickUpdateProcedure.execute(this);
-      this.refreshDimensions();
    }
 
    public EntityDimensions getDefaultDimensions(Pose pose) {

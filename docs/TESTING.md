@@ -16,6 +16,9 @@ pwsh -NoProfile -File tools/verify-persistence.ps1
 pwsh -NoProfile -File tools/verify-spawn-procedures.ps1
 pwsh -NoProfile -File tools/verify-dryout.ps1
 pwsh -NoProfile -File tools/verify-ocean-spawns.ps1
+pwsh -NoProfile -File tools/verify-spawn-caps.ps1
+pwsh -NoProfile -File tools/verify-ai-goals.ps1
+pwsh -NoProfile -File tools/verify-dimensions.ps1
 ```
 
 The build must finish successfully and produce a jar in `build/libs/`. A

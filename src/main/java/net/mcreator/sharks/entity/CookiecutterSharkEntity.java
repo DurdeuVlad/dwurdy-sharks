@@ -249,7 +249,6 @@ public class CookiecutterSharkEntity extends PathfinderMob implements GeoEntity 
    public void baseTick() {
       super.baseTick();
       CookiecutterSharkOnEntityTickUpdateProcedure.execute(this.level(), this);
-      this.refreshDimensions();
    }
 
    public EntityDimensions getDefaultDimensions(Pose pose) {

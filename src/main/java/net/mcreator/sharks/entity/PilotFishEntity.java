@@ -206,7 +206,6 @@ public class PilotFishEntity extends PathfinderMob implements GeoEntity {
    public void baseTick() {
       super.baseTick();
       PilotFishOnEntityTickUpdateProcedure.execute(this.level(), this);
-      this.refreshDimensions();
    }
 
    public EntityDimensions getDefaultDimensions(Pose pose) {

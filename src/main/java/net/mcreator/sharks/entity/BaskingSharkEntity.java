@@ -203,7 +203,6 @@ public class BaskingSharkEntity extends PathfinderMob implements GeoEntity {
    public void baseTick() {
       super.baseTick();
       BaskingSharkOnEntityTickUpdateProcedure.execute(this.level(), this);
-      this.refreshDimensions();
    }
 
    public EntityDimensions getDefaultDimensions(Pose pose) {
