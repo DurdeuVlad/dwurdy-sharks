@@ -3,8 +3,7 @@
   "biomes": [
     "deep_lukewarm_ocean",
     "lukewarm_ocean",
-    "warm_ocean",
-    "beach"
+    "warm_ocean"
   ],
   "spawners": {
     "type": "dwurdysharks:tiger_shark",

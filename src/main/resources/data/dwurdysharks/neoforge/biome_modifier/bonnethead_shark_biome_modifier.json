@@ -3,9 +3,7 @@
   "biomes": [
     "warm_ocean",
     "lukewarm_ocean",
-    "ocean",
-    "beach",
-    "mangrove_swamp"
+    "ocean"
   ],
   "spawners": {
     "type": "dwurdysharks:bonnethead_shark",

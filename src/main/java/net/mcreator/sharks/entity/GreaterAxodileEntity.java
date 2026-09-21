@@ -2,6 +2,7 @@ package net.mcreator.sharks.entity;
 
 import javax.annotation.Nullable;
 import net.mcreator.sharks.init.BenssharksModEntities;
+import net.mcreator.sharks.init.DwurdySharksBiomeTags;
 import net.mcreator.sharks.procedures.GreaterAxodileOnEntityTickUpdateProcedure;
 import net.mcreator.sharks.procedures.GreaterAxodileOnInitialEntitySpawnProcedure;
 import net.mcreator.sharks.procedures.GreaterAxodileThisEntityKillsAnotherOneProcedure;
@@ -291,7 +292,8 @@ public class GreaterAxodileEntity extends PathfinderMob implements GeoEntity {
          (EntityType)BenssharksModEntities.GREATER_AXODILE.get(),
          SpawnPlacementTypes.IN_WATER,
          Types.MOTION_BLOCKING_NO_LEAVES,
-         (entityType, world, reason, pos, random) -> world.getBlockState(pos).is(Blocks.WATER) && world.getBlockState(pos.above()).is(Blocks.WATER),
+         (entityType, world, reason, pos, random) -> world.getBlockState(pos).is(Blocks.WATER) && world.getBlockState(pos.above()).is(Blocks.WATER)
+            && world.getBiome(pos).is(DwurdySharksBiomeTags.SHARK_SPAWNING_OCEANS),
          net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent.Operation.REPLACE
       );
    }

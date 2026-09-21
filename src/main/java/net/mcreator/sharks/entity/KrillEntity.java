@@ -1,6 +1,7 @@
 package net.mcreator.sharks.entity;
 
 import net.mcreator.sharks.init.BenssharksModEntities;
+import net.mcreator.sharks.init.DwurdySharksBiomeTags;
 import net.mcreator.sharks.init.BenssharksModItems;
 import net.mcreator.sharks.procedures.KrillOnEntityTickUpdateProcedure;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -204,7 +205,8 @@ public class KrillEntity extends PathfinderMob implements GeoEntity {
          (EntityType)BenssharksModEntities.KRILL.get(),
          SpawnPlacementTypes.IN_WATER,
          Types.MOTION_BLOCKING_NO_LEAVES,
-         (entityType, world, reason, pos, random) -> world.getBlockState(pos).is(Blocks.WATER) && world.getBlockState(pos.above()).is(Blocks.WATER),
+         (entityType, world, reason, pos, random) -> world.getBlockState(pos).is(Blocks.WATER) && world.getBlockState(pos.above()).is(Blocks.WATER)
+            && world.getBiome(pos).is(DwurdySharksBiomeTags.SHARK_SPAWNING_OCEANS),
          net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent.Operation.REPLACE
       );
    }

@@ -2,8 +2,7 @@
   "type": "neoforge:add_spawns",
   "biomes": [
     "lukewarm_ocean",
-    "warm_ocean",
-    "beach"
+    "warm_ocean"
   ],
   "spawners": {
     "type": "dwurdysharks:lemon_shark",

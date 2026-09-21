@@ -1,14 +1,9 @@
 {
   "type": "neoforge:add_spawns",
   "biomes": [
-    "mangrove_swamp",
-    "swamp",
     "lukewarm_ocean",
-    "beach",
-    "stony_shore",
     "deep_lukewarm_ocean",
-    "warm_ocean",
-    "river"
+    "warm_ocean"
   ],
   "spawners": {
     "type": "dwurdysharks:bull_shark",
