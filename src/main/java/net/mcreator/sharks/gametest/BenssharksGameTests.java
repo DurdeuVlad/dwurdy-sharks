@@ -111,12 +111,19 @@ public class BenssharksGameTests {
       });
    }
 
-   @GameTest(template = "pool", batch = "stress_population", timeoutTicks = 1500, required = false)
+   @GameTest(template = "pool", batch = "stress_population", timeoutTicks = 300000, required = false)
    public static void sharkPopulationTickCost(GameTestHelper helper) {
       ServerLevel level = helper.getLevel();
       level.getServer().setDifficulty(Difficulty.NORMAL, true);
       level.getGameRules().getRule(BenssharksModGameRules.AGGRESSIVE_SHARKS).set(true, level.getServer());
       fillPool(helper);
+      for (int y = 3; y <= 4; y++) {
+         for (int x = 0; x <= 4; x++) {
+            for (int z = 0; z <= 4; z++) {
+               helper.setBlock(new BlockPos(x, y, z), net.minecraft.world.level.block.Blocks.WATER.defaultBlockState());
+            }
+         }
+      }
       net.minecraft.world.entity.EntityType<?>[] types = new net.minecraft.world.entity.EntityType[]{
          BenssharksModEntities.BULL_SHARK.get(), BenssharksModEntities.TIGER_SHARK.get(),
          BenssharksModEntities.MAKO_SHARK.get(), BenssharksModEntities.LEMON_SHARK.get(),
@@ -125,24 +132,149 @@ public class BenssharksGameTests {
          BenssharksModEntities.BONNETHEAD_SHARK.get(), BenssharksModEntities.BARRACUDA.get()
       };
       int spawned = 0;
-      for (int i = 0; i < 100; i++) {
+      for (int i = 0; i < 150; i++) {
          try {
-            helper.spawn(types[i % types.length], 1 + i % 4, 1 + i / 50, 1 + i / 4 % 4);
+            helper.spawn(types[i % types.length], 1 + i % 4, 1 + i / 60, 1 + i / 4 % 4);
             spawned++;
          } catch (Throwable ignored) {
          }
       }
       placeSurvivalPlayer(helper, 3, 2, 4);
       int total = spawned;
-      helper.runAtTickTime(1200L, () -> {
-         float mspt = level.getServer().getAverageTickTimeNanos() / 1000000.0F;
-         long alive = level.getEntitiesOfClass(
-            net.minecraft.world.entity.Mob.class,
-            net.minecraft.world.phys.AABB.ofSize(helper.absolutePos(new BlockPos(2, 1, 2)).getCenter(), 40.0, 40.0, 40.0),
-            e -> e.getType().is(net.mcreator.sharks.init.DwurdySharksEntityTypeTags.SHARKS)).size();
-         BenssharksMod.LOGGER.info(
-            "[stress_population] {} sharks spawned, {} alive, server avg tick time {} ms (last 100 ticks, aggressiveSharks=true, survival player present)",
-            total, alive, String.format(java.util.Locale.ROOT, "%.2f", mspt));
+      long start = System.currentTimeMillis();
+      for (long t = 1200L; t <= 295000L; t += 1200L) {
+         helper.runAtTickTime(t, () -> {
+            float mspt = level.getServer().getAverageTickTimeNanos() / 1000000.0F;
+            long alive = level.getEntitiesOfClass(
+               net.minecraft.world.entity.Mob.class,
+               net.minecraft.world.phys.AABB.ofSize(helper.absolutePos(new BlockPos(2, 1, 2)).getCenter(), 40.0, 40.0, 40.0),
+               e -> e.getType().is(net.mcreator.sharks.init.DwurdySharksEntityTypeTags.SHARKS)).size();
+            long elapsedSec = (System.currentTimeMillis() - start) / 1000;
+            BenssharksMod.LOGGER.info(
+               "[stress_population] {}s elapsed | {} spawned, {} alive, server avg tick {} ms (aggressiveSharks=true, survival player present)",
+               elapsedSec, total, alive, String.format(java.util.Locale.ROOT, "%.2f", mspt));
+            if (elapsedSec >= 300) {
+               helper.succeed();
+            }
+         });
+      }
+   }
+
+   @GameTest(template = "pool", batch = "stress_population", timeoutTicks = 300000, required = false)
+   public static void dryoutBeachedSharksTickCost(GameTestHelper helper) {
+      ServerLevel level = helper.getLevel();
+      level.getServer().setDifficulty(Difficulty.NORMAL, true);
+      net.minecraft.world.entity.EntityType<?>[] types = new net.minecraft.world.entity.EntityType[]{
+         BenssharksModEntities.BULL_SHARK.get(), BenssharksModEntities.TIGER_SHARK.get(),
+         BenssharksModEntities.LEMON_SHARK.get(), BenssharksModEntities.BLUE_SHARK.get(),
+         BenssharksModEntities.BLACKTIP_REEF_SHARK.get()
+      };
+      int[] spawned = new int[]{0};
+      for (long t = 1L; t <= 295000L; t += 1200L) {
+         helper.runAtTickTime(t, () -> {
+            for (int i = 0; i < 60; i++) {
+               try {
+                  helper.spawn(types[i % types.length], 1 + i % 4, 1, 1 + i / 4 % 4);
+                  spawned[0]++;
+               } catch (Throwable ignored) {
+               }
+            }
+         });
+      }
+      long start = System.currentTimeMillis();
+      for (long t = 1200L; t <= 295000L; t += 1200L) {
+         helper.runAtTickTime(t, () -> {
+            long elapsedSec = (System.currentTimeMillis() - start) / 1000;
+            if (elapsedSec >= 300) {
+               float mspt = level.getServer().getAverageTickTimeNanos() / 1000000.0F;
+               BenssharksMod.LOGGER.info(
+                  "[stress_dryout] {} beached sharks spawned (dryout path), server avg tick {} ms",
+                  spawned[0], String.format(java.util.Locale.ROOT, "%.2f", mspt));
+               helper.succeed();
+            }
+         });
+      }
+   }
+
+   @GameTest(template = "pool", batch = "stress_population", timeoutTicks = 300000, required = false)
+   public static void droppedFoodEatersTickCost(GameTestHelper helper) {
+      ServerLevel level = helper.getLevel();
+      level.getServer().setDifficulty(Difficulty.NORMAL, true);
+      level.getGameRules().getRule(BenssharksModGameRules.AGGRESSIVE_SHARKS).set(false, level.getServer());
+      fillPool(helper);
+      for (int y = 3; y <= 4; y++) {
+         for (int x = 0; x <= 4; x++) {
+            for (int z = 0; z <= 4; z++) {
+               helper.setBlock(new BlockPos(x, y, z), net.minecraft.world.level.block.Blocks.WATER.defaultBlockState());
+            }
+         }
+      }
+      net.minecraft.world.entity.EntityType<?>[] types = new net.minecraft.world.entity.EntityType[]{
+         BenssharksModEntities.BASKING_SHARK.get(), BenssharksModEntities.WHALE_SHARK.get(),
+         BenssharksModEntities.TIGER_SHARK.get(), BenssharksModEntities.LEMON_SHARK.get(),
+         BenssharksModEntities.BLUE_SHARK.get()
+      };
+      int spawned = 0;
+      for (int i = 0; i < 70; i++) {
+         try {
+            helper.spawn(types[i % types.length], 1 + i % 4, 1 + i / 50, 1 + i / 4 % 4);
+            spawned++;
+         } catch (Throwable ignored) {
+         }
+      }
+      int total = spawned;
+      for (long t = 20L; t <= 295000L; t += 600L) {
+         helper.runAtTickTime(t, () -> {
+            for (int i = 0; i < 30; i++) {
+               BlockPos p = helper.absolutePos(new BlockPos(1 + i % 4, 2, 1 + i / 4 % 4));
+               level.addFreshEntity(new net.minecraft.world.entity.item.ItemEntity(level, p.getX(), p.getY(), p.getZ(),
+                  new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.APPLE)));
+            }
+         });
+      }
+      long start = System.currentTimeMillis();
+      for (long t = 1200L; t <= 295000L; t += 1200L) {
+         helper.runAtTickTime(t, () -> {
+            long elapsedSec = (System.currentTimeMillis() - start) / 1000;
+            if (elapsedSec >= 300) {
+               float mspt = level.getServer().getAverageTickTimeNanos() / 1000000.0F;
+               BenssharksMod.LOGGER.info(
+                  "[stress_item_eat] {} eater sharks + food drops every 600t, server avg tick {} ms",
+                  total, String.format(java.util.Locale.ROOT, "%.2f", mspt));
+               helper.succeed();
+            }
+         });
+      }
+   }
+
+   @GameTest(template = "pool", batch = "despawn", timeoutTicks = 400)
+   public static void wildSharkDespawnsTamedDoesNot(GameTestHelper helper) {
+      ServerLevel level = helper.getLevel();
+      level.getServer().setDifficulty(Difficulty.NORMAL, true);
+      level.getGameRules().getRule(BenssharksModGameRules.AGGRESSIVE_SHARKS).set(false, level.getServer());
+      fillPool(helper);
+      BlockPos wildPos = helper.absolutePos(new BlockPos(2, 2, 2));
+      BullSharkEntity wild = BenssharksModEntities.BULL_SHARK.get().create(level);
+      wild.moveTo(wildPos.getX() + 0.5, wildPos.getY(), wildPos.getZ() + 0.5, 0.0F, 0.0F);
+      level.addFreshEntity(wild);
+      BlockPos tamedPos = helper.absolutePos(new BlockPos(4, 2, 2));
+      net.mcreator.sharks.entity.NurseSharkEntity tamed = BenssharksModEntities.NURSE_SHARK.get().create(level);
+      tamed.moveTo(tamedPos.getX() + 0.5, tamedPos.getY(), tamedPos.getZ() + 0.5, 0.0F, 0.0F);
+      level.addFreshEntity(tamed);
+      ServerPlayer player = placeSurvivalPlayer(helper, 3, 2, 4);
+      tamed.tame(player);
+      helper.runAtTickTime(40L, () -> {
+         BlockPos base = helper.absolutePos(new BlockPos(3, 2, 4));
+         for (ServerPlayer p : level.players()) {
+            p.moveTo(base.getX() + 140.0, base.getY(), base.getZ(), 0.0F, 0.0F);
+         }
+      });
+      helper.runAtTickTime(300L, () -> {
+         helper.assertTrue(!wild.isPersistenceRequired(), "spawned wild shark unexpectedly persistent");
+         helper.assertTrue(wild.isRemoved(),
+            "wild bull shark was not removed at 140 blocks (>128 WATER_CREATURE despawn range)");
+         helper.assertTrue(!tamed.isRemoved() && tamed.isAlive(),
+            "tamed nurse shark was removed at 140 blocks");
          helper.succeed();
       });
    }
