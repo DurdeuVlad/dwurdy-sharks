@@ -1,6 +1,7 @@
 package net.mcreator.sharks.procedures;
 
 import net.mcreator.sharks.init.BenssharksModGameRules;
+import net.mcreator.sharks.init.DwurdySharksConfig;
 import net.mcreator.sharks.init.DwurdySharksEntityTypeTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.Entity;
@@ -22,6 +23,15 @@ public final class SharkSpawnCapProcedure {
    public static void onFinalizeSpawn(FinalizeSpawnEvent event) {
       Mob mob = event.getEntity();
       EntityType<?> type = mob.getType();
+      MobSpawnType spawnType = event.getSpawnType();
+      if (spawnType == MobSpawnType.BUCKET || spawnType == MobSpawnType.BREEDING) {
+         return;
+      }
+      boolean manual = spawnType == MobSpawnType.SPAWN_EGG || spawnType == MobSpawnType.COMMAND || spawnType == MobSpawnType.DISPENSER;
+      if (!manual && DwurdySharksConfig.isModEntity(type) && (!DwurdySharksConfig.SPAWNING_ENABLED.get() || !DwurdySharksConfig.speciesEnabled(type))) {
+         event.setSpawnCancelled(true);
+         return;
+      }
       TagKey<EntityType<?>> groupTag;
       if (type.is(DwurdySharksEntityTypeTags.LARGE_SHARKS)) {
          groupTag = DwurdySharksEntityTypeTags.LARGE_SHARKS;
@@ -33,12 +43,7 @@ public final class SharkSpawnCapProcedure {
       if (isExempt(mob)) {
          return;
       }
-      MobSpawnType spawnType = event.getSpawnType();
-      if (spawnType == MobSpawnType.BUCKET || spawnType == MobSpawnType.BREEDING) {
-         return;
-      }
       net.minecraft.world.level.GameRules rules = event.getLevel().getLevel().getGameRules();
-      boolean manual = spawnType == MobSpawnType.SPAWN_EGG || spawnType == MobSpawnType.COMMAND || spawnType == MobSpawnType.DISPENSER;
       if (manual && !rules.getBoolean(BenssharksModGameRules.ENFORCE_CAP_FOR_MANUAL_SPAWNS)) {
          return;
       }
