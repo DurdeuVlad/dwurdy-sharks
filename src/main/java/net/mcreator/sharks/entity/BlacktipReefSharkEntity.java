@@ -6,6 +6,9 @@ import net.mcreator.sharks.init.BenssharksModEntities;
 import net.mcreator.sharks.init.DwurdySharksEntityTypeTags;
 import net.mcreator.sharks.init.DwurdySharksBiomeTags;
 import net.mcreator.sharks.init.DwurdySharksConfig;
+import net.mcreator.sharks.procedures.StopRidingBoatProcedure;
+import net.mcreator.sharks.procedures.SharkBleedProcedure;
+import net.mcreator.sharks.procedures.EatDroppedItemProcedure;
 import net.mcreator.sharks.procedures.AggressiveSharksProcedureProcedure;
 import net.mcreator.sharks.procedures.BlacktipReefSharkEntityIsHurtProcedure;
 import net.mcreator.sharks.procedures.BlacktipReefSharkOnEntityTickUpdateProcedure;
@@ -280,6 +283,9 @@ public class BlacktipReefSharkEntity extends Animal implements GeoEntity {
    public void baseTick() {
       super.baseTick();
       BlacktipReefSharkOnEntityTickUpdateProcedure.execute(this.level(), this);
+      EatDroppedItemProcedure.execute(this.level(), this.getX(), this.getY(), this.getZ(), this);
+      SharkBleedProcedure.execute(this.level(), this);
+      StopRidingBoatProcedure.execute(this);
    }
 
    public EntityDimensions getDefaultDimensions(Pose pose) {

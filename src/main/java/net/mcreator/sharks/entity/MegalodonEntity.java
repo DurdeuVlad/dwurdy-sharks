@@ -5,6 +5,9 @@ import net.mcreator.sharks.init.BenssharksModEntities;
 import net.mcreator.sharks.init.DwurdySharksEntityTypeTags;
 import net.mcreator.sharks.init.DwurdySharksBiomeTags;
 import net.mcreator.sharks.init.DwurdySharksConfig;
+import net.mcreator.sharks.procedures.StopRidingBoatProcedure;
+import net.mcreator.sharks.procedures.SharkBleedProcedure;
+import net.mcreator.sharks.procedures.StopFloatingProcedure;
 import net.mcreator.sharks.procedures.AggressiveSharksProcedureProcedure;
 import net.mcreator.sharks.procedures.MegalodonEntityDiesProcedure;
 import net.mcreator.sharks.procedures.MegalodonEntityIsHurtProcedure;
@@ -238,6 +241,9 @@ public class MegalodonEntity extends PathfinderMob implements GeoEntity {
    public void baseTick() {
       super.baseTick();
       MegalodonOnEntityTickUpdateProcedure.execute(this.level(), this);
+      StopFloatingProcedure.execute(this.level(), this.getX(), this.getZ(), this);
+      SharkBleedProcedure.execute(this.level(), this);
+      StopRidingBoatProcedure.execute(this);
    }
 
    public EntityDimensions getDefaultDimensions(Pose pose) {

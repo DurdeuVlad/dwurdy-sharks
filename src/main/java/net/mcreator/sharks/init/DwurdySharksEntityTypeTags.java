@@ -79,10 +79,6 @@ public final class DwurdySharksEntityTypeTags {
       Registries.ENTITY_TYPE,
       ResourceLocation.fromNamespaceAndPath("dwurdysharks", "remora_targets")
    );
-   public static final TagKey<EntityType<?>> ROLL_PARTICLE_TARGETS = TagKey.create(
-      Registries.ENTITY_TYPE,
-      ResourceLocation.fromNamespaceAndPath("dwurdysharks", "roll_particle_targets")
-   );
    public static final TagKey<EntityType<?>> THALASSOGER_PREY = TagKey.create(
       Registries.ENTITY_TYPE,
       ResourceLocation.fromNamespaceAndPath("dwurdysharks", "thalassoger_prey")

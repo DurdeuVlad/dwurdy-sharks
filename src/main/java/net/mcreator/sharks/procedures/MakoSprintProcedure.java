@@ -10,25 +10,12 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.event.tick.EntityTickEvent.Pre;
 
-@EventBusSubscriber
 public class MakoSprintProcedure {
-   @SubscribeEvent
-   public static void onEntityTick(Pre event) {
-      Entity entity = event.getEntity();
-      if (!(entity instanceof MakoSharkEntity)) {
-         return;
-      }
-      if ((entity.tickCount + entity.getId()) % 10 != 0) {
-         return;
-      }
-      execute(entity.level(), entity.getX(), entity.getY(), entity.getZ(), entity);
-   }
-
    public static void execute(LevelAccessor world, double x, double y, double z, Entity entity) {
+      if (entity == null || (entity.tickCount + entity.getId()) % 10 != 0) {
+         return;
+      }
       if (!(entity instanceof MakoSharkEntity) || !entity.isInWaterOrBubble()) {
          return;
       }

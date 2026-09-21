@@ -6,6 +6,11 @@ import net.mcreator.sharks.init.BenssharksModEntities;
 import net.mcreator.sharks.init.DwurdySharksBiomeTags;
 import net.mcreator.sharks.init.DwurdySharksConfig;
 import net.mcreator.sharks.init.BenssharksModItems;
+import net.mcreator.sharks.procedures.StopRidingBoatProcedure;
+import net.mcreator.sharks.procedures.SharkBleedProcedure;
+import net.mcreator.sharks.procedures.EatDroppedItemProcedure;
+import net.mcreator.sharks.procedures.RightClickSpeedProcedure;
+import net.mcreator.sharks.procedures.FollowIfTamedProcedure;
 import net.mcreator.sharks.procedures.AggressiveSharksProcedureProcedure;
 import net.mcreator.sharks.procedures.IfTamedProcedure;
 import net.mcreator.sharks.procedures.NurseSharkEntityIsHurtProcedure;
@@ -401,6 +406,11 @@ public class NurseSharkEntity extends TamableAnimal implements GeoEntity {
    public void baseTick() {
       super.baseTick();
       NurseSharkOnEntityTickUpdateProcedure.execute(this.level(), this);
+      FollowIfTamedProcedure.execute(this.level(), this.getX(), this.getY(), this.getZ(), this);
+      RightClickSpeedProcedure.execute(this);
+      EatDroppedItemProcedure.execute(this.level(), this.getX(), this.getY(), this.getZ(), this);
+      SharkBleedProcedure.execute(this.level(), this);
+      StopRidingBoatProcedure.execute(this);
    }
 
    public EntityDimensions getDefaultDimensions(Pose pose) {

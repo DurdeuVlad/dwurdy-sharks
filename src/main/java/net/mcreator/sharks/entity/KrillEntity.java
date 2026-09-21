@@ -4,6 +4,7 @@ import net.mcreator.sharks.init.BenssharksModEntities;
 import net.mcreator.sharks.init.DwurdySharksBiomeTags;
 import net.mcreator.sharks.init.DwurdySharksConfig;
 import net.mcreator.sharks.init.BenssharksModItems;
+import net.mcreator.sharks.procedures.StopRidingBoatProcedure;
 import net.mcreator.sharks.procedures.KrillOnEntityTickUpdateProcedure;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
@@ -167,6 +168,7 @@ public class KrillEntity extends PathfinderMob implements GeoEntity {
    public void baseTick() {
       super.baseTick();
       KrillOnEntityTickUpdateProcedure.execute(this.level(), this);
+      StopRidingBoatProcedure.execute(this);
    }
 
    public EntityDimensions getDefaultDimensions(Pose pose) {

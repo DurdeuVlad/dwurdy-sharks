@@ -1,7 +1,5 @@
 package net.mcreator.sharks.entity;
 
-import net.mcreator.sharks.procedures.RollParticleOnEntityTickUpdateProcedure;
-import net.mcreator.sharks.init.DwurdySharksEntityTypeTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
@@ -17,15 +15,11 @@ import net.minecraft.world.entity.AreaEffectCloud;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.Entity.RemovalReason;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
-import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.ThrownPotion;
@@ -50,6 +44,7 @@ public class RollParticleEntity extends PathfinderMob implements GeoEntity {
    public static final EntityDataAccessor<String> TEXTURE = SynchedEntityData.defineId(RollParticleEntity.class, EntityDataSerializers.STRING);
    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
    private boolean swinging;
+   private int waterTicks;
    private boolean lastloop;
    private long lastSwing;
    public String animationprocedure = "empty";
@@ -58,7 +53,7 @@ public class RollParticleEntity extends PathfinderMob implements GeoEntity {
    public RollParticleEntity(EntityType<RollParticleEntity> type, Level world) {
       super(type, world);
       this.xpReward = 0;
-      this.setNoAi(false);
+      this.setNoAi(true);
          }
 
    protected void defineSynchedData(Builder builder) {
@@ -78,15 +73,6 @@ public class RollParticleEntity extends PathfinderMob implements GeoEntity {
 
    protected void registerGoals() {
       super.registerGoals();
-      this.goalSelector.addGoal(1, new AvoidEntityGoal(this, GreaterAxodileEntity.class, 8.0F, 1.0, 1.0));
-      this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.5, false) {
-         protected boolean canPerformAttack(LivingEntity entity) {
-            return this.isTimeToAttack() && this.mob.distanceToSqr(entity) < 16.0 && this.mob.getSensing().hasLineOfSight(entity);
-         }
-      });
-      this.goalSelector.addGoal(3, new AvoidEntityGoal(this, MegalodonEntity.class, 32.0F, 1.0, 1.2));
-      this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, true, true,
-         e -> e.getType().is(DwurdySharksEntityTypeTags.ROLL_PARTICLE_TARGETS)));
    }
 
    public void playStepSound(BlockPos pos, BlockState blockIn) {
@@ -155,7 +141,11 @@ public class RollParticleEntity extends PathfinderMob implements GeoEntity {
 
    public void baseTick() {
       super.baseTick();
-      RollParticleOnEntityTickUpdateProcedure.execute(this.level(), this);
+      if (!this.isVehicle() && !this.level().isClientSide()) {
+         this.discard();
+      } else if (!this.level().isClientSide() && (this.waterTicks > 0 || this.isInWaterOrBubble()) && ++this.waterTicks >= 60) {
+         this.discard();
+      }
    }
 
    public EntityDimensions getDefaultDimensions(Pose pose) {
