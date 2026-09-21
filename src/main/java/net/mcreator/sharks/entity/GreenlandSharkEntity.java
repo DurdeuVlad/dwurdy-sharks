@@ -2,6 +2,7 @@ package net.mcreator.sharks.entity;
 
 import javax.annotation.Nullable;
 import net.mcreator.sharks.init.BenssharksModEntities;
+import net.mcreator.sharks.init.DwurdySharksEntityTypeTags;
 import net.mcreator.sharks.init.DwurdySharksBiomeTags;
 import net.mcreator.sharks.procedures.AggressiveSharksProcedureProcedure;
 import net.mcreator.sharks.procedures.GreenlandSharkEntityIsHurtProcedure;
@@ -43,16 +44,6 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
-import net.minecraft.world.entity.animal.PolarBear;
-import net.minecraft.world.entity.animal.horse.Horse;
-import net.minecraft.world.entity.animal.horse.ZombieHorse;
-import net.minecraft.world.entity.monster.Drowned;
-import net.minecraft.world.entity.monster.Husk;
-import net.minecraft.world.entity.monster.Phantom;
-import net.minecraft.world.entity.monster.Zoglin;
-import net.minecraft.world.entity.monster.Zombie;
-import net.minecraft.world.entity.monster.ZombieVillager;
-import net.minecraft.world.entity.monster.ZombifiedPiglin;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -163,17 +154,8 @@ public class GreenlandSharkEntity extends PathfinderMob implements GeoEntity {
             }
          );
       this.goalSelector.addGoal(3, new TemptGoal(this, 1.0, Ingredient.of(new ItemLike[]{Items.ROTTEN_FLESH}), false));
-      this.targetSelector.addGoal(4, new NearestAttackableTargetGoal(this, CookiecutterSharkEntity.class, true, true));
-      this.targetSelector.addGoal(5, new NearestAttackableTargetGoal(this, PolarBear.class, true, true));
-      this.targetSelector.addGoal(6, new NearestAttackableTargetGoal(this, Horse.class, true, true));
-      this.targetSelector.addGoal(7, new NearestAttackableTargetGoal(this, Drowned.class, true, true));
-      this.targetSelector.addGoal(8, new NearestAttackableTargetGoal(this, Zombie.class, true, true));
-      this.targetSelector.addGoal(9, new NearestAttackableTargetGoal(this, Husk.class, true, true));
-      this.targetSelector.addGoal(10, new NearestAttackableTargetGoal(this, ZombifiedPiglin.class, true, true));
-      this.targetSelector.addGoal(11, new NearestAttackableTargetGoal(this, Zoglin.class, true, true));
-      this.targetSelector.addGoal(12, new NearestAttackableTargetGoal(this, Phantom.class, true, true));
-      this.targetSelector.addGoal(13, new NearestAttackableTargetGoal(this, ZombieVillager.class, true, true));
-      this.targetSelector.addGoal(14, new NearestAttackableTargetGoal(this, ZombieHorse.class, true, true));
+      this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, true, true,
+         e -> e.getType().is(DwurdySharksEntityTypeTags.GREENLAND_SHARK_PREY)));
       this.targetSelector.addGoal(15, new NearestAttackableTargetGoal(this, Player.class, true, true) {
          public boolean canUse() {
             return super.canUse() && AggressiveSharksProcedureProcedure.execute(GreenlandSharkEntity.this.level());

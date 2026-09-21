@@ -1,0 +1,15 @@
+{
+  "replace": false,
+  "values": [
+    "dwurdysharks:cookiecutter_shark",
+    "dwurdysharks:axodile",
+    "minecraft:drowned",
+    "minecraft:guardian",
+    "minecraft:elder_guardian",
+    "dwurdysharks:barracuda",
+    "minecraft:turtle",
+    "minecraft:dolphin",
+    "minecraft:glow_squid",
+    "minecraft:squid"
+  ]
+}

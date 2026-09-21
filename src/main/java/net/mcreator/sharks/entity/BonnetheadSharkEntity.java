@@ -3,6 +3,7 @@ package net.mcreator.sharks.entity;
 import java.util.List;
 import javax.annotation.Nullable;
 import net.mcreator.sharks.init.BenssharksModEntities;
+import net.mcreator.sharks.init.DwurdySharksEntityTypeTags;
 import net.mcreator.sharks.init.DwurdySharksBiomeTags;
 import net.mcreator.sharks.procedures.AggressiveSharksProcedureProcedure;
 import net.mcreator.sharks.procedures.BonnetheadSharkEntityIsHurtProcedure;
@@ -50,11 +51,8 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.Chicken;
 import net.minecraft.world.entity.animal.Dolphin;
 import net.minecraft.world.entity.animal.WaterAnimal;
-import net.minecraft.world.entity.animal.frog.Frog;
-import net.minecraft.world.entity.animal.frog.Tadpole;
 import net.minecraft.world.entity.monster.ElderGuardian;
 import net.minecraft.world.entity.monster.Guardian;
 import net.minecraft.world.entity.player.Player;
@@ -175,10 +173,8 @@ public class BonnetheadSharkEntity extends Animal implements GeoEntity {
             }
          );
       this.goalSelector.addGoal(5, new PanicGoal(this, 1.0));
-      this.targetSelector.addGoal(8, new NearestAttackableTargetGoal(this, CookiecutterSharkEntity.class, true, true));
-      this.targetSelector.addGoal(9, new NearestAttackableTargetGoal(this, Frog.class, true, true));
-      this.targetSelector.addGoal(10, new NearestAttackableTargetGoal(this, Tadpole.class, true, true));
-      this.targetSelector.addGoal(11, new NearestAttackableTargetGoal(this, Chicken.class, true, true));
+      this.targetSelector.addGoal(8, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, true, true,
+         e -> e.getType().is(DwurdySharksEntityTypeTags.BONNETHEAD_SHARK_PREY)));
       this.targetSelector.addGoal(12, new NearestAttackableTargetGoal(this, Player.class, true, true) {
          public boolean canUse() {
             return super.canUse() && AggressiveSharksProcedureProcedure.execute(BonnetheadSharkEntity.this.level());

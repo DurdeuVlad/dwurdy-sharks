@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+    "dwurdysharks:cookiecutter_shark",
+    "minecraft:rabbit",
+    "minecraft:chicken",
+    "minecraft:salmon",
+    "dwurdysharks:remora",
+    "minecraft:cod",
+    "dwurdysharks:pilot_fish",
+    "minecraft:tropical_fish",
+    "minecraft:pufferfish",
+    "minecraft:glow_squid",
+    "minecraft:squid"
+  ]
+}

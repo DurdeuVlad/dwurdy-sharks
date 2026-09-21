@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "dwurdysharks:cookiecutter_shark",
+    "minecraft:frog",
+    "minecraft:tadpole",
+    "minecraft:chicken"
+  ]
+}

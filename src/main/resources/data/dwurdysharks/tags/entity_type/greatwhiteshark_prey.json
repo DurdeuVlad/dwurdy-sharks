@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:guardian",
+    "minecraft:elder_guardian",
+    "dwurdysharks:cookiecutter_shark",
+    "dwurdysharks:axodile",
+    "dwurdysharks:barracuda",
+    "minecraft:turtle",
+    "minecraft:glow_squid",
+    "minecraft:squid"
+  ]
+}

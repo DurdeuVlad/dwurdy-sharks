@@ -2,6 +2,7 @@ package net.mcreator.sharks.entity;
 
 import javax.annotation.Nullable;
 import net.mcreator.sharks.init.BenssharksModEntities;
+import net.mcreator.sharks.init.DwurdySharksEntityTypeTags;
 import net.mcreator.sharks.init.DwurdySharksBiomeTags;
 import net.mcreator.sharks.init.BenssharksModItems;
 import net.mcreator.sharks.procedures.WhaleSharkEntityIsHurtProcedure;
@@ -21,6 +22,7 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
@@ -137,7 +139,8 @@ public class WhaleSharkEntity extends PathfinderMob implements GeoEntity {
    protected void registerGoals() {
       super.registerGoals();
       this.goalSelector.addGoal(1, new TemptGoal(this, 1.0, Ingredient.of(new ItemLike[]{(ItemLike)BenssharksModItems.KRILL_ITEM.get()}), false));
-      this.targetSelector.addGoal(2, new NearestAttackableTargetGoal(this, KrillEntity.class, true, true));
+      this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, true, true,
+         e -> e.getType().is(DwurdySharksEntityTypeTags.WHALE_SHARK_PREY)));
       this.goalSelector.addGoal(4, new AvoidEntityGoal(this, MegalodonEntity.class, 32.0F, 1.0, 1.2));
       this.goalSelector.addGoal(5, new AvoidEntityGoal(this, RemoraEntity.class, 16.0F, 1.0, 1.2));
       this.goalSelector.addGoal(6, new AvoidEntityGoal(this, CookiecutterSharkEntity.class, 16.0F, 1.0, 1.2));

@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+    "dwurdysharks:cookiecutter_shark",
+    "minecraft:polar_bear",
+    "minecraft:horse",
+    "minecraft:drowned",
+    "minecraft:zombie",
+    "minecraft:husk",
+    "minecraft:zombified_piglin",
+    "minecraft:zoglin",
+    "minecraft:phantom",
+    "minecraft:zombie_villager",
+    "minecraft:zombie_horse"
+  ]
+}

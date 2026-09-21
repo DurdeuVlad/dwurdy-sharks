@@ -1,0 +1,24 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:guardian",
+    "minecraft:elder_guardian",
+    "minecraft:turtle",
+    "dwurdysharks:barracuda",
+    "minecraft:pillager",
+    "minecraft:vindicator",
+    "minecraft:evoker",
+    "minecraft:witch",
+    "minecraft:piglin",
+    "minecraft:piglin_brute",
+    "minecraft:drowned",
+    "minecraft:zombie",
+    "minecraft:zombified_piglin",
+    "minecraft:zombie_villager",
+    "minecraft:skeleton",
+    "minecraft:wither_skeleton",
+    "dwurdysharks:cookiecutter_shark",
+    "minecraft:glow_squid",
+    "minecraft:squid"
+  ]
+}

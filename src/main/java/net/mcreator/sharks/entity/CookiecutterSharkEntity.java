@@ -2,6 +2,7 @@ package net.mcreator.sharks.entity;
 
 import javax.annotation.Nullable;
 import net.mcreator.sharks.init.BenssharksModEntities;
+import net.mcreator.sharks.init.DwurdySharksEntityTypeTags;
 import net.mcreator.sharks.init.DwurdySharksBiomeTags;
 import net.mcreator.sharks.procedures.AggressiveSharksProcedureProcedure;
 import net.mcreator.sharks.procedures.CookiecutterSharkOnEntityTickUpdateProcedure;
@@ -23,7 +24,6 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.GlowSquid;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
@@ -44,7 +44,6 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
 import net.minecraft.world.entity.animal.Dolphin;
-import net.minecraft.world.entity.animal.Squid;
 import net.minecraft.world.entity.animal.Turtle;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.player.Player;
@@ -150,28 +149,8 @@ public class CookiecutterSharkEntity extends PathfinderMob implements GeoEntity 
       super.registerGoals();
       this.goalSelector.addGoal(1, new PanicGoal(this, 1.2));
       this.targetSelector.addGoal(2, new HurtByTargetGoal(this, new Class[0]));
-      this.targetSelector.addGoal(3, new NearestAttackableTargetGoal(this, MegalodonEntity.class, true, true));
-      this.targetSelector.addGoal(4, new NearestAttackableTargetGoal(this, GreaterAxodileEntity.class, true, true));
-      this.targetSelector.addGoal(5, new NearestAttackableTargetGoal(this, GreenlandSharkEntity.class, true, true));
-      this.targetSelector.addGoal(6, new NearestAttackableTargetGoal(this, ShrakEntity.class, true, true));
-      this.targetSelector.addGoal(7, new NearestAttackableTargetGoal(this, TigerSharkEntity.class, true, true));
-      this.targetSelector.addGoal(8, new NearestAttackableTargetGoal(this, MakoSharkEntity.class, true, true));
-      this.targetSelector.addGoal(9, new NearestAttackableTargetGoal(this, BlueSharkEntity.class, true, true));
-      this.targetSelector.addGoal(10, new NearestAttackableTargetGoal(this, BullSharkEntity.class, true, true));
-      this.targetSelector.addGoal(11, new NearestAttackableTargetGoal(this, WhitetipSharkEntity.class, true, true));
-      this.targetSelector.addGoal(12, new NearestAttackableTargetGoal(this, LemonSharkEntity.class, true, true));
-      this.targetSelector.addGoal(13, new NearestAttackableTargetGoal(this, NurseSharkEntity.class, true, true));
-      this.targetSelector.addGoal(14, new NearestAttackableTargetGoal(this, BlacktipReefSharkEntity.class, true, true));
-      this.targetSelector.addGoal(15, new NearestAttackableTargetGoal(this, BonnetheadSharkEntity.class, true, true));
-      this.targetSelector.addGoal(16, new NearestAttackableTargetGoal(this, BarracudaEntity.class, true, true));
-      this.targetSelector.addGoal(17, new NearestAttackableTargetGoal(this, GlowSquid.class, true, true));
-      this.targetSelector.addGoal(18, new NearestAttackableTargetGoal(this, Squid.class, true, true));
-      this.targetSelector.addGoal(19, new NearestAttackableTargetGoal(this, AxodileEntity.class, true, true));
-      this.targetSelector.addGoal(20, new NearestAttackableTargetGoal(this, Turtle.class, true, true));
-      this.targetSelector.addGoal(21, new NearestAttackableTargetGoal(this, Dolphin.class, true, true));
-      this.targetSelector.addGoal(22, new NearestAttackableTargetGoal(this, WhaleSharkEntity.class, true, true));
-      this.targetSelector.addGoal(23, new NearestAttackableTargetGoal(this, BaskingSharkEntity.class, true, true));
-      this.targetSelector.addGoal(24, new NearestAttackableTargetGoal(this, LandSharkEntity.class, true, true));
+      this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, true, true,
+         e -> e.getType().is(DwurdySharksEntityTypeTags.COOKIECUTTER_SHARK_PREY)));
       this.targetSelector.addGoal(25, new NearestAttackableTargetGoal(this, Player.class, true, true) {
          public boolean canUse() {
             return super.canUse() && AggressiveSharksProcedureProcedure.execute(CookiecutterSharkEntity.this.level());
