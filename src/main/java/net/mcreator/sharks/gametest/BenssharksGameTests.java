@@ -132,7 +132,9 @@ public class BenssharksGameTests {
          BenssharksModEntities.BONNETHEAD_SHARK.get(), BenssharksModEntities.BARRACUDA.get()
       };
       int spawned = 0;
-      for (int i = 0; i < 150; i++) {
+      int target = Integer.getInteger("sharks.stress.population", 150);
+      long runSeconds = Long.getLong("sharks.stress.seconds", 300L);
+      for (int i = 0; i < target; i++) {
          try {
             helper.spawn(types[i % types.length], 1 + i % 4, 1 + i / 60, 1 + i / 4 % 4);
             spawned++;
@@ -153,7 +155,25 @@ public class BenssharksGameTests {
             BenssharksMod.LOGGER.info(
                "[stress_population] {}s elapsed | {} spawned, {} alive, server avg tick {} ms (aggressiveSharks=true, survival player present)",
                elapsedSec, total, alive, String.format(java.util.Locale.ROOT, "%.2f", mspt));
-            if (elapsedSec >= 300) {
+            if (elapsedSec >= runSeconds) {
+               helper.succeed();
+            }
+         });
+      }
+   }
+
+   @GameTest(template = "pool", batch = "stress_population", timeoutTicks = 300000, required = false)
+   public static void baselineIdleTickCost(GameTestHelper helper) {
+      ServerLevel level = helper.getLevel();
+      long start = System.currentTimeMillis();
+      long runSeconds = Long.getLong("sharks.stress.seconds", 300L);
+      for (long t = 1200L; t <= 295000L; t += 1200L) {
+         helper.runAtTickTime(t, () -> {
+            long elapsedSec = (System.currentTimeMillis() - start) / 1000;
+            if (elapsedSec >= runSeconds) {
+               float mspt = level.getServer().getAverageTickTimeNanos() / 1000000.0F;
+               BenssharksMod.LOGGER.info("[stress_baseline] no sharks, server avg tick {} ms",
+                  String.format(java.util.Locale.ROOT, "%.2f", mspt));
                helper.succeed();
             }
          });
@@ -182,10 +202,11 @@ public class BenssharksGameTests {
          });
       }
       long start = System.currentTimeMillis();
+      long runSeconds = Long.getLong("sharks.stress.seconds", 300L);
       for (long t = 1200L; t <= 295000L; t += 1200L) {
          helper.runAtTickTime(t, () -> {
             long elapsedSec = (System.currentTimeMillis() - start) / 1000;
-            if (elapsedSec >= 300) {
+            if (elapsedSec >= runSeconds) {
                float mspt = level.getServer().getAverageTickTimeNanos() / 1000000.0F;
                BenssharksMod.LOGGER.info(
                   "[stress_dryout] {} beached sharks spawned (dryout path), server avg tick {} ms",
@@ -233,10 +254,11 @@ public class BenssharksGameTests {
          });
       }
       long start = System.currentTimeMillis();
+      long runSeconds = Long.getLong("sharks.stress.seconds", 300L);
       for (long t = 1200L; t <= 295000L; t += 1200L) {
          helper.runAtTickTime(t, () -> {
             long elapsedSec = (System.currentTimeMillis() - start) / 1000;
-            if (elapsedSec >= 300) {
+            if (elapsedSec >= runSeconds) {
                float mspt = level.getServer().getAverageTickTimeNanos() / 1000000.0F;
                BenssharksMod.LOGGER.info(
                   "[stress_item_eat] {} eater sharks + food drops every 600t, server avg tick {} ms",
@@ -245,6 +267,28 @@ public class BenssharksGameTests {
             }
          });
       }
+   }
+
+   @GameTest(template = "pool", batch = "cap", timeoutTicks = 400)
+   public static void localCapBoundsNaturalSpawns(GameTestHelper helper) {
+      ServerLevel level = helper.getLevel();
+      level.getServer().setDifficulty(Difficulty.NORMAL, true);
+      level.getGameRules().getRule(BenssharksModGameRules.LARGE_SHARK_LOCAL_CAP).set(8, level.getServer());
+      fillPool(helper);
+      BlockPos base = helper.absolutePos(new BlockPos(2, 2, 2));
+      int spawned = 0;
+      for (int i = 0; i < 40; i++) {
+         net.minecraft.world.entity.Entity e = BenssharksModEntities.BULL_SHARK.get()
+            .spawn(level, base, net.minecraft.world.entity.MobSpawnType.NATURAL);
+         if (e != null) {
+            spawned++;
+         }
+      }
+      int total = spawned;
+      helper.runAtTickTime(40L, () -> {
+         helper.assertTrue(total <= 8, "spawned " + total + " bull sharks with largeSharkLocalCap=8");
+         helper.succeed();
+      });
    }
 
    @GameTest(template = "pool", batch = "despawn", timeoutTicks = 400)
