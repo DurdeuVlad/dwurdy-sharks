@@ -94,7 +94,7 @@ public class BenssharksModEntities {
    );
    public static final DeferredHolder<EntityType<?>, EntityType<BonnetheadSharkEntity>> BONNETHEAD_SHARK = register(
       "bonnethead_shark",
-      Builder.of(BonnetheadSharkEntity::new, MobCategory.WATER_AMBIENT)
+      Builder.of(BonnetheadSharkEntity::new, MobCategory.WATER_CREATURE)
          .setShouldReceiveVelocityUpdates(true)
          .setTrackingRange(32)
          .setUpdateInterval(3)
@@ -118,7 +118,7 @@ public class BenssharksModEntities {
    );
    public static final DeferredHolder<EntityType<?>, EntityType<BlacktipReefSharkEntity>> BLACKTIP_REEF_SHARK = register(
       "blacktip_reef_shark",
-      Builder.of(BlacktipReefSharkEntity::new, MobCategory.WATER_AMBIENT)
+      Builder.of(BlacktipReefSharkEntity::new, MobCategory.WATER_CREATURE)
          .setShouldReceiveVelocityUpdates(true)
          .setTrackingRange(32)
          .setUpdateInterval(3)
@@ -231,7 +231,7 @@ public class BenssharksModEntities {
    );
    public static final DeferredHolder<EntityType<?>, EntityType<BarracudaEntity>> BARRACUDA = register(
       "barracuda",
-      Builder.of(BarracudaEntity::new, MobCategory.WATER_AMBIENT)
+      Builder.of(BarracudaEntity::new, MobCategory.WATER_CREATURE)
          .setShouldReceiveVelocityUpdates(true)
          .setTrackingRange(64)
          .setUpdateInterval(3)
