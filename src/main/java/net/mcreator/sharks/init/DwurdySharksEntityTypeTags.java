@@ -116,6 +116,10 @@ public final class DwurdySharksEntityTypeTags {
       Registries.ENTITY_TYPE,
       ResourceLocation.fromNamespaceAndPath("dwurdysharks", "dropped_food_eaters")
    );
+   public static final TagKey<EntityType<?>> SHARKS = TagKey.create(
+      Registries.ENTITY_TYPE,
+      ResourceLocation.fromNamespaceAndPath("dwurdysharks", "sharks")
+   );
 
    private DwurdySharksEntityTypeTags() {
    }

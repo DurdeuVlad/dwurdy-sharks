@@ -4,6 +4,7 @@ import javax.annotation.Nullable;
 import net.mcreator.sharks.init.BenssharksModEntities;
 import net.mcreator.sharks.init.DwurdySharksEntityTypeTags;
 import net.mcreator.sharks.init.DwurdySharksBiomeTags;
+import net.mcreator.sharks.init.DwurdySharksConfig;
 import net.mcreator.sharks.procedures.AggressiveSharksProcedureProcedure;
 import net.mcreator.sharks.procedures.CookiecutterSharkOnEntityTickUpdateProcedure;
 import net.mcreator.sharks.procedures.CookiecutterSharkOnInitialEntitySpawnProcedure;
@@ -281,7 +282,7 @@ public class CookiecutterSharkEntity extends PathfinderMob implements GeoEntity 
             && world.getBlockState(pos.above()).is(Blocks.WATER)
             && pos.getY() >= world.getSeaLevel() - 13
             && pos.getY() <= world.getSeaLevel()
-            && world.getBiome(pos).is(DwurdySharksBiomeTags.SHARK_SPAWNING_OCEANS),
+            && (!DwurdySharksConfig.OCEAN_ONLY.get() || world.getBiome(pos).is(DwurdySharksBiomeTags.SHARK_SPAWNING_OCEANS)),
          net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent.Operation.REPLACE
       );
    }

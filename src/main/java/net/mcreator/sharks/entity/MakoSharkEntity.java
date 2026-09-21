@@ -4,6 +4,7 @@ import javax.annotation.Nullable;
 import net.mcreator.sharks.init.BenssharksModEntities;
 import net.mcreator.sharks.init.DwurdySharksEntityTypeTags;
 import net.mcreator.sharks.init.DwurdySharksBiomeTags;
+import net.mcreator.sharks.init.DwurdySharksConfig;
 import net.mcreator.sharks.init.BenssharksModItems;
 import net.mcreator.sharks.procedures.AggressiveSharksProcedureProcedure;
 import net.mcreator.sharks.procedures.MakoSharkEntityIsHurtProcedure;
@@ -270,7 +271,7 @@ public class MakoSharkEntity extends PathfinderMob implements GeoEntity {
          SpawnPlacementTypes.IN_WATER,
          Types.MOTION_BLOCKING_NO_LEAVES,
          (entityType, world, reason, pos, random) -> world.getBlockState(pos).is(Blocks.WATER) && world.getBlockState(pos.above()).is(Blocks.WATER)
-            && world.getBiome(pos).is(DwurdySharksBiomeTags.SHARK_SPAWNING_OCEANS),
+            && (!DwurdySharksConfig.OCEAN_ONLY.get() || world.getBiome(pos).is(DwurdySharksBiomeTags.SHARK_SPAWNING_OCEANS)),
          net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent.Operation.REPLACE
       );
    }
