@@ -904,15 +904,13 @@ public class DwurdySharksGameTests {
       }
    }
 
-   @GameTest(template = "pool", batch = "config", timeoutTicks = 300)
+   @GameTest(template = "pool", batch = "config", timeoutTicks = 200)
    public static void configItemEatingToggle(GameTestHelper helper) {
       ServerLevel level = helper.getLevel();
       level.getServer().setDifficulty(Difficulty.NORMAL, true);
       fillPool(helper);
       BlockPos base = helper.absolutePos(new BlockPos(2, 2, 2));
       boolean prev = DwurdySharksConfig.ITEM_EATING_ENABLED.get();
-      helper.runAtTickTime(190L, () -> DwurdySharksConfig.ITEM_EATING_ENABLED.set(prev));
-      DwurdySharksConfig.ITEM_EATING_ENABLED.set(false);
       BullSharkEntity shark = DwurdySharksModEntities.BULL_SHARK.get().create(level);
       shark.moveTo(base.getX() + 0.5, base.getY(), base.getZ() + 0.5, 0.0F, 0.0F);
       shark.setPersistenceRequired();
@@ -926,16 +924,29 @@ public class DwurdySharksGameTests {
       apple.setNoPickUpDelay();
       apple.setNoGravity(true);
       level.addFreshEntity(apple);
-      helper.runAtTickTime(80L, () -> {
+      try {
+         // Drive the procedure directly across every (tickCount + id) % 10 phase instead
+         // of relying on entity tick timing — deterministic regardless of chunk ticking.
+         DwurdySharksConfig.ITEM_EATING_ENABLED.set(false);
+         for (int i = 0; i <= 10; i++) {
+            shark.tickCount = i;
+            net.mcreator.sharks.procedures.EatDroppedItemProcedure.execute(level,
+               shark.getX(), shark.getY(), shark.getZ(), shark);
+         }
          helper.assertTrue(apple.isAlive(),
-            "dropped apple vanished while itemEatingEnabled=false");
+            "dropped apple was eaten while itemEatingEnabled=false");
          DwurdySharksConfig.ITEM_EATING_ENABLED.set(true);
-         helper.runAtTickTime(180L, () -> {
-            helper.assertTrue(!apple.isAlive(),
-               "dropped apple survived 100 ticks next to an eater shark with itemEatingEnabled=true");
-            helper.succeed();
-         });
-      });
+         for (int i = 0; i <= 10; i++) {
+            shark.tickCount = i;
+            net.mcreator.sharks.procedures.EatDroppedItemProcedure.execute(level,
+               shark.getX(), shark.getY(), shark.getZ(), shark);
+         }
+         helper.assertTrue(!apple.isAlive(),
+            "dropped apple survived direct eat calls next to an eater shark with itemEatingEnabled=true");
+         helper.succeed();
+      } finally {
+         DwurdySharksConfig.ITEM_EATING_ENABLED.set(prev);
+      }
    }
 
    @GameTest(template = "pool", batch = "config", timeoutTicks = 200)
