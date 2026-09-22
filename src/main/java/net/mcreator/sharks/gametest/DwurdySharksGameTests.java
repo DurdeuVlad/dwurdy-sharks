@@ -815,6 +815,58 @@ public class DwurdySharksGameTests {
       }
    }
 
+   @GameTest(template = "pool", batch = "config", timeoutTicks = 300)
+   public static void configItemEatingToggle(GameTestHelper helper) {
+      ServerLevel level = helper.getLevel();
+      level.getServer().setDifficulty(Difficulty.NORMAL, true);
+      fillPool(helper);
+      BlockPos base = helper.absolutePos(new BlockPos(2, 2, 2));
+      boolean prev = DwurdySharksConfig.ITEM_EATING_ENABLED.get();
+      helper.runAtTickTime(190L, () -> DwurdySharksConfig.ITEM_EATING_ENABLED.set(prev));
+      DwurdySharksConfig.ITEM_EATING_ENABLED.set(false);
+      BullSharkEntity shark = DwurdySharksModEntities.BULL_SHARK.get().create(level);
+      shark.moveTo(base.getX() + 0.5, base.getY(), base.getZ() + 0.5, 0.0F, 0.0F);
+      shark.setPersistenceRequired();
+      shark.setNoAi(true);
+      level.addFreshEntity(shark);
+      net.minecraft.world.entity.item.ItemEntity apple = new net.minecraft.world.entity.item.ItemEntity(
+         level, base.getX() + 0.5, base.getY(), base.getZ() + 0.5,
+         new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.APPLE));
+      apple.setNoPickUpDelay();
+      level.addFreshEntity(apple);
+      helper.runAtTickTime(80L, () -> {
+         helper.assertTrue(apple.isAlive(),
+            "dropped apple vanished while itemEatingEnabled=false");
+         DwurdySharksConfig.ITEM_EATING_ENABLED.set(true);
+         helper.runAtTickTime(180L, () -> {
+            helper.assertTrue(!apple.isAlive(),
+               "dropped apple survived 100 ticks next to an eater shark with itemEatingEnabled=true");
+            helper.succeed();
+         });
+      });
+   }
+
+   @GameTest(template = "pool", batch = "config", timeoutTicks = 200)
+   public static void configAggroRangeMultiplierApplied(GameTestHelper helper) {
+      ServerLevel level = helper.getLevel();
+      BlockPos base = helper.absolutePos(new BlockPos(2, 2, 2));
+      purgeModMobs(level, base, 48.0);
+      double prev = DwurdySharksConfig.AGGRO_FOLLOW_RANGE_MULTIPLIER.get();
+      try {
+         DwurdySharksConfig.AGGRO_FOLLOW_RANGE_MULTIPLIER.set(1.0);
+         BullSharkEntity control = spawnedShark(level, base);
+         double baseRange = control.getAttributeValue(Attributes.FOLLOW_RANGE);
+         DwurdySharksConfig.AGGRO_FOLLOW_RANGE_MULTIPLIER.set(2.0);
+         BullSharkEntity scaled = spawnedShark(level, base);
+         double scaledRange = scaled.getAttributeValue(Attributes.FOLLOW_RANGE);
+         helper.assertTrue(Math.abs(scaledRange - baseRange * 2.0) < 1.0E-4,
+            "FOLLOW_RANGE " + scaledRange + " != 2x base " + baseRange + " at aggroFollowRangeMultiplier=2.0");
+         helper.succeed();
+      } finally {
+         DwurdySharksConfig.AGGRO_FOLLOW_RANGE_MULTIPLIER.set(prev);
+      }
+   }
+
    private static BullSharkEntity spawnedShark(ServerLevel level, BlockPos pos) {
       BullSharkEntity shark = DwurdySharksModEntities.BULL_SHARK.get().create(level);
       shark.moveTo(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, 0.0F, 0.0F);
