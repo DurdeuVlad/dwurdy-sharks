@@ -68,17 +68,18 @@ public final class DwurdySharksConfig {
       }
       builder.pop().pop();
       builder.comment("Whole-dimension population ceilings. These are the GLOBAL caps; the per-radius local caps",
-         "are gamerules (largeSharkLocalCap, ambientFishLocalCap, sharkSpawnCapRadius). A gamerule value of -1",
+         "are gamerules (dwurdySharksLargeSharkLocalCap, dwurdySharksAmbientFishLocalCap,",
+         "dwurdySharksSpawnCapRadius). A gamerule value of -1",
          "inherits the config value here. Effective cap 0 = unlimited.").push("population");
       LARGE_SHARK_GLOBAL_CAP = builder
          .comment("Maximum wild non-exempt LARGE_SHARKS-tagged entities per dimension (0 = unlimited).",
             "Counts entities across the entire dimension, not a radius. Exempt: tamed, named,",
-            "persistence-required, bucket-released, and bred entities. Gamerule largeSharkGlobalCap",
+            "persistence-required, bucket-released, and bred entities. Gamerule dwurdySharksLargeSharkGlobalCap",
             "overrides this per world when set >= 0.")
          .defineInRange("largeSharkGlobalCap", 0, 0, 100000);
       AMBIENT_FISH_GLOBAL_CAP = builder
          .comment("Same as largeSharkGlobalCap but for the AMBIENT_FISH tag (krill, remora, pilot fish,",
-            "roll particle). Gamerule ambientFishGlobalCap overrides per world when set >= 0.")
+            "roll particle). Gamerule dwurdySharksAmbientFishGlobalCap overrides per world when set >= 0.")
          .defineInRange("ambientFishGlobalCap", 0, 0, 100000);
       builder.pop();
       builder.comment("Damage balance. Effective damage = base damage x sharkDamageMultiplier x speciesMultiplier;",
@@ -129,7 +130,7 @@ public final class DwurdySharksConfig {
          .comment("True: large sharks (large_sharks tag) actively seek out and ram boats or chest boats",
             "carrying passengers, breaking the boat after a few hits — border/moat deterrent.",
             "False (default): sharks ignore boats. Tamed sharks never attack boats; empty boats are",
-            "ignored. Independent of the aggressiveSharks gamerule.")
+            "ignored. Independent of the dwurdySharksAggressiveSharks gamerule.")
          .define("sharksAttackBoats", false);
       AGGRO_FOLLOW_RANGE_MULTIPLIER = builder
          .comment("Multiplier on FOLLOW_RANGE, i.e. how far aggressive sharks notice and chase targets",

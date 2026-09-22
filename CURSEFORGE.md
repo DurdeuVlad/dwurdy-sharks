@@ -22,7 +22,7 @@
 ### New in 1.4.0
 
 - � **Wild sharks stay in the ocean.** A fix for sharks spawning in rivers, lakes, swamps, and beaches — natural spawns are now restricted to the `dwurdysharks:shark_spawning_oceans` biome tag, extensible by datapacks.
-- 🚦 **Server protection built in.** Local population caps (`largeSharkLocalCap` 24, `ambientFishLocalCap` 64, `sharkSpawnCapRadius` 128) with density shaping stop entity floods before they start. Tamed and named sharks are exempt.
+- 🚦 **Server protection built in.** Local population caps (`dwurdySharksLargeSharkLocalCap` 24, `dwurdySharksAmbientFishLocalCap` 64, `dwurdySharksSpawnCapRadius` 128) with density shaping stop entity floods before they start. Tamed and named sharks are exempt.
 - ⚡ **Major tick-time fixes.** Beached sharks no longer flood the server work queue, spawn procedures no longer scan every tick, and all 24 species dropped per-tick dimension refreshes — the 5-minute automated stress gate holds p95 tick under 15 ms at ~470 live sharks.
 - ⚙️ **New server config** (`dwurdysharks-server.toml`): master spawn switch, per-species toggles, damage multiplier, and Megalodon damage/armor-bypass options.
 - 🧪 **Automated regression + stress suite** (`gradlew runGameTestServer`): 17 tests including five 5-minute wall-clock stress profiles.
@@ -44,7 +44,7 @@ Only the NeoForge 1.21.1 target is currently verified. Do not mix this file's in
 
 ### Server configuration
 
-`dwurdysharks-server.toml` (per world, in `<world>/serverconfig/`) controls damage and speed multipliers (global + per-species), per-species health overrides, whole-dimension population caps, dryout timing, item eating, and despawn distance. Per-world live knobs stay as gamerules (`aggressiveSharks`, local/global caps — a gamerule of `-1` inherits the config default). Full reference: `docs/CONFIG.md` and `docs/GAMERULES.md` in the repo.
+`dwurdysharks-server.toml` (per world, in `<world>/serverconfig/`) controls damage and speed multipliers (global + per-species), per-species health overrides, whole-dimension population caps, dryout timing, item eating, and despawn distance. Per-world live knobs stay as gamerules (`dwurdySharksAggressiveSharks`, local/global caps — a gamerule of `-1` inherits the config default). Full reference: `docs/CONFIG.md` and `docs/GAMERULES.md` in the repo.
 
 ### Installation
 

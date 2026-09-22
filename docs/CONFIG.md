@@ -19,7 +19,7 @@ already-loaded entities pick up changes on rejoin or relog.
 | Dryout timing, item eating, despawn | config | none |
 | Spawn weights / group sizes | datapack biome-modifier JSON | datapack wins |
 
-One `enforceCapForManualSpawns` gamerule governs **both** local and global
+One `dwurdySharksEnforceCapForManualSpawns` gamerule governs **both** local and global
 caps for manual spawn paths (`/summon`, eggs, dispensers).
 
 ## Keys
@@ -39,7 +39,7 @@ mod; a warning is logged if the file carries a newer version than the build.
 
 | Key | Default | Range | Effect |
 |---|---|---|---|
-| `largeSharkGlobalCap` | `0` | 0–100000 | Maximum wild non-exempt `LARGE_SHARKS` entities **per dimension**; `0` = unlimited. Gamerule `largeSharkGlobalCap` overrides when set `>= 0`. |
+| `largeSharkGlobalCap` | `0` | 0–100000 | Maximum wild non-exempt `LARGE_SHARKS` entities **per dimension**; `0` = unlimited. Gamerule `dwurdySharksLargeSharkGlobalCap` overrides when set `>= 0`. |
 | `ambientFishGlobalCap` | `0` | 0–100000 | Same for `AMBIENT_FISH` (krill, remora, pilot fish, roll particle). |
 
 Exempt from both global and local caps: tamed, named, persistence-required,
@@ -69,8 +69,8 @@ bucket-released, and bred entities.
 | `dryoutDelayTicks` | `600` | 0–72000 | Ticks out of water before dryout starts (600 = 30 s). `0` disables dryout. |
 | `dryoutDurationTicks` | `600` | 20–72000 | Duration of each dryout effect application. |
 | `itemEatingEnabled` | `true` | — | `false` stops all dropped-food-eater species from consuming dropped items. |
-| `sharksAttackBoats` | `false` | — | `true` makes `large_sharks`-tagged sharks path to and ram **occupied** boats (rowboats and chest boats) until they break — deterrent/border-marking use. Empty boats are ignored, tamed sharks are exempt, named/persistent sharks stay eligible. Independent of the `aggressiveSharks` gamerule. |
-| `aggroFollowRangeMultiplier` | `1.0` | 0.1–10 | Scales `FOLLOW_RANGE` — how far sharks acquire and chase targets (see `aggressiveSharks` gamerule). Applied on entity join. |
+| `sharksAttackBoats` | `false` | — | `true` makes `large_sharks`-tagged sharks path to and ram **occupied** boats (rowboats and chest boats) until they break — deterrent/border-marking use. Empty boats are ignored, tamed sharks are exempt, named/persistent sharks stay eligible. Independent of the `dwurdySharksAggressiveSharks` gamerule. |
+| `aggroFollowRangeMultiplier` | `1.0` | 0.1–10 | Scales `FOLLOW_RANGE` — how far sharks acquire and chase targets (see `dwurdySharksAggressiveSharks` gamerule). Applied on entity join. |
 
 ### `[despawn]`
 
@@ -94,7 +94,7 @@ Hard cap the server at 50 large sharks, still per-world overridable:
 ```toml
 [population]
 largeSharkGlobalCap = 50
-# in-game per world: /gamerule largeSharkGlobalCap 30
+# in-game per world: /gamerule dwurdySharksLargeSharkGlobalCap 30
 ```
 
 ## Species keys

@@ -13,7 +13,7 @@ reading Java. Ship `docs/CONFIG.md` as the authoritative reference and keep
   attribute modifiers apply on next entity join), and worked examples
   (e.g. "halve all shark speed", "cap server at 50 large sharks").
 - `docs/GAMERULES.md` updated: new global-cap gamerules, the `-1` = inherit
-  sentinel, and the unified `enforceCapForManualSpawns` semantic.
+  sentinel, and the unified `dwurdySharksEnforceCapForManualSpawns` semantic.
 - A "which knob wins" table: config default → gamerule override → datapack
   spawn weights — one place explaining precedence.
 - CurseForge page (`CURSEFORGE.md`) gains a short "Server configuration"

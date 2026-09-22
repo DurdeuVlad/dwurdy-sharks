@@ -12,7 +12,7 @@ adds the switch, no new behavior is invented here.
   `EatDroppedItemProcedure`/item-eat goals so servers can stop sharks
   hoovering dropped loot.
 - `capAppliesToManualSpawns` stays the single gamerule
-  (`enforceCapForManualSpawns`) governing **both** local and global caps —
+  (`dwurdySharksEnforceCapForManualSpawns`) governing **both** local and global caps —
   do not add a second switch; document the unified semantic.
 - `behavior.aggroFollowRangeMultiplier` (double, default 1.0, range 0.1–10) —
   scales `FOLLOW_RANGE` via the issue-2 modifier path, controlling how far
@@ -24,14 +24,14 @@ adds the switch, no new behavior is invented here.
       is never consumed; `true` restores 1.4.0 behavior.
 - [ ] `stress_item_eat` still passes at default (true).
 - [ ] Aggro range multiplier measurably scales `FOLLOW_RANGE`; combined with
-      `aggressiveSharks` gamerule unchanged.
-- [ ] One `enforceCapForManualSpawns` gamerule documented as governing local
+      `dwurdySharksAggressiveSharks` gamerule unchanged.
+- [ ] One `dwurdySharksEnforceCapForManualSpawns` gamerule documented as governing local
       AND global caps (docs sync in issue 7).
 
 ## Context that code cannot infer
 
 - Why not per-behavior gamerules: these are server-policy knobs, not
-  per-world gameplay state — config is the right home; `aggressiveSharks`
+  per-world gameplay state — config is the right home; `dwurdySharksAggressiveSharks`
   remains a gamerule because 1.4.0 shipped it as one and worlds depend on it.
 - `stress_item_eat` depends on item-eating being enabled by default — the
   GameTest sets no config; default `true` keeps it green.

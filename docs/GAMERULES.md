@@ -1,9 +1,10 @@
 # Game rules
 
-All rules live in the `mobs` category. Set per world with `/gamerule <name>
-<value>`; changes take effect immediately.
+All rules live in the `mobs` category and are prefixed `dwurdySharks` so they
+are distinguishable from vanilla and other mods' rules. Set per world with
+`/gamerule <name> <value>`; changes take effect immediately.
 
-## `aggressiveSharks`
+## `dwurdySharksAggressiveSharks`
 
 - Type: boolean. Default: `false`.
 
@@ -37,28 +38,29 @@ keep the previous passive behavior because the default is `false`. How far
 sharks notice targets is tuned via `behavior.aggroFollowRangeMultiplier` in
 `dwurdysharks-server.toml`.
 
-## `largeSharkLocalCap`
+## `dwurdySharksLargeSharkLocalCap`
 
 - Type: int. Default: `24`.
 
 Maximum wild, non-exempt `LARGE_SHARKS`-tagged entities within
-`sharkSpawnCapRadius` blocks of a spawn point. Additional wild spawns in that
-radius are refused. `0` disables the local cap (global caps still apply).
+`dwurdySharksSpawnCapRadius` blocks of a spawn point. Additional wild spawns
+in that radius are refused. `0` disables the local cap (global caps still
+apply).
 
-## `ambientFishLocalCap`
+## `dwurdySharksAmbientFishLocalCap`
 
 - Type: int. Default: `64`.
 
-Same as `largeSharkLocalCap` but for `AMBIENT_FISH`-tagged entities (krill,
-remora, pilot fish, roll particle).
+Same as `dwurdySharksLargeSharkLocalCap` but for `AMBIENT_FISH`-tagged
+entities (krill, remora, pilot fish, roll particle).
 
-## `sharkSpawnCapRadius`
+## `dwurdySharksSpawnCapRadius`
 
 - Type: int. Default: `128`.
 
 Radius in blocks within which the local caps count existing entities.
 
-## `enforceCapForManualSpawns`
+## `dwurdySharksEnforceCapForManualSpawns`
 
 - Type: boolean. Default: `true`.
 
@@ -67,7 +69,7 @@ When `true`, `/summon`, spawn eggs, and dispensers are refused once a cap
 caps entirely — natural spawns are still capped. Bucket-released and bred
 entities are always exempt.
 
-## `largeSharkGlobalCap`
+## `dwurdySharksLargeSharkGlobalCap`
 
 - Type: int. Default: `-1` (inherit config).
 
@@ -76,11 +78,11 @@ independent of spawn location, unlike the local caps. `-1` inherits
 `population.largeSharkGlobalCap` from `dwurdysharks-server.toml`;
 `>= 0` overrides it for this world; effective `0` = unlimited.
 
-## `ambientFishGlobalCap`
+## `dwurdySharksAmbientFishGlobalCap`
 
 - Type: int. Default: `-1` (inherit config).
 
-Same as `largeSharkGlobalCap` for `AMBIENT_FISH`; inherits
+Same as `dwurdySharksLargeSharkGlobalCap` for `AMBIENT_FISH`; inherits
 `population.ambientFishGlobalCap`.
 
 ## Cap semantics (local and global)
@@ -89,3 +91,21 @@ Counted at spawn-finalize only — there is no per-tick population scan.
 Exempt from counts and never refused: tamed, named (`NameTag`),
 persistence-required, bucket-released, and bred entities. When both caps are
 active a spawn must pass the local check first, then the global check.
+
+## Renamed in 1.4.1
+
+These rules were introduced without the prefix in earlier development builds
+and renamed for clarity:
+
+| Old name | New name |
+|---|---|
+| `aggressiveSharks` | `dwurdySharksAggressiveSharks` |
+| `largeSharkLocalCap` | `dwurdySharksLargeSharkLocalCap` |
+| `ambientFishLocalCap` | `dwurdySharksAmbientFishLocalCap` |
+| `sharkSpawnCapRadius` | `dwurdySharksSpawnCapRadius` |
+| `enforceCapForManualSpawns` | `dwurdySharksEnforceCapForManualSpawns` |
+| `largeSharkGlobalCap` | `dwurdySharksLargeSharkGlobalCap` |
+| `ambientFishGlobalCap` | `dwurdySharksAmbientFishGlobalCap` |
+
+Worlds that stored values under the old names revert to defaults — re-apply
+them under the new names.
