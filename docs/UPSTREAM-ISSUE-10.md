@@ -17,7 +17,7 @@ warning cannot be emitted by this mod build.
 
 ## What was audited
 
-- `src/main/java/net/mcreator/sharks/init/BenssharksModEntities.java` — the
+- `src/main/java/net/mcreator/sharks/init/DwurdySharksModEntities.java` — the
   entity registry has no `SHOAL`/`SARDINE` entry (25 entities total).
 - `grep -ri "shoal|sardine" src/` — no hits.
 - Every `addFreshEntity` / `EntityType.spawn` call site (bucket-release
@@ -27,7 +27,7 @@ warning cannot be emitted by this mod build.
 - `RollParticleOnEntityTickUpdateProcedure` calls `entity.discard()` only on
   the ticking entity itself (self-removal, which is legal), never re-adds
   it.
-- `BenssharksModVariables` stores scalars only; no entity references are
+- `DwurdySharksModVariables` stores scalars only; no entity references are
   persisted and re-added later.
 
 Because no code path in this fork adds an entity that could already be

@@ -4,7 +4,7 @@ import java.util.List;
 import net.mcreator.sharks.entity.BaskingSharkEntity;
 import net.mcreator.sharks.entity.KrillEntity;
 import net.mcreator.sharks.entity.WhaleSharkEntity;
-import net.mcreator.sharks.init.BenssharksModItems;
+import net.mcreator.sharks.init.DwurdySharksModItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -50,7 +50,7 @@ public class EatKrillProcedure {
       }
 
       List<ItemEntity> items = world.getEntitiesOfClass(ItemEntity.class, seekBox,
-         e -> e.getItem().getItem() == BenssharksModItems.KRILL_ITEM.get());
+         e -> e.getItem().getItem() == DwurdySharksModItems.KRILL_ITEM.get());
       ItemEntity nearestItem = nearest(items, x, y, z);
       if (nearestItem != null) {
          if (entity instanceof Mob mob) {

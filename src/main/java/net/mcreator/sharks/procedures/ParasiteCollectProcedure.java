@@ -1,8 +1,8 @@
 package net.mcreator.sharks.procedures;
 
 import javax.annotation.Nullable;
-import net.mcreator.sharks.init.BenssharksModItems;
-import net.mcreator.sharks.init.BenssharksModMobEffects;
+import net.mcreator.sharks.init.DwurdySharksModItems;
+import net.mcreator.sharks.init.DwurdySharksModMobEffects;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -38,7 +38,7 @@ public class ParasiteCollectProcedure {
 
    private static void execute(@Nullable Event event, LevelAccessor world, Entity entity, Entity sourceentity) {
       if (entity != null && sourceentity != null) {
-         if (entity instanceof LivingEntity _livEnt0 && _livEnt0.hasEffect(BenssharksModMobEffects.PARASITE)) {
+         if (entity instanceof LivingEntity _livEnt0 && _livEnt0.hasEffect(DwurdySharksModMobEffects.PARASITE)) {
             if ((sourceentity instanceof LivingEntity _livEnt ? _livEnt.getMainHandItem() : ItemStack.EMPTY).getItem() == Blocks.AIR.asItem()) {
                if (world instanceof Level _level) {
                   if (!_level.isClientSide()) {
@@ -69,15 +69,15 @@ public class ParasiteCollectProcedure {
                }
 
                if (entity instanceof LivingEntity _entity && !_entity.level().isClientSide()) {
-                  _entity.addEffect(new MobEffectInstance(BenssharksModMobEffects.DETACHED, 1, 0, true, false));
+                  _entity.addEffect(new MobEffectInstance(DwurdySharksModMobEffects.DETACHED, 1, 0, true, false));
                }
 
                if (entity instanceof LivingEntity _entity) {
-                  _entity.removeEffect(BenssharksModMobEffects.PARASITE);
+                  _entity.removeEffect(DwurdySharksModMobEffects.PARASITE);
                }
 
                if (sourceentity instanceof LivingEntity _entity) {
-                  ItemStack _setstack = new ItemStack((ItemLike)BenssharksModItems.COOKIECUTTER_SHARK_LIVE.get()).copy();
+                  ItemStack _setstack = new ItemStack((ItemLike)DwurdySharksModItems.COOKIECUTTER_SHARK_LIVE.get()).copy();
                   _setstack.setCount(1);
                   _entity.setItemInHand(InteractionHand.MAIN_HAND, _setstack);
                   if (_entity instanceof Player _player) {
@@ -86,7 +86,7 @@ public class ParasiteCollectProcedure {
                }
             } else if ((sourceentity instanceof LivingEntity _livEntx ? _livEntx.getOffhandItem() : ItemStack.EMPTY).getItem() == Blocks.AIR.asItem()
                && (sourceentity instanceof LivingEntity _livEnt ? _livEnt.getOffhandItem() : ItemStack.EMPTY).getItem()
-                  != BenssharksModItems.COOKIECUTTER_SHARK_LIVE.get()) {
+                  != DwurdySharksModItems.COOKIECUTTER_SHARK_LIVE.get()) {
                if (world instanceof Level _levelx) {
                   if (!_levelx.isClientSide()) {
                      _levelx.playSound(
@@ -116,15 +116,15 @@ public class ParasiteCollectProcedure {
                }
 
                if (entity instanceof LivingEntity _entityx && !_entityx.level().isClientSide()) {
-                  _entityx.addEffect(new MobEffectInstance(BenssharksModMobEffects.DETACHED, 1, 0, true, false));
+                  _entityx.addEffect(new MobEffectInstance(DwurdySharksModMobEffects.DETACHED, 1, 0, true, false));
                }
 
                if (entity instanceof LivingEntity _entityx) {
-                  _entityx.removeEffect(BenssharksModMobEffects.PARASITE);
+                  _entityx.removeEffect(DwurdySharksModMobEffects.PARASITE);
                }
 
                if (sourceentity instanceof LivingEntity _entityx) {
-                  ItemStack _setstack = new ItemStack((ItemLike)BenssharksModItems.COOKIECUTTER_SHARK_LIVE.get()).copy();
+                  ItemStack _setstack = new ItemStack((ItemLike)DwurdySharksModItems.COOKIECUTTER_SHARK_LIVE.get()).copy();
                   _setstack.setCount(1);
                   _entityx.setItemInHand(InteractionHand.OFF_HAND, _setstack);
                   if (_entityx instanceof Player _player) {

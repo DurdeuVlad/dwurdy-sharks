@@ -1,7 +1,7 @@
 package net.mcreator.sharks.procedures;
 
-import net.mcreator.sharks.BenssharksMod;
-import net.mcreator.sharks.init.BenssharksModBlocks;
+import net.mcreator.sharks.DwurdySharksMod;
+import net.mcreator.sharks.init.DwurdySharksModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -27,7 +27,7 @@ public class LandMineOnBlockHitByProjectileProcedure {
       }
 
       BlockPos _bp = BlockPos.containing(x, y, z);
-      BlockState _bsx = ((Block)BenssharksModBlocks.LAND_MINE_PRIMED.get()).defaultBlockState();
+      BlockState _bsx = ((Block)DwurdySharksModBlocks.LAND_MINE_PRIMED.get()).defaultBlockState();
       _bs = world.getBlockState(_bp);
 
       for (Property<?> _propertyOld : _bs.getProperties()) {
@@ -41,7 +41,7 @@ public class LandMineOnBlockHitByProjectileProcedure {
       }
 
       world.setBlock(_bp, _bsx, 3);
-      BenssharksMod.queueServerWork(
+      DwurdySharksMod.queueServerWork(
          1,
          () -> {
             if (world instanceof Level _level) {
@@ -68,7 +68,7 @@ public class LandMineOnBlockHitByProjectileProcedure {
                }
             }
 
-            BenssharksMod.queueServerWork(10, () -> {
+            DwurdySharksMod.queueServerWork(10, () -> {
                world.setBlock(BlockPos.containing(x, y, z), Blocks.AIR.defaultBlockState(), 3);
                if (world instanceof Level _levelx && !_levelx.isClientSide()) {
                   _levelx.explode(null, x, y, z, 3.5F, ExplosionInteraction.BLOCK);

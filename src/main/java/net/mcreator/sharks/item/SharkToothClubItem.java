@@ -1,6 +1,6 @@
 package net.mcreator.sharks.item;
 
-import net.mcreator.sharks.init.BenssharksModItems;
+import net.mcreator.sharks.init.DwurdySharksModItems;
 import net.mcreator.sharks.procedures.SharkToothClubLivingEntityIsHitWithToolProcedure;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
@@ -36,7 +36,7 @@ public class SharkToothClubItem extends SwordItem {
       }
 
       public Ingredient getRepairIngredient() {
-         return Ingredient.of(new ItemStack[]{new ItemStack((ItemLike)BenssharksModItems.SHARK_TOOTH.get())});
+         return Ingredient.of(new ItemStack[]{new ItemStack((ItemLike)DwurdySharksModItems.SHARK_TOOTH.get())});
       }
    };
 

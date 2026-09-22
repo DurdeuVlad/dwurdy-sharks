@@ -2,8 +2,8 @@ package net.mcreator.sharks.procedures;
 
 import java.util.Comparator;
 import net.mcreator.sharks.entity.BlacktipReefSharkEntity;
-import net.mcreator.sharks.init.BenssharksModEntities;
-import net.mcreator.sharks.init.BenssharksModItems;
+import net.mcreator.sharks.init.DwurdySharksModEntities;
+import net.mcreator.sharks.init.DwurdySharksModItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -78,7 +78,7 @@ public class BlacktipReefSharkBucketRightclickedOnBlockProcedure {
                               world.setBlock(BlockPos.containing(x - 1.0, y, z), Blocks.WATER.defaultBlockState(), 3);
                               if (!world.isClientSide()) {
                                  if (world instanceof ServerLevel _level) {
-                                    Entity entityToSpawn = ((EntityType)BenssharksModEntities.BLACKTIP_REEF_SHARK.get())
+                                    Entity entityToSpawn = ((EntityType)DwurdySharksModEntities.BLACKTIP_REEF_SHARK.get())
                                        .spawn(_level, BlockPos.containing(x - 0.5, y, z + 0.5), MobSpawnType.MOB_SUMMONED);
                                     if (entityToSpawn != null) {
                                        entityToSpawn.setYRot(world.getRandom().nextFloat() * 360.0F);
@@ -164,7 +164,7 @@ public class BlacktipReefSharkBucketRightclickedOnBlockProcedure {
                                     })
                                     .checkGamemode(entity)
                                  && (entity instanceof LivingEntity _livEnt ? _livEnt.getMainHandItem() : ItemStack.EMPTY).getItem()
-                                    == BenssharksModItems.BLACKTIP_REEF_SHARK_BUCKET.get()) {
+                                    == DwurdySharksModItems.BLACKTIP_REEF_SHARK_BUCKET.get()) {
                                  if (entity instanceof LivingEntity _entity) {
                                     _entity.swing(InteractionHand.MAIN_HAND, true);
                                  }
@@ -199,7 +199,7 @@ public class BlacktipReefSharkBucketRightclickedOnBlockProcedure {
                                     })
                                     .checkGamemode(entity)
                                  && (entity instanceof LivingEntity _livEnt ? _livEnt.getOffhandItem() : ItemStack.EMPTY).getItem()
-                                    == BenssharksModItems.BLACKTIP_REEF_SHARK_BUCKET.get()) {
+                                    == DwurdySharksModItems.BLACKTIP_REEF_SHARK_BUCKET.get()) {
                                  if (entity instanceof LivingEntity _entityx) {
                                     _entityx.swing(InteractionHand.OFF_HAND, true);
                                  }
@@ -229,7 +229,7 @@ public class BlacktipReefSharkBucketRightclickedOnBlockProcedure {
                            world.setBlock(BlockPos.containing(x, y, z + 1.0), Blocks.WATER.defaultBlockState(), 3);
                            if (!world.isClientSide()) {
                               if (world instanceof ServerLevel _levelxxx) {
-                                 Entity entityToSpawn = ((EntityType)BenssharksModEntities.BLACKTIP_REEF_SHARK.get())
+                                 Entity entityToSpawn = ((EntityType)DwurdySharksModEntities.BLACKTIP_REEF_SHARK.get())
                                     .spawn(_levelxxx, BlockPos.containing(x + 0.5, y, z + 1.5), MobSpawnType.MOB_SUMMONED);
                                  if (entityToSpawn != null) {
                                     entityToSpawn.setYRot(world.getRandom().nextFloat() * 360.0F);
@@ -315,7 +315,7 @@ public class BlacktipReefSharkBucketRightclickedOnBlockProcedure {
                                  })
                                  .checkGamemode(entity)
                               && (entity instanceof LivingEntity _livEnt ? _livEnt.getMainHandItem() : ItemStack.EMPTY).getItem()
-                                 == BenssharksModItems.BLACKTIP_REEF_SHARK_BUCKET.get()) {
+                                 == DwurdySharksModItems.BLACKTIP_REEF_SHARK_BUCKET.get()) {
                               if (entity instanceof LivingEntity _entityxx) {
                                  _entityxx.swing(InteractionHand.MAIN_HAND, true);
                               }
@@ -350,7 +350,7 @@ public class BlacktipReefSharkBucketRightclickedOnBlockProcedure {
                                  })
                                  .checkGamemode(entity)
                               && (entity instanceof LivingEntity _livEnt ? _livEnt.getOffhandItem() : ItemStack.EMPTY).getItem()
-                                 == BenssharksModItems.BLACKTIP_REEF_SHARK_BUCKET.get()) {
+                                 == DwurdySharksModItems.BLACKTIP_REEF_SHARK_BUCKET.get()) {
                               if (entity instanceof LivingEntity _entityxxx) {
                                  _entityxxx.swing(InteractionHand.OFF_HAND, true);
                               }
@@ -380,7 +380,7 @@ public class BlacktipReefSharkBucketRightclickedOnBlockProcedure {
                         world.setBlock(BlockPos.containing(x + 1.0, y, z), Blocks.WATER.defaultBlockState(), 3);
                         if (!world.isClientSide()) {
                            if (world instanceof ServerLevel _levelxxxxxx) {
-                              Entity entityToSpawn = ((EntityType)BenssharksModEntities.BLACKTIP_REEF_SHARK.get())
+                              Entity entityToSpawn = ((EntityType)DwurdySharksModEntities.BLACKTIP_REEF_SHARK.get())
                                  .spawn(_levelxxxxxx, BlockPos.containing(x + 1.5, y, z + 0.5), MobSpawnType.MOB_SUMMONED);
                               if (entityToSpawn != null) {
                                  entityToSpawn.setYRot(world.getRandom().nextFloat() * 360.0F);
@@ -465,7 +465,7 @@ public class BlacktipReefSharkBucketRightclickedOnBlockProcedure {
                               })
                               .checkGamemode(entity)
                            && (entity instanceof LivingEntity _livEnt ? _livEnt.getMainHandItem() : ItemStack.EMPTY).getItem()
-                              == BenssharksModItems.BLACKTIP_REEF_SHARK_BUCKET.get()) {
+                              == DwurdySharksModItems.BLACKTIP_REEF_SHARK_BUCKET.get()) {
                            if (entity instanceof LivingEntity _entityxxxx) {
                               _entityxxxx.swing(InteractionHand.MAIN_HAND, true);
                            }
@@ -500,7 +500,7 @@ public class BlacktipReefSharkBucketRightclickedOnBlockProcedure {
                               })
                               .checkGamemode(entity)
                            && (entity instanceof LivingEntity _livEnt ? _livEnt.getOffhandItem() : ItemStack.EMPTY).getItem()
-                              == BenssharksModItems.BLACKTIP_REEF_SHARK_BUCKET.get()) {
+                              == DwurdySharksModItems.BLACKTIP_REEF_SHARK_BUCKET.get()) {
                            if (entity instanceof LivingEntity _entityxxxxx) {
                               _entityxxxxx.swing(InteractionHand.OFF_HAND, true);
                            }
@@ -530,7 +530,7 @@ public class BlacktipReefSharkBucketRightclickedOnBlockProcedure {
                      world.setBlock(BlockPos.containing(x, y, z - 1.0), Blocks.WATER.defaultBlockState(), 3);
                      if (!world.isClientSide()) {
                         if (world instanceof ServerLevel _levelxxxxxxxxx) {
-                           Entity entityToSpawn = ((EntityType)BenssharksModEntities.BLACKTIP_REEF_SHARK.get())
+                           Entity entityToSpawn = ((EntityType)DwurdySharksModEntities.BLACKTIP_REEF_SHARK.get())
                               .spawn(_levelxxxxxxxxx, BlockPos.containing(x + 0.5, y, z - 0.5), MobSpawnType.MOB_SUMMONED);
                            if (entityToSpawn != null) {
                               entityToSpawn.setYRot(world.getRandom().nextFloat() * 360.0F);
@@ -615,7 +615,7 @@ public class BlacktipReefSharkBucketRightclickedOnBlockProcedure {
                            })
                            .checkGamemode(entity)
                         && (entity instanceof LivingEntity _livEnt ? _livEnt.getMainHandItem() : ItemStack.EMPTY).getItem()
-                           == BenssharksModItems.BLACKTIP_REEF_SHARK_BUCKET.get()) {
+                           == DwurdySharksModItems.BLACKTIP_REEF_SHARK_BUCKET.get()) {
                         if (entity instanceof LivingEntity _entityxxxxxx) {
                            _entityxxxxxx.swing(InteractionHand.MAIN_HAND, true);
                         }
@@ -650,7 +650,7 @@ public class BlacktipReefSharkBucketRightclickedOnBlockProcedure {
                            })
                            .checkGamemode(entity)
                         && (entity instanceof LivingEntity _livEnt ? _livEnt.getOffhandItem() : ItemStack.EMPTY).getItem()
-                           == BenssharksModItems.BLACKTIP_REEF_SHARK_BUCKET.get()) {
+                           == DwurdySharksModItems.BLACKTIP_REEF_SHARK_BUCKET.get()) {
                         if (entity instanceof LivingEntity _entityxxxxxxx) {
                            _entityxxxxxxx.swing(InteractionHand.OFF_HAND, true);
                         }
@@ -680,7 +680,7 @@ public class BlacktipReefSharkBucketRightclickedOnBlockProcedure {
                   world.setBlock(BlockPos.containing(x, y - 1.0, z), Blocks.WATER.defaultBlockState(), 3);
                   if (!world.isClientSide()) {
                      if (world instanceof ServerLevel _levelxxxxxxxxxxxx) {
-                        Entity entityToSpawn = ((EntityType)BenssharksModEntities.BLACKTIP_REEF_SHARK.get())
+                        Entity entityToSpawn = ((EntityType)DwurdySharksModEntities.BLACKTIP_REEF_SHARK.get())
                            .spawn(_levelxxxxxxxxxxxx, BlockPos.containing(x + 0.5, y - 1.0, z + 0.5), MobSpawnType.MOB_SUMMONED);
                         if (entityToSpawn != null) {
                            entityToSpawn.setYRot(world.getRandom().nextFloat() * 360.0F);
@@ -765,7 +765,7 @@ public class BlacktipReefSharkBucketRightclickedOnBlockProcedure {
                         })
                         .checkGamemode(entity)
                      && (entity instanceof LivingEntity _livEnt ? _livEnt.getMainHandItem() : ItemStack.EMPTY).getItem()
-                        == BenssharksModItems.BLACKTIP_REEF_SHARK_BUCKET.get()) {
+                        == DwurdySharksModItems.BLACKTIP_REEF_SHARK_BUCKET.get()) {
                      if (entity instanceof LivingEntity _entityxxxxxxxx) {
                         _entityxxxxxxxx.swing(InteractionHand.MAIN_HAND, true);
                      }
@@ -799,7 +799,7 @@ public class BlacktipReefSharkBucketRightclickedOnBlockProcedure {
                         })
                         .checkGamemode(entity)
                      && (entity instanceof LivingEntity _livEnt ? _livEnt.getOffhandItem() : ItemStack.EMPTY).getItem()
-                        == BenssharksModItems.BLACKTIP_REEF_SHARK_BUCKET.get()) {
+                        == DwurdySharksModItems.BLACKTIP_REEF_SHARK_BUCKET.get()) {
                      if (entity instanceof LivingEntity _entityxxxxxxxxx) {
                         _entityxxxxxxxxx.swing(InteractionHand.OFF_HAND, true);
                      }
@@ -828,7 +828,7 @@ public class BlacktipReefSharkBucketRightclickedOnBlockProcedure {
                world.setBlock(BlockPos.containing(x, y + 1.0, z), Blocks.WATER.defaultBlockState(), 3);
                if (!world.isClientSide()) {
                   if (world instanceof ServerLevel _levelxxxxxxxxxxxxxxx) {
-                     Entity entityToSpawn = ((EntityType)BenssharksModEntities.BLACKTIP_REEF_SHARK.get())
+                     Entity entityToSpawn = ((EntityType)DwurdySharksModEntities.BLACKTIP_REEF_SHARK.get())
                         .spawn(_levelxxxxxxxxxxxxxxx, BlockPos.containing(x + 0.5, y + 1.0, z + 0.5), MobSpawnType.MOB_SUMMONED);
                      if (entityToSpawn != null) {
                         entityToSpawn.setYRot(world.getRandom().nextFloat() * 360.0F);
@@ -913,7 +913,7 @@ public class BlacktipReefSharkBucketRightclickedOnBlockProcedure {
                      })
                      .checkGamemode(entity)
                   && (entity instanceof LivingEntity _livEnt ? _livEnt.getMainHandItem() : ItemStack.EMPTY).getItem()
-                     == BenssharksModItems.BLACKTIP_REEF_SHARK_BUCKET.get()) {
+                     == DwurdySharksModItems.BLACKTIP_REEF_SHARK_BUCKET.get()) {
                   if (entity instanceof LivingEntity _entityxxxxxxxxxx) {
                      _entityxxxxxxxxxx.swing(InteractionHand.MAIN_HAND, true);
                   }
@@ -947,7 +947,7 @@ public class BlacktipReefSharkBucketRightclickedOnBlockProcedure {
                      })
                      .checkGamemode(entity)
                   && (entity instanceof LivingEntity _livEnt ? _livEnt.getOffhandItem() : ItemStack.EMPTY).getItem()
-                     == BenssharksModItems.BLACKTIP_REEF_SHARK_BUCKET.get()) {
+                     == DwurdySharksModItems.BLACKTIP_REEF_SHARK_BUCKET.get()) {
                   if (entity instanceof LivingEntity _entityxxxxxxxxxxx) {
                      _entityxxxxxxxxxxx.swing(InteractionHand.OFF_HAND, true);
                   }

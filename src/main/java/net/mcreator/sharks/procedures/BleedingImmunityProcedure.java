@@ -1,7 +1,7 @@
 package net.mcreator.sharks.procedures;
 
 import javax.annotation.Nullable;
-import net.mcreator.sharks.init.BenssharksModMobEffects;
+import net.mcreator.sharks.init.DwurdySharksModMobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -37,7 +37,7 @@ public class BleedingImmunityProcedure {
             && (entity instanceof LivingEntity _entGetArmor ? _entGetArmor.getItemBySlot(EquipmentSlot.FEET) : ItemStack.EMPTY).getItem()
                == Items.CHAINMAIL_BOOTS
             && entity instanceof LivingEntity _entity) {
-            _entity.removeEffect(BenssharksModMobEffects.BLEEDING);
+            _entity.removeEffect(DwurdySharksModMobEffects.BLEEDING);
          }
       }
    }

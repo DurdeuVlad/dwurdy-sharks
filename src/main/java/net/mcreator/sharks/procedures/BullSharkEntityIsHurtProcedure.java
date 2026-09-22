@@ -1,6 +1,6 @@
 package net.mcreator.sharks.procedures;
 
-import net.mcreator.sharks.BenssharksMod;
+import net.mcreator.sharks.DwurdySharksMod;
 import net.mcreator.sharks.entity.BullSharkEntity;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -20,7 +20,7 @@ public class BullSharkEntityIsHurtProcedure {
                _entity.addEffect(new MobEffectInstance(MobEffects.DOLPHINS_GRACE, 600, 1, true, false));
             }
 
-            BenssharksMod.queueServerWork(600, () -> {
+            DwurdySharksMod.queueServerWork(600, () -> {
 
                if (entity instanceof BullSharkEntity) {
                   ((BullSharkEntity)entity).setAnimation("empty");

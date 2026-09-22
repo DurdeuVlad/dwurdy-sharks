@@ -1,8 +1,8 @@
 package net.mcreator.sharks.procedures;
 
 import net.mcreator.sharks.entity.CookiecutterSharkEntity;
-import net.mcreator.sharks.init.BenssharksModEntities;
-import net.mcreator.sharks.init.BenssharksModMobEffects;
+import net.mcreator.sharks.init.DwurdySharksModEntities;
+import net.mcreator.sharks.init.DwurdySharksModMobEffects;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -20,7 +20,7 @@ import net.minecraft.world.level.LevelAccessor;
 public class ParasiteEffectExpiresProcedure {
    public static void execute(LevelAccessor world, double x, double y, double z, Entity entity) {
       if (entity != null) {
-         if (!(entity instanceof CookiecutterSharkEntity) && !(entity instanceof LivingEntity _livEnt1 && _livEnt1.hasEffect(BenssharksModMobEffects.DETACHED))
+         if (!(entity instanceof CookiecutterSharkEntity) && !(entity instanceof LivingEntity _livEnt1 && _livEnt1.hasEffect(DwurdySharksModMobEffects.DETACHED))
             )
           {
             if (world instanceof Level _level) {
@@ -48,7 +48,7 @@ public class ParasiteEffectExpiresProcedure {
             }
 
             if (world instanceof ServerLevel _levelx) {
-               Entity entityToSpawn = ((EntityType)BenssharksModEntities.COOKIECUTTER_SHARK.get())
+               Entity entityToSpawn = ((EntityType)DwurdySharksModEntities.COOKIECUTTER_SHARK.get())
                   .spawn(_levelx, BlockPos.containing(x, y, z), MobSpawnType.MOB_SUMMONED);
                if (entityToSpawn != null) {
                   entityToSpawn.setYRot(world.getRandom().nextFloat() * 360.0F);
@@ -56,15 +56,15 @@ public class ParasiteEffectExpiresProcedure {
             }
 
             if (entity instanceof LivingEntity _entity && !_entity.level().isClientSide()) {
-               _entity.addEffect(new MobEffectInstance(BenssharksModMobEffects.BLEEDING, 60, 0, true, false));
+               _entity.addEffect(new MobEffectInstance(DwurdySharksModMobEffects.BLEEDING, 60, 0, true, false));
             }
 
             if (entity instanceof LivingEntity _entity && !_entity.level().isClientSide()) {
-               _entity.addEffect(new MobEffectInstance(BenssharksModMobEffects.SEALING, 20, 0, true, false));
+               _entity.addEffect(new MobEffectInstance(DwurdySharksModMobEffects.SEALING, 20, 0, true, false));
             }
 
             if (entity instanceof LivingEntity _entity && !_entity.level().isClientSide()) {
-               _entity.addEffect(new MobEffectInstance(BenssharksModMobEffects.DETACHED, 60, 0, true, false));
+               _entity.addEffect(new MobEffectInstance(DwurdySharksModMobEffects.DETACHED, 60, 0, true, false));
             }
          }
       }

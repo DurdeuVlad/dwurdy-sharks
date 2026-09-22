@@ -1,6 +1,6 @@
 package net.mcreator.sharks.procedures;
 
-import net.mcreator.sharks.BenssharksMod;
+import net.mcreator.sharks.DwurdySharksMod;
 import net.mcreator.sharks.entity.AxodileEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -78,7 +78,7 @@ public class AxodileOnEntityTickUpdateProcedure {
          if (world.getBlockState(BlockPos.containing(x, y + 1.0, z)).is(BlockTags.create(ResourceLocation.parse("minecraft:ice")))) {
             world.destroyBlock(BlockPos.containing(x, y + 1.0, z), false);
             entity.setDeltaMovement(new Vec3(0.0, 1.0, 0.0));
-            BenssharksMod.queueServerWork(2, () -> entity.setDeltaMovement(new Vec3(0.0, 0.0, 0.0)));
+            DwurdySharksMod.queueServerWork(2, () -> entity.setDeltaMovement(new Vec3(0.0, 0.0, 0.0)));
          }
       }
    }

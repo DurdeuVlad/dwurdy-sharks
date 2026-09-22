@@ -6,15 +6,15 @@ import net.minecraft.world.item.alchemy.Potion;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-public class BenssharksModPotions {
+public class DwurdySharksModPotions {
    public static final DeferredRegister<Potion> REGISTRY = DeferredRegister.create(Registries.POTION, "dwurdysharks");
    public static final DeferredHolder<Potion, Potion> POTION_OF_SEALING = REGISTRY.register(
-      "potion_of_sealing", () -> new Potion(new MobEffectInstance[]{new MobEffectInstance(BenssharksModMobEffects.SEALING, 3600, 0, false, true)})
+      "potion_of_sealing", () -> new Potion(new MobEffectInstance[]{new MobEffectInstance(DwurdySharksModMobEffects.SEALING, 3600, 0, false, true)})
    );
    public static final DeferredHolder<Potion, Potion> FRENZY_POTION = REGISTRY.register(
-      "frenzy_potion", () -> new Potion(new MobEffectInstance[]{new MobEffectInstance(BenssharksModMobEffects.FRENZY, 3600, 0, false, true)})
+      "frenzy_potion", () -> new Potion(new MobEffectInstance[]{new MobEffectInstance(DwurdySharksModMobEffects.FRENZY, 3600, 0, false, true)})
    );
    public static final DeferredHolder<Potion, Potion> JAWS_POTION = REGISTRY.register(
-      "jaws_potion", () -> new Potion(new MobEffectInstance[]{new MobEffectInstance(BenssharksModMobEffects.JAWS, 3600, 0, false, true)})
+      "jaws_potion", () -> new Potion(new MobEffectInstance[]{new MobEffectInstance(DwurdySharksModMobEffects.JAWS, 3600, 0, false, true)})
    );
 }

@@ -1,7 +1,7 @@
 package net.mcreator.sharks.procedures;
 
 import javax.annotation.Nullable;
-import net.mcreator.sharks.init.BenssharksModMobEffects;
+import net.mcreator.sharks.init.DwurdySharksModMobEffects;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -26,10 +26,10 @@ public class EntityDiesWithSealingProcedure {
    private static void execute(@Nullable Event event, Entity entity) {
       if (entity != null) {
          if (entity instanceof LivingEntity _livEnt0
-            && _livEnt0.hasEffect(BenssharksModMobEffects.PARASITE)
+            && _livEnt0.hasEffect(DwurdySharksModMobEffects.PARASITE)
             && entity instanceof LivingEntity _entity
             && !_entity.level().isClientSide()) {
-            _entity.addEffect(new MobEffectInstance(BenssharksModMobEffects.DETACHED, 60, 0, true, false));
+            _entity.addEffect(new MobEffectInstance(DwurdySharksModMobEffects.DETACHED, 60, 0, true, false));
          }
       }
    }

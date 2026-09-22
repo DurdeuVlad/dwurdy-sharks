@@ -1,6 +1,6 @@
 package net.mcreator.sharks.procedures;
 
-import net.mcreator.sharks.init.BenssharksModBlocks;
+import net.mcreator.sharks.init.DwurdySharksModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -24,7 +24,7 @@ public class LandMineUpdateTickProcedure {
          || world.getBlockState(BlockPos.containing(x, y - 1.0, z)).getBlock() == Blocks.LAVA) {
          world.setBlock(BlockPos.containing(x, y, z), Blocks.AIR.defaultBlockState(), 3);
          if (world instanceof ServerLevel _level) {
-            ItemEntity entityToSpawn = new ItemEntity(_level, x, y, z, new ItemStack((ItemLike)BenssharksModBlocks.LAND_MINE.get()));
+            ItemEntity entityToSpawn = new ItemEntity(_level, x, y, z, new ItemStack((ItemLike)DwurdySharksModBlocks.LAND_MINE.get()));
             entityToSpawn.setPickUpDelay(10);
             _level.addFreshEntity(entityToSpawn);
          }

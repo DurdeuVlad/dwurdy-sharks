@@ -1,11 +1,11 @@
 package net.mcreator.sharks.procedures;
 
 import java.util.Comparator;
-import net.mcreator.sharks.BenssharksMod;
+import net.mcreator.sharks.DwurdySharksMod;
 import net.mcreator.sharks.entity.GreaterAxodileEntity;
 import net.mcreator.sharks.entity.RollParticleEntity;
-import net.mcreator.sharks.init.BenssharksModEntities;
-import net.mcreator.sharks.init.BenssharksModMobEffects;
+import net.mcreator.sharks.init.DwurdySharksModEntities;
+import net.mcreator.sharks.init.DwurdySharksModMobEffects;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -38,9 +38,9 @@ public class GreaterAxodileOnEntityTickUpdateProcedure {
                Chain = 5.0;
 
                for (int index0 = 0; index0 < (int)Chain; index0++) {
-                  BenssharksMod.queueServerWork((int)ChainWait, () -> {
+                  DwurdySharksMod.queueServerWork((int)ChainWait, () -> {
                      if (entity instanceof LivingEntity _entityx && !_entityx.level().isClientSide()) {
-                        _entityx.addEffect(new MobEffectInstance(BenssharksModMobEffects.SEALING, 20, 0, true, false));
+                        _entityx.addEffect(new MobEffectInstance(DwurdySharksModMobEffects.SEALING, 20, 0, true, false));
                      }
                   });
                   ChainWait += 3.0;
@@ -48,7 +48,7 @@ public class GreaterAxodileOnEntityTickUpdateProcedure {
             }
 
             if (entity.getPersistentData().getDouble("IA") == 60.0 && entity instanceof LivingEntity _entity && !_entity.level().isClientSide()) {
-               _entity.addEffect(new MobEffectInstance(BenssharksModMobEffects.SEALING, 20, 0, true, false));
+               _entity.addEffect(new MobEffectInstance(DwurdySharksModMobEffects.SEALING, 20, 0, true, false));
             }
 
             if (entity.getPersistentData().getDouble("IA") == 180.0) {
@@ -64,7 +64,7 @@ public class GreaterAxodileOnEntityTickUpdateProcedure {
 
                   if (entity.onGround()) {
                      if (world instanceof ServerLevel _level) {
-                        Entity entityToSpawn = ((EntityType)BenssharksModEntities.ROLL_PARTICLE.get())
+                        Entity entityToSpawn = ((EntityType)DwurdySharksModEntities.ROLL_PARTICLE.get())
                            .spawn(_level, BlockPos.containing(entity.getX(), entity.getY(), entity.getZ()), MobSpawnType.MOB_SUMMONED);
                         if (entityToSpawn != null) {
                            entityToSpawn.setDeltaMovement(0.0, 0.0, 0.0);
@@ -88,7 +88,7 @@ public class GreaterAxodileOnEntityTickUpdateProcedure {
                         ((GreaterAxodileEntity)entity).setAnimation("roll");
                      }
 
-                     BenssharksMod.queueServerWork(300, () -> {
+                     DwurdySharksMod.queueServerWork(300, () -> {
                         if (entity instanceof GreaterAxodileEntity) {
                            ((GreaterAxodileEntity)entity).setAnimation("empty");
                         }
@@ -109,12 +109,12 @@ public class GreaterAxodileOnEntityTickUpdateProcedure {
                }
 
                if (entity instanceof LivingEntity _entity && !_entity.level().isClientSide()) {
-                  _entity.addEffect(new MobEffectInstance(BenssharksModMobEffects.SEALING, 20, 0, true, false));
+                  _entity.addEffect(new MobEffectInstance(DwurdySharksModMobEffects.SEALING, 20, 0, true, false));
                }
             }
 
             if (entity.getPersistentData().getDouble("IA") == 300.0 && entity instanceof LivingEntity _entity && !_entity.level().isClientSide()) {
-               _entity.addEffect(new MobEffectInstance(BenssharksModMobEffects.SEALING, 20, 0, true, false));
+               _entity.addEffect(new MobEffectInstance(DwurdySharksModMobEffects.SEALING, 20, 0, true, false));
             }
 
             if (entity.getPersistentData().getDouble("IA") == 360.0) {

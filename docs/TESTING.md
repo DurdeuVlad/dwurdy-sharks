@@ -29,16 +29,74 @@ complete in-game coverage.
 
 ## GameTest suite
 
-`src/main/java/net/mcreator/sharks/gametest/BenssharksGameTests.java`
-registers five behavioral tests (aggression gamerule on/off, filter-feeder
-passivity, tamed-owner exclusion, and the tamed-follow land gate). Run them
-with:
+`src/main/java/net/mcreator/sharks/gametest/DwurdySharksGameTests.java`
+registers the full regression + stress suite. Run it with:
 
 ```powershell
 .\gradlew.bat runGameTestServer
 ```
 
-The run passes when the log reports `All 5 required tests passed`.
+Each test runs in its own GameTest batch, so scenarios do not execute
+concurrently in the same world. The run passes when the log reports
+`All 17 required tests passed` with no `(optional) ... failed` warnings.
+
+Required tests:
+
+| Batch | Covers |
+|---|---|
+| `aggressive_off` / `aggressive_on` / `aggressive_whaleshark` / `aggressive_tamed` | `aggressiveSharks` gamerule gating; filter feeders never target; tamed sharks never target owner |
+| `tamed_follow` | tamed sharks do not path to an owner standing on land |
+| `spawn_biomes` | `SpawnPlacements.checkSpawnRules` rejects river/swamp/plains, accepts ocean biomes; every biome carrying mod spawn data is in `dwurdysharks:shark_spawning_oceans` |
+| `dryout_once` | dryout effect applies exactly once after the 600-tick delay and counts down; `workQueue` stays flat while beached |
+| `cap` | natural spawns plateau at exactly `largeSharkLocalCap=8` out of 40 attempts; cancelled spawns never join the world |
+| `cap_exemptions` | tamed, named, and persistence-required sharks bypass the cap; a 9th wild shark is rejected |
+| `cap_abuse` | 2,000-attempt spawn storm plateaus at 8, post-storm P95 < 50 ms, no workQueue growth |
+| `cap_disabled` | `largeSharkLocalCap=0` disables enforcement, 150/150 spawn, heap is reclaimed after despawn+GC |
+| `despawn` | wild shark despawns past 128 blocks; tamed shark persists |
+
+Optional (timed) stress profiles — each runs at least
+`-Dsharks.stress.seconds` wall-clock seconds (default 300):
+
+| Batch | Profile |
+|---|---|
+| `stress_baseline` | empty-world reference; asserts zero mod entities after purge and P95 < 50 ms |
+| `stress_population_100` | 100 mixed sharks (prey species included) with per-sample top-up, survival player present, `aggressiveSharks=true` |
+| `stress_population_500` | same at target 500; asserts the sustained trough stays >= target/4 |
+| `stress_dryout_beached` | 60 beached sharks per 1,200 ticks; asserts queue growth stays linear in live beached count (`start + 128 + 8 per beached shark`) |
+| `stress_item_eat` | 70 filter feeders + 30 item drops per 600 ticks, top-up maintained |
+
+Every stress sample logs spawned/alive counts, `avg tick`, and `p95 tick`
+(computed from `MinecraftServer.getTickTimesNanos()`). The release budget is
+**P95 tick time < 50 ms** on the target host.
+
+### Knobs
+
+| System property | Default | Purpose |
+|---|---|---|
+| `sharks.stress.seconds` | `300` | wall-clock seconds per timed profile; **never set below 300 for gate evidence** |
+| `sharks.stress.abuseAttempts` | `2000` | spawn attempts in `cap_abuse` |
+| `sharks.stress.capDisabledCount` | `150` | population in `cap_disabled` |
+| `sharks.stress.population` | `100` | target for `stress_population_100` |
+| `sharks.stress.population.500` | `500` | target for `stress_population_500` |
+
+Pass them to the forked JVM via `JAVA_TOOL_OPTIONS`, e.g.
+`$env:JAVA_TOOL_OPTIONS="-Dsharks.stress.seconds=15"` for a fast smoke pass
+(not valid as gate evidence).
+
+### Manual profiling (Spark)
+
+The automated suite measures tick times through the server API rather than an
+external profiler. This is a **documented deviation** from the original
+request to profile with Spark: Spark is not a test-runtime dependency, so the
+GameTest server cannot load it. To collect Spark evidence on a real server:
+
+1. Build the jar (`.\gradlew.bat build`) and install it plus GeckoLib 4.7.x and
+   [spark](https://spark.lucko.me/) on a dedicated test server.
+2. Run `/spark tps` and `/spark profiler start --timeout 300` under each load
+   profile above, then compare spark's MSPT/P95 with the GameTest numbers.
+
+The vanilla GameTest server also writes a Java Flight Recorder capture under
+`runs/gameTestServer/` for offline analysis.
 
 For a dedicated-server smoke boot, run `./gradlew runServer --no-daemon` (or
 `.\gradlew.bat runServer --no-daemon` on Windows), confirm the log reaches

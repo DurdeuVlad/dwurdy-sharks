@@ -1,7 +1,7 @@
 package net.mcreator.sharks.procedures;
 
 import javax.annotation.Nullable;
-import net.mcreator.sharks.BenssharksMod;
+import net.mcreator.sharks.DwurdySharksMod;
 import net.mcreator.sharks.entity.BonnetheadSharkEntity;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -37,7 +37,7 @@ public class BonnetheadSharkEntityIsHurtProcedure {
                _entity.addEffect(new MobEffectInstance(MobEffects.DOLPHINS_GRACE, 600, 0, true, false));
             }
 
-            BenssharksMod.queueServerWork(600, () -> {
+            DwurdySharksMod.queueServerWork(600, () -> {
 
                if (entity instanceof BonnetheadSharkEntity) {
                   ((BonnetheadSharkEntity)entity).setAnimation("empty");

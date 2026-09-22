@@ -2,7 +2,7 @@ package net.mcreator.sharks.block;
 
 import com.mojang.serialization.MapCodec;
 import javax.annotation.Nullable;
-import net.mcreator.sharks.init.BenssharksModBlockEntities;
+import net.mcreator.sharks.init.DwurdySharksModBlockEntities;
 import net.mcreator.sharks.procedures.LandMineBlockDestroyedByExplosionProcedure;
 import net.mcreator.sharks.procedures.LandMineEntityWalksOnTheBlockProcedure;
 import net.mcreator.sharks.procedures.LandMineOnBlockHitByProjectileProcedure;
@@ -102,7 +102,7 @@ public class LandMineBlock extends BaseEntityBlock implements SimpleWaterloggedB
 
    @Nullable
    public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
-      return ((BlockEntityType)BenssharksModBlockEntities.LAND_MINE.get()).create(blockPos, blockState);
+      return ((BlockEntityType)DwurdySharksModBlockEntities.LAND_MINE.get()).create(blockPos, blockState);
    }
 
    public boolean propagatesSkylightDown(BlockState state, BlockGetter reader, BlockPos pos) {

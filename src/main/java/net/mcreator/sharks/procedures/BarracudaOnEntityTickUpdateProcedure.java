@@ -1,7 +1,7 @@
 package net.mcreator.sharks.procedures;
 
 import net.mcreator.sharks.entity.BarracudaEntity;
-import net.mcreator.sharks.init.BenssharksModMobEffects;
+import net.mcreator.sharks.init.DwurdySharksModMobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.LevelAccessor;
@@ -22,7 +22,7 @@ public class BarracudaOnEntityTickUpdateProcedure {
          if (entity instanceof BarracudaEntity
             && !entity.isInWaterRainOrBubble()
             && entity instanceof LivingEntity _livEnt9
-            && _livEnt9.hasEffect(BenssharksModMobEffects.FRENZY)
+            && _livEnt9.hasEffect(DwurdySharksModMobEffects.FRENZY)
             && entity instanceof BarracudaEntity) {
             ((BarracudaEntity)entity).setAnimation("sprint");
          }

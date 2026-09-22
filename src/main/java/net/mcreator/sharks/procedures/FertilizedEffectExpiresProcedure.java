@@ -1,6 +1,6 @@
 package net.mcreator.sharks.procedures;
 
-import net.mcreator.sharks.init.BenssharksModEntities;
+import net.mcreator.sharks.init.DwurdySharksModEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -16,7 +16,7 @@ import net.minecraft.world.level.LevelAccessor;
 public class FertilizedEffectExpiresProcedure {
    public static void execute(LevelAccessor world, double x, double y, double z) {
       if (world instanceof ServerLevel _level) {
-         Entity entityToSpawn = ((EntityType)BenssharksModEntities.LAND_SHARK.get()).spawn(_level, BlockPos.containing(x, y, z), MobSpawnType.MOB_SUMMONED);
+         Entity entityToSpawn = ((EntityType)DwurdySharksModEntities.LAND_SHARK.get()).spawn(_level, BlockPos.containing(x, y, z), MobSpawnType.MOB_SUMMONED);
          if (entityToSpawn != null) {
             entityToSpawn.setDeltaMovement(0.0, 0.0, 0.0);
          }

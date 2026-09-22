@@ -1,6 +1,6 @@
 package net.mcreator.sharks.potion;
 
-import net.mcreator.sharks.init.BenssharksModMobEffects;
+import net.mcreator.sharks.init.DwurdySharksModMobEffects;
 import net.mcreator.sharks.procedures.DryoutEffectOnEffectActiveTickProcedure;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.EffectRenderingInventoryScreen;
@@ -49,7 +49,7 @@ public class DryoutEffectMobEffect extends MobEffect {
                return false;
             }
          },
-         new MobEffect[]{(MobEffect)BenssharksModMobEffects.DRYOUT_EFFECT.get()}
+         new MobEffect[]{(MobEffect)DwurdySharksModMobEffects.DRYOUT_EFFECT.get()}
       );
    }
 }

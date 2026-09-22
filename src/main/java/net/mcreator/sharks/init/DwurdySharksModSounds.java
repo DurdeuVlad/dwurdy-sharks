@@ -6,7 +6,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-public class BenssharksModSounds {
+public class DwurdySharksModSounds {
    public static final DeferredRegister<SoundEvent> REGISTRY = DeferredRegister.create(Registries.SOUND_EVENT, "dwurdysharks");
    public static final DeferredHolder<SoundEvent, SoundEvent> AXODILE_BITE = REGISTRY.register(
       "axodile.bite", () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath("dwurdysharks", "axodile.bite"))

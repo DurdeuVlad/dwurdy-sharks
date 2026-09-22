@@ -3,7 +3,7 @@ package net.mcreator.sharks.block.entity;
 import java.util.stream.IntStream;
 import javax.annotation.Nullable;
 import net.mcreator.sharks.block.SharkPlushieBlock;
-import net.mcreator.sharks.init.BenssharksModBlockEntities;
+import net.mcreator.sharks.init.DwurdySharksModBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
@@ -39,7 +39,7 @@ public class SharkPlushieTileEntity extends RandomizableContainerBlockEntity imp
    String prevAnim = "0";
 
    public SharkPlushieTileEntity(BlockPos pos, BlockState state) {
-      super((BlockEntityType)BenssharksModBlockEntities.SHARK_PLUSH_BLOCK.get(), pos, state);
+      super((BlockEntityType)DwurdySharksModBlockEntities.SHARK_PLUSH_BLOCK.get(), pos, state);
    }
 
    private PlayState predicate(AnimationState event) {

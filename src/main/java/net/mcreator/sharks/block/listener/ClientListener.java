@@ -3,7 +3,7 @@ package net.mcreator.sharks.block.listener;
 import net.mcreator.sharks.block.renderer.LandMinePrimedTileRenderer;
 import net.mcreator.sharks.block.renderer.LandMineTileRenderer;
 import net.mcreator.sharks.block.renderer.SharkPlushieTileRenderer;
-import net.mcreator.sharks.init.BenssharksModBlockEntities;
+import net.mcreator.sharks.init.DwurdySharksModBlockEntities;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
@@ -21,8 +21,8 @@ public class ClientListener {
    @OnlyIn(Dist.CLIENT)
    @SubscribeEvent
    public static void registerRenderers(RegisterRenderers event) {
-      event.registerBlockEntityRenderer((BlockEntityType)BenssharksModBlockEntities.LAND_MINE.get(), context -> new LandMineTileRenderer());
-      event.registerBlockEntityRenderer((BlockEntityType)BenssharksModBlockEntities.SHARK_PLUSH_BLOCK.get(), context -> new SharkPlushieTileRenderer());
-      event.registerBlockEntityRenderer((BlockEntityType)BenssharksModBlockEntities.LAND_MINE_PRIMED.get(), context -> new LandMinePrimedTileRenderer());
+      event.registerBlockEntityRenderer((BlockEntityType)DwurdySharksModBlockEntities.LAND_MINE.get(), context -> new LandMineTileRenderer());
+      event.registerBlockEntityRenderer((BlockEntityType)DwurdySharksModBlockEntities.SHARK_PLUSH_BLOCK.get(), context -> new SharkPlushieTileRenderer());
+      event.registerBlockEntityRenderer((BlockEntityType)DwurdySharksModBlockEntities.LAND_MINE_PRIMED.get(), context -> new LandMinePrimedTileRenderer());
    }
 }

@@ -2,7 +2,7 @@ package net.mcreator.sharks.block;
 
 import com.mojang.serialization.MapCodec;
 import javax.annotation.Nullable;
-import net.mcreator.sharks.init.BenssharksModBlockEntities;
+import net.mcreator.sharks.init.DwurdySharksModBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -87,7 +87,7 @@ public class LandMinePrimedBlock extends BaseEntityBlock implements SimpleWaterl
 
    @Nullable
    public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
-      return ((BlockEntityType)BenssharksModBlockEntities.LAND_MINE_PRIMED.get()).create(blockPos, blockState);
+      return ((BlockEntityType)DwurdySharksModBlockEntities.LAND_MINE_PRIMED.get()).create(blockPos, blockState);
    }
 
    public boolean propagatesSkylightDown(BlockState state, BlockGetter reader, BlockPos pos) {

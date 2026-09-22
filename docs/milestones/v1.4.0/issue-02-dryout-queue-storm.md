@@ -54,7 +54,7 @@ of beached sharks.
 
 ## Non-goals
 
-- No redesign of `workQueue`/`BenssharksMod.tick()` (may still be needed for
+- No redesign of `workQueue`/`DwurdySharksMod.tick()` (may still be needed for
   one-shots; a residual-risk note goes to #11 if the queue can still be abused).
 - No changes to hurt-event effect cleanup, milking timers, or landmine timing.
 - No `RollParticle` rework (handled by issue #10).
@@ -69,7 +69,7 @@ of beached sharks.
 
 ## Verification
 
-- GameTest additions in `BenssharksGameTests` (or sibling class): dryout
+- GameTest additions in `DwurdySharksGameTests` (or sibling class): dryout
   applies once at threshold, clears in water, does not duplicate.
 - Static gate (same mechanism as issue #1): `queueServerWork` absent from
   `*OnEntityTickUpdateProcedure` dryout blocks.

@@ -1,6 +1,6 @@
 package net.mcreator.sharks.procedures;
 
-import net.mcreator.sharks.init.BenssharksModGameRules;
+import net.mcreator.sharks.init.DwurdySharksModGameRules;
 import net.mcreator.sharks.init.DwurdySharksConfig;
 import net.mcreator.sharks.init.DwurdySharksEntityTypeTags;
 import net.minecraft.tags.TagKey;
@@ -44,13 +44,13 @@ public final class SharkSpawnCapProcedure {
          return;
       }
       net.minecraft.world.level.GameRules rules = event.getLevel().getLevel().getGameRules();
-      if (manual && !rules.getBoolean(BenssharksModGameRules.ENFORCE_CAP_FOR_MANUAL_SPAWNS)) {
+      if (manual && !rules.getBoolean(DwurdySharksModGameRules.ENFORCE_CAP_FOR_MANUAL_SPAWNS)) {
          return;
       }
       int cap = rules.getInt(groupTag == DwurdySharksEntityTypeTags.LARGE_SHARKS
-         ? BenssharksModGameRules.LARGE_SHARK_LOCAL_CAP
-         : BenssharksModGameRules.AMBIENT_FISH_LOCAL_CAP);
-      int radius = rules.getInt(BenssharksModGameRules.SPAWN_CAP_RADIUS);
+         ? DwurdySharksModGameRules.LARGE_SHARK_LOCAL_CAP
+         : DwurdySharksModGameRules.AMBIENT_FISH_LOCAL_CAP);
+      int radius = rules.getInt(DwurdySharksModGameRules.SPAWN_CAP_RADIUS);
       if (cap <= 0 || radius <= 0) {
          return;
       }

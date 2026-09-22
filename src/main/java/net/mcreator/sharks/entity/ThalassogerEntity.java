@@ -2,7 +2,7 @@ package net.mcreator.sharks.entity;
 
 import java.util.EnumSet;
 import javax.annotation.Nullable;
-import net.mcreator.sharks.init.BenssharksModEntities;
+import net.mcreator.sharks.init.DwurdySharksModEntities;
 import net.mcreator.sharks.init.DwurdySharksEntityTypeTags;
 import net.mcreator.sharks.procedures.ThalassogerOnEntityTickUpdateProcedure;
 import net.mcreator.sharks.procedures.ThalassogerThisEntityKillsAnotherOneProcedure;
@@ -54,7 +54,7 @@ public class ThalassogerEntity extends Raider implements RangedAttackMob, GeoEnt
    public static final EntityDataAccessor<String> ANIMATION = SynchedEntityData.defineId(ThalassogerEntity.class, EntityDataSerializers.STRING);
    public static final EntityDataAccessor<String> TEXTURE = SynchedEntityData.defineId(ThalassogerEntity.class, EntityDataSerializers.STRING);
    public static final EnumProxy<RaiderType> RAIDER_TYPE = new EnumProxy(
-      RaiderType.class, new Object[]{BenssharksModEntities.THALASSOGER, new int[]{0, 0, 1, 3, 3, 5, 5, 5}}
+      RaiderType.class, new Object[]{DwurdySharksModEntities.THALASSOGER, new int[]{0, 0, 1, 3, 3, 5, 5, 5}}
    );
    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
    private boolean swinging;

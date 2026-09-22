@@ -56,7 +56,7 @@ minimal goals it provably needs.
 
 ## Non-goals
 
-- No redesign of `BenssharksMod.tick()`/`workQueue` mechanics.
+- No redesign of `DwurdySharksMod.tick()`/`workQueue` mechanics.
 - No behavior changes beyond what's required to relocate handlers.
 - No MCreator-to-handwritten migration beyond the listed subscribers (broader
   migration is a future milestone).

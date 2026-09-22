@@ -2,7 +2,7 @@ package net.mcreator.sharks.procedures;
 
 import java.util.List;
 import net.mcreator.sharks.entity.BarracudaEntity;
-import net.mcreator.sharks.init.BenssharksModMobEffects;
+import net.mcreator.sharks.init.DwurdySharksModMobEffects;
 import net.mcreator.sharks.init.DwurdySharksEntityTypeTags;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
@@ -53,13 +53,13 @@ public class BarracudaSprintProcedure {
 
       if (frenzy) {
          if (entity instanceof LivingEntity living && !living.level().isClientSide()) {
-            living.addEffect(new MobEffectInstance(BenssharksModMobEffects.FRENZY, 60, 2, true, false));
+            living.addEffect(new MobEffectInstance(DwurdySharksModMobEffects.FRENZY, 60, 2, true, false));
          }
          ((BarracudaEntity)entity).setAnimation("sprint");
       } else {
          ((BarracudaEntity)entity).setAnimation("empty");
          if (entity instanceof LivingEntity living) {
-            living.removeEffect(BenssharksModMobEffects.FRENZY);
+            living.removeEffect(DwurdySharksModMobEffects.FRENZY);
          }
       }
    }

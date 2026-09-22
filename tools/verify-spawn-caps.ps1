@@ -21,7 +21,7 @@ foreach ($mod in @('large_shark_spawn_costs', 'ambient_fish_spawn_costs')) {
     if ($d.biomes -ne '#dwurdysharks:shark_spawning_oceans') { throw "$mod must scope to the ocean tag" }
 }
 
-$rules = Get-Content (Join-Path $root 'src/main/java/net/mcreator/sharks/init/BenssharksModGameRules.java') -Raw
+$rules = Get-Content (Join-Path $root 'src/main/java/net/mcreator/sharks/init/DwurdySharksModGameRules.java') -Raw
 foreach ($rule in @('largeSharkLocalCap', 'ambientFishLocalCap', 'sharkSpawnCapRadius', 'enforceCapForManualSpawns')) {
     if ($rules -notmatch "`"$rule`"") { throw "Missing gamerule: $rule" }
 }

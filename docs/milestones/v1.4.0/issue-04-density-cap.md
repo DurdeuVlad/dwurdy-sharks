@@ -20,7 +20,7 @@ plus a hard local cap so a server cannot be overrun, including via commands.
 
 - [ ] `neoforge:add_spawn_costs` modifiers exist: a restrictive budget/charge
       for large predators and a looser one for ambient schooling fish.
-- [ ] Gamerules (precedent: `BenssharksModGameRules.AGGRESSIVE_SHARKS`):
+- [ ] Gamerules (precedent: `DwurdySharksModGameRules.AGGRESSIVE_SHARKS`):
       `largeSharkLocalCap` (default 24 / 128-block radius),
       `ambientLocalCap` (default 64 / 128-block radius),
       `enforceCapForManualSpawns` (default true).
@@ -55,7 +55,7 @@ plus a hard local cap so a server cannot be overrun, including via commands.
 - Type: enhancement. Priority: P0. Milestone: 1.4.0.
 - Labels: `enhancement`, `priority:p0`, `area:spawning`.
 - Affected: biome-modifier JSONs (spawn costs, group sizes),
-  `BenssharksModGameRules`, a spawn-guard class (new), entity persistence flags.
+  `DwurdySharksModGameRules`, a spawn-guard class (new), entity persistence flags.
 - Assignee: unassigned.
 
 ## Non-goals

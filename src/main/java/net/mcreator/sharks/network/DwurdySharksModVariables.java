@@ -1,6 +1,6 @@
 package net.mcreator.sharks.network;
 
-import net.mcreator.sharks.BenssharksMod;
+import net.mcreator.sharks.DwurdySharksMod;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
@@ -36,15 +36,15 @@ import net.neoforged.neoforge.registries.NeoForgeRegistries.Keys;
 @EventBusSubscriber(
    bus = Bus.MOD
 )
-public class BenssharksModVariables {
+public class DwurdySharksModVariables {
    public static final DeferredRegister<AttachmentType<?>> ATTACHMENT_TYPES = DeferredRegister.create(Keys.ATTACHMENT_TYPES, "dwurdysharks");
 
    @SubscribeEvent
    public static void init(FMLCommonSetupEvent event) {
-      BenssharksMod.addNetworkMessage(
-         BenssharksModVariables.SavedDataSyncMessage.TYPE,
-         BenssharksModVariables.SavedDataSyncMessage.STREAM_CODEC,
-         BenssharksModVariables.SavedDataSyncMessage::handleData
+      DwurdySharksMod.addNetworkMessage(
+         DwurdySharksModVariables.SavedDataSyncMessage.TYPE,
+         DwurdySharksModVariables.SavedDataSyncMessage.STREAM_CODEC,
+         DwurdySharksModVariables.SavedDataSyncMessage::handleData
       );
    }
 
@@ -53,14 +53,14 @@ public class BenssharksModVariables {
       @SubscribeEvent
       public static void onPlayerLoggedIn(PlayerLoggedInEvent event) {
          if (event.getEntity() instanceof ServerPlayer player) {
-            SavedData mapdata = BenssharksModVariables.MapVariables.get(event.getEntity().level());
-            SavedData worlddata = BenssharksModVariables.WorldVariables.get(event.getEntity().level());
+            SavedData mapdata = DwurdySharksModVariables.MapVariables.get(event.getEntity().level());
+            SavedData worlddata = DwurdySharksModVariables.WorldVariables.get(event.getEntity().level());
             if (mapdata != null) {
-               PacketDistributor.sendToPlayer(player, new BenssharksModVariables.SavedDataSyncMessage(0, mapdata), new CustomPacketPayload[0]);
+               PacketDistributor.sendToPlayer(player, new DwurdySharksModVariables.SavedDataSyncMessage(0, mapdata), new CustomPacketPayload[0]);
             }
 
             if (worlddata != null) {
-               PacketDistributor.sendToPlayer(player, new BenssharksModVariables.SavedDataSyncMessage(1, worlddata), new CustomPacketPayload[0]);
+               PacketDistributor.sendToPlayer(player, new DwurdySharksModVariables.SavedDataSyncMessage(1, worlddata), new CustomPacketPayload[0]);
             }
          }
       }
@@ -68,23 +68,23 @@ public class BenssharksModVariables {
       @SubscribeEvent
       public static void onPlayerChangedDimension(PlayerChangedDimensionEvent event) {
          if (event.getEntity() instanceof ServerPlayer player) {
-            SavedData worlddata = BenssharksModVariables.WorldVariables.get(event.getEntity().level());
+            SavedData worlddata = DwurdySharksModVariables.WorldVariables.get(event.getEntity().level());
             if (worlddata != null) {
-               PacketDistributor.sendToPlayer(player, new BenssharksModVariables.SavedDataSyncMessage(1, worlddata), new CustomPacketPayload[0]);
+               PacketDistributor.sendToPlayer(player, new DwurdySharksModVariables.SavedDataSyncMessage(1, worlddata), new CustomPacketPayload[0]);
             }
          }
       }
    }
 
    public static class MapVariables extends SavedData {
-      public static final String DATA_NAME = "benssharks_mapvars";
+      public static final String DATA_NAME = "dwurdysharks_mapvars";
       public double SwimSpeed = 0.0;
       public double KBRes = 0.0;
       public boolean Sitting = false;
-      static BenssharksModVariables.MapVariables clientSide = new BenssharksModVariables.MapVariables();
+      static DwurdySharksModVariables.MapVariables clientSide = new DwurdySharksModVariables.MapVariables();
 
-      public static BenssharksModVariables.MapVariables load(CompoundTag tag, Provider lookupProvider) {
-         BenssharksModVariables.MapVariables data = new BenssharksModVariables.MapVariables();
+      public static DwurdySharksModVariables.MapVariables load(CompoundTag tag, Provider lookupProvider) {
+         DwurdySharksModVariables.MapVariables data = new DwurdySharksModVariables.MapVariables();
          data.read(tag, lookupProvider);
          return data;
       }
@@ -105,26 +105,26 @@ public class BenssharksModVariables {
       public void syncData(LevelAccessor world) {
          this.setDirty();
          if (world instanceof Level && !world.isClientSide()) {
-            PacketDistributor.sendToAllPlayers(new BenssharksModVariables.SavedDataSyncMessage(0, this), new CustomPacketPayload[0]);
+            PacketDistributor.sendToAllPlayers(new DwurdySharksModVariables.SavedDataSyncMessage(0, this), new CustomPacketPayload[0]);
          }
       }
 
-      public static BenssharksModVariables.MapVariables get(LevelAccessor world) {
+      public static DwurdySharksModVariables.MapVariables get(LevelAccessor world) {
          return world instanceof ServerLevelAccessor serverLevelAcc
-            ? (BenssharksModVariables.MapVariables)serverLevelAcc.getLevel()
+            ? (DwurdySharksModVariables.MapVariables)serverLevelAcc.getLevel()
                .getServer()
                .getLevel(Level.OVERWORLD)
                .getDataStorage()
-               .computeIfAbsent(new Factory<>(BenssharksModVariables.MapVariables::new, BenssharksModVariables.MapVariables::load, null), "benssharks_mapvars")
+               .computeIfAbsent(new Factory<>(DwurdySharksModVariables.MapVariables::new, DwurdySharksModVariables.MapVariables::load, null), "dwurdysharks_mapvars")
             : clientSide;
       }
    }
 
    public record SavedDataSyncMessage(int dataType, SavedData data) implements CustomPacketPayload {
-      public static final Type<BenssharksModVariables.SavedDataSyncMessage> TYPE = new Type(
+      public static final Type<DwurdySharksModVariables.SavedDataSyncMessage> TYPE = new Type(
          ResourceLocation.fromNamespaceAndPath("dwurdysharks", "saved_data_sync")
       );
-      public static final StreamCodec<RegistryFriendlyByteBuf, BenssharksModVariables.SavedDataSyncMessage> STREAM_CODEC = StreamCodec.of(
+      public static final StreamCodec<RegistryFriendlyByteBuf, DwurdySharksModVariables.SavedDataSyncMessage> STREAM_CODEC = StreamCodec.of(
          (buffer, message) -> {
             buffer.writeInt(message.dataType);
             if (message.data != null) {
@@ -135,31 +135,31 @@ public class BenssharksModVariables {
             CompoundTag nbt = buffer.readNbt();
             SavedData data = null;
             if (nbt != null) {
-               data = (SavedData)(dataType == 0 ? new BenssharksModVariables.MapVariables() : new BenssharksModVariables.WorldVariables());
-               if (data instanceof BenssharksModVariables.MapVariables mapVariables) {
+               data = (SavedData)(dataType == 0 ? new DwurdySharksModVariables.MapVariables() : new DwurdySharksModVariables.WorldVariables());
+               if (data instanceof DwurdySharksModVariables.MapVariables mapVariables) {
                   mapVariables.read(nbt, buffer.registryAccess());
-               } else if (data instanceof BenssharksModVariables.WorldVariables worldVariables) {
+               } else if (data instanceof DwurdySharksModVariables.WorldVariables worldVariables) {
                   worldVariables.read(nbt, buffer.registryAccess());
                }
             }
 
-            return new BenssharksModVariables.SavedDataSyncMessage(dataType, data);
+            return new DwurdySharksModVariables.SavedDataSyncMessage(dataType, data);
          }
       );
 
-      public Type<BenssharksModVariables.SavedDataSyncMessage> type() {
+      public Type<DwurdySharksModVariables.SavedDataSyncMessage> type() {
          return TYPE;
       }
 
-      public static void handleData(BenssharksModVariables.SavedDataSyncMessage message, IPayloadContext context) {
+      public static void handleData(DwurdySharksModVariables.SavedDataSyncMessage message, IPayloadContext context) {
          if (context.flow() == PacketFlow.CLIENTBOUND && message.data != null) {
             context.enqueueWork(
                   () -> {
                      if (message.dataType == 0) {
-                        BenssharksModVariables.MapVariables.clientSide
+                        DwurdySharksModVariables.MapVariables.clientSide
                            .read(message.data.save(new CompoundTag(), context.player().registryAccess()), context.player().registryAccess());
                      } else {
-                        BenssharksModVariables.WorldVariables.clientSide
+                        DwurdySharksModVariables.WorldVariables.clientSide
                            .read(message.data.save(new CompoundTag(), context.player().registryAccess()), context.player().registryAccess());
                      }
                   }
@@ -173,12 +173,12 @@ public class BenssharksModVariables {
    }
 
    public static class WorldVariables extends SavedData {
-      public static final String DATA_NAME = "benssharks_worldvars";
+      public static final String DATA_NAME = "dwurdysharks_worldvars";
       public BlockState REMORABUCKETPLAYERRIGHTCLICKEDONENTITY = Blocks.AIR.defaultBlockState();
-      static BenssharksModVariables.WorldVariables clientSide = new BenssharksModVariables.WorldVariables();
+      static DwurdySharksModVariables.WorldVariables clientSide = new DwurdySharksModVariables.WorldVariables();
 
-      public static BenssharksModVariables.WorldVariables load(CompoundTag tag, Provider lookupProvider) {
-         BenssharksModVariables.WorldVariables data = new BenssharksModVariables.WorldVariables();
+      public static DwurdySharksModVariables.WorldVariables load(CompoundTag tag, Provider lookupProvider) {
+         DwurdySharksModVariables.WorldVariables data = new DwurdySharksModVariables.WorldVariables();
          data.read(tag, lookupProvider);
          return data;
       }
@@ -197,14 +197,14 @@ public class BenssharksModVariables {
       public void syncData(LevelAccessor world) {
          this.setDirty();
          if (world instanceof ServerLevel level) {
-            PacketDistributor.sendToPlayersInDimension(level, new BenssharksModVariables.SavedDataSyncMessage(1, this), new CustomPacketPayload[0]);
+            PacketDistributor.sendToPlayersInDimension(level, new DwurdySharksModVariables.SavedDataSyncMessage(1, this), new CustomPacketPayload[0]);
          }
       }
 
-      public static BenssharksModVariables.WorldVariables get(LevelAccessor world) {
+      public static DwurdySharksModVariables.WorldVariables get(LevelAccessor world) {
          return world instanceof ServerLevel level
-            ? (BenssharksModVariables.WorldVariables)level.getDataStorage()
-               .computeIfAbsent(new Factory<>(BenssharksModVariables.WorldVariables::new, BenssharksModVariables.WorldVariables::load, null), "benssharks_worldvars")
+            ? (DwurdySharksModVariables.WorldVariables)level.getDataStorage()
+               .computeIfAbsent(new Factory<>(DwurdySharksModVariables.WorldVariables::new, DwurdySharksModVariables.WorldVariables::load, null), "dwurdysharks_worldvars")
             : clientSide;
       }
    }

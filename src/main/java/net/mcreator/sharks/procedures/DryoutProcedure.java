@@ -1,6 +1,6 @@
 package net.mcreator.sharks.procedures;
 
-import net.mcreator.sharks.init.BenssharksModMobEffects;
+import net.mcreator.sharks.init.DwurdySharksModMobEffects;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
@@ -17,8 +17,8 @@ public final class DryoutProcedure {
          CompoundTag data = living.getPersistentData();
          int dryTicks = data.getInt(DRY_TICKS_TAG) + 1;
          data.putInt(DRY_TICKS_TAG, dryTicks);
-         if (dryTicks >= delayTicks && !living.hasEffect(BenssharksModMobEffects.DRYOUT_EFFECT)) {
-            living.addEffect(new MobEffectInstance(BenssharksModMobEffects.DRYOUT_EFFECT, durationTicks, 0, true, false));
+         if (dryTicks >= delayTicks && !living.hasEffect(DwurdySharksModMobEffects.DRYOUT_EFFECT)) {
+            living.addEffect(new MobEffectInstance(DwurdySharksModMobEffects.DRYOUT_EFFECT, durationTicks, 0, true, false));
          }
       }
    }
@@ -26,7 +26,7 @@ public final class DryoutProcedure {
    public static void wetTick(Entity entity) {
       if (entity instanceof LivingEntity living) {
          living.getPersistentData().remove(DRY_TICKS_TAG);
-         living.removeEffect(BenssharksModMobEffects.DRYOUT_EFFECT);
+         living.removeEffect(DwurdySharksModMobEffects.DRYOUT_EFFECT);
       }
    }
 }

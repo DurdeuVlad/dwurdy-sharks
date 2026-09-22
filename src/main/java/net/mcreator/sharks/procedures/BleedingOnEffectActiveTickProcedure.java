@@ -1,7 +1,7 @@
 package net.mcreator.sharks.procedures;
 
 import java.util.Comparator;
-import net.mcreator.sharks.BenssharksMod;
+import net.mcreator.sharks.DwurdySharksMod;
 import net.mcreator.sharks.entity.BlacktipReefSharkEntity;
 import net.mcreator.sharks.entity.BlueSharkEntity;
 import net.mcreator.sharks.entity.BonnetheadSharkEntity;
@@ -15,7 +15,7 @@ import net.mcreator.sharks.entity.MegalodonEntity;
 import net.mcreator.sharks.entity.ShrakEntity;
 import net.mcreator.sharks.entity.TigerSharkEntity;
 import net.mcreator.sharks.entity.WhitetipSharkEntity;
-import net.mcreator.sharks.init.BenssharksModMobEffects;
+import net.mcreator.sharks.init.DwurdySharksModMobEffects;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.Entity;
@@ -42,7 +42,7 @@ public class BleedingOnEffectActiveTickProcedure {
             && (entity instanceof LivingEntity _entGetArmor ? _entGetArmor.getItemBySlot(EquipmentSlot.FEET) : ItemStack.EMPTY).getItem()
                != Items.CHAINMAIL_BOOTS
             && entity instanceof LivingEntity _livEnt8
-            && _livEnt8.hasEffect(BenssharksModMobEffects.BLEEDING)
+            && _livEnt8.hasEffect(DwurdySharksModMobEffects.BLEEDING)
             && !(entity instanceof Player _plr && _plr.getAbilities().instabuild)) {
             Vec3 _center = new Vec3(x, y, z);
 
@@ -91,7 +91,7 @@ public class BleedingOnEffectActiveTickProcedure {
             if (!entity.getPersistentData().getBoolean("bleed")) {
                entity.getPersistentData().putBoolean("bleed", true);
                entity.hurt(new DamageSource(world.holderOrThrow(DamageTypes.GENERIC_KILL)), 1.0F);
-               BenssharksMod.queueServerWork(60, () -> entity.getPersistentData().putBoolean("bleed", false));
+               DwurdySharksMod.queueServerWork(60, () -> entity.getPersistentData().putBoolean("bleed", false));
             }
          }
       }

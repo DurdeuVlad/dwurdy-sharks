@@ -2,7 +2,7 @@ package net.mcreator.sharks.procedures;
 
 import javax.annotation.Nullable;
 import net.mcreator.sharks.entity.CookiecutterSharkEntity;
-import net.mcreator.sharks.init.BenssharksModMobEffects;
+import net.mcreator.sharks.init.DwurdySharksModMobEffects;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -28,16 +28,16 @@ public class CookieGlobalProcedure {
       if (entity != null && sourceentity != null) {
          if (entity instanceof LivingEntity
             && !(entity instanceof CookiecutterSharkEntity)
-            && !(entity instanceof LivingEntity _livEnt2 && _livEnt2.hasEffect(BenssharksModMobEffects.PARASITE))
+            && !(entity instanceof LivingEntity _livEnt2 && _livEnt2.hasEffect(DwurdySharksModMobEffects.PARASITE))
             && sourceentity instanceof CookiecutterSharkEntity
             && !(
                entity instanceof LivingEntity _livEnt4
-                  && _livEnt4.hasEffect(BenssharksModMobEffects.PARASITE)
+                  && _livEnt4.hasEffect(DwurdySharksModMobEffects.PARASITE)
                   && entity instanceof LivingEntity _livEnt5
-                  && _livEnt5.hasEffect(BenssharksModMobEffects.SEALING)
+                  && _livEnt5.hasEffect(DwurdySharksModMobEffects.SEALING)
             )) {
             if (entity instanceof LivingEntity _entity && !_entity.level().isClientSide()) {
-               _entity.addEffect(new MobEffectInstance(BenssharksModMobEffects.PARASITE, 200, 0, true, false));
+               _entity.addEffect(new MobEffectInstance(DwurdySharksModMobEffects.PARASITE, 200, 0, true, false));
             }
 
             if (!sourceentity.level().isClientSide()) {

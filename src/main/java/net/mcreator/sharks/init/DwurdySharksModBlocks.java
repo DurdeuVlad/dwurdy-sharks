@@ -8,7 +8,7 @@ import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.DeferredRegister.Blocks;
 
-public class BenssharksModBlocks {
+public class DwurdySharksModBlocks {
    public static final Blocks REGISTRY = DeferredRegister.createBlocks("dwurdysharks");
    public static final DeferredBlock<Block> LAND_MINE = REGISTRY.register("land_mine", LandMineBlock::new);
    public static final DeferredBlock<Block> SHARK_PLUSH_BLOCK = REGISTRY.register("shark_plush_block", SharkPlushieBlock::new);

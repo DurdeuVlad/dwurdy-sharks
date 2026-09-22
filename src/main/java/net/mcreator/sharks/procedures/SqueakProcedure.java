@@ -1,7 +1,7 @@
 package net.mcreator.sharks.procedures;
 
 import javax.annotation.Nullable;
-import net.mcreator.sharks.init.BenssharksModBlocks;
+import net.mcreator.sharks.init.DwurdySharksModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -36,7 +36,7 @@ public class SqueakProcedure {
       if (entity != null) {
          if (entity instanceof Player) {
             if ((entity instanceof LivingEntity _livEnt ? _livEnt.getMainHandItem() : ItemStack.EMPTY).getItem()
-               == ((Block)BenssharksModBlocks.SHARK_PLUSH_BLOCK.get()).asItem()) {
+               == ((Block)DwurdySharksModBlocks.SHARK_PLUSH_BLOCK.get()).asItem()) {
                if (world instanceof Level _level) {
                   if (!_level.isClientSide()) {
                      _level.playSound(
@@ -61,7 +61,7 @@ public class SqueakProcedure {
                   }
                }
             } else if ((entity instanceof LivingEntity _livEntx ? _livEntx.getOffhandItem() : ItemStack.EMPTY).getItem()
-                  == ((Block)BenssharksModBlocks.SHARK_PLUSH_BLOCK.get()).asItem()
+                  == ((Block)DwurdySharksModBlocks.SHARK_PLUSH_BLOCK.get()).asItem()
                && world instanceof Level _levelx) {
                if (!_levelx.isClientSide()) {
                   _levelx.playSound(

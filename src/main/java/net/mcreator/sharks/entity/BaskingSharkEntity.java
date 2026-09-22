@@ -1,11 +1,11 @@
 package net.mcreator.sharks.entity;
 
 import javax.annotation.Nullable;
-import net.mcreator.sharks.init.BenssharksModEntities;
+import net.mcreator.sharks.init.DwurdySharksModEntities;
 import net.mcreator.sharks.init.DwurdySharksEntityTypeTags;
 import net.mcreator.sharks.init.DwurdySharksBiomeTags;
 import net.mcreator.sharks.init.DwurdySharksConfig;
-import net.mcreator.sharks.init.BenssharksModItems;
+import net.mcreator.sharks.init.DwurdySharksModItems;
 import net.mcreator.sharks.procedures.StopRidingBoatProcedure;
 import net.mcreator.sharks.procedures.SharkBleedProcedure;
 import net.mcreator.sharks.procedures.EatKrillProcedure;
@@ -142,7 +142,7 @@ public class BaskingSharkEntity extends PathfinderMob implements GeoEntity {
 
    protected void registerGoals() {
       super.registerGoals();
-      this.goalSelector.addGoal(1, new TemptGoal(this, 1.0, Ingredient.of(new ItemLike[]{(ItemLike)BenssharksModItems.KRILL_BUCKET.get()}), false));
+      this.goalSelector.addGoal(1, new TemptGoal(this, 1.0, Ingredient.of(new ItemLike[]{(ItemLike)DwurdySharksModItems.KRILL_BUCKET.get()}), false));
       this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10, true, true,
          e -> e.getType().is(DwurdySharksEntityTypeTags.BASKING_SHARK_PREY)));
       this.goalSelector.addGoal(4, new AvoidEntityGoal(this, MegalodonEntity.class, 32.0F, 1.0, 1.2));
@@ -235,7 +235,7 @@ public class BaskingSharkEntity extends PathfinderMob implements GeoEntity {
 
    public static void init(RegisterSpawnPlacementsEvent event) {
       event.register(
-         (EntityType)BenssharksModEntities.BASKING_SHARK.get(),
+         (EntityType)DwurdySharksModEntities.BASKING_SHARK.get(),
          SpawnPlacementTypes.IN_WATER,
          Types.MOTION_BLOCKING_NO_LEAVES,
          (entityType, world, reason, pos, random) -> world.getBlockState(pos).is(Blocks.WATER) && world.getBlockState(pos.above()).is(Blocks.WATER)

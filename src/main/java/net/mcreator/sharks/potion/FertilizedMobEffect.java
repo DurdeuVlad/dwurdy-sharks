@@ -1,7 +1,7 @@
 package net.mcreator.sharks.potion;
 
 import java.util.Set;
-import net.mcreator.sharks.init.BenssharksModMobEffects;
+import net.mcreator.sharks.init.DwurdySharksModMobEffects;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.EffectRenderingInventoryScreen;
 import net.minecraft.world.effect.MobEffect;
@@ -43,7 +43,7 @@ public class FertilizedMobEffect extends MobEffect {
                return false;
             }
          },
-         new MobEffect[]{(MobEffect)BenssharksModMobEffects.FERTILIZED.get()}
+         new MobEffect[]{(MobEffect)DwurdySharksModMobEffects.FERTILIZED.get()}
       );
    }
 }

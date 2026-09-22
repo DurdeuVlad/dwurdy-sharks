@@ -15,7 +15,7 @@ remain `WATER_AMBIENT`. No other behavioral change.
 
 ## Acceptance criteria
 
-- [ ] `BenssharksModEntities`: `BonnetheadSharkEntity` (:97),
+- [ ] `DwurdySharksModEntities`: `BonnetheadSharkEntity` (:97),
       `BlacktipReefSharkEntity` (:121), `BarracudaEntity` (:234) →
       `MobCategory.WATER_CREATURE`.
 - [ ] Krill (:177), Remora (:65), PilotFish (:193) remain `WATER_AMBIENT` —
@@ -36,7 +36,7 @@ remain `WATER_AMBIENT`. No other behavioral change.
 
 - Type: bug (spawn policy). Priority: P1. Milestone: 1.4.0.
 - Labels: `bug`, `priority:p1`, `area:spawning`.
-- Affected: `init/BenssharksModEntities.java` only.
+- Affected: `init/DwurdySharksModEntities.java` only.
 - Assignee: unassigned.
 
 ## Non-goals
@@ -55,7 +55,7 @@ remain `WATER_AMBIENT`. No other behavioral change.
 
 ## Proposed approach (non-binding)
 
-Three-line change in `BenssharksModEntities`.
+Three-line change in `DwurdySharksModEntities`.
 
 ## PR contract
 

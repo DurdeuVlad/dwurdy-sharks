@@ -1,7 +1,7 @@
 package net.mcreator.sharks.procedures;
 
 import net.mcreator.sharks.entity.RemoraEntity;
-import net.mcreator.sharks.init.BenssharksModItems;
+import net.mcreator.sharks.init.DwurdySharksModItems;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.core.BlockPos;
@@ -54,7 +54,7 @@ public class RemoraRightClickedOnEntityProcedure {
                }
 
                if (sourceentity instanceof LivingEntity _entity) {
-                  ItemStack _setstack = new ItemStack((ItemLike)BenssharksModItems.REMORA_BUCKET.get()).copy();
+                  ItemStack _setstack = new ItemStack((ItemLike)DwurdySharksModItems.REMORA_BUCKET.get()).copy();
                   _setstack.setCount(1);
                   _entity.setItemInHand(InteractionHand.MAIN_HAND, _setstack);
                   if (_entity instanceof Player _player) {
@@ -124,7 +124,7 @@ public class RemoraRightClickedOnEntityProcedure {
                }
 
                if (sourceentity instanceof LivingEntity _entityx) {
-                  ItemStack _setstack = new ItemStack((ItemLike)BenssharksModItems.REMORA_BUCKET.get()).copy();
+                  ItemStack _setstack = new ItemStack((ItemLike)DwurdySharksModItems.REMORA_BUCKET.get()).copy();
                   _setstack.setCount(1);
                   _entityx.setItemInHand(InteractionHand.OFF_HAND, _setstack);
                   if (_entityx instanceof Player _playerx) {

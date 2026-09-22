@@ -1,11 +1,11 @@
 package net.mcreator.sharks.entity;
 
 import javax.annotation.Nullable;
-import net.mcreator.sharks.init.BenssharksModEntities;
+import net.mcreator.sharks.init.DwurdySharksModEntities;
 import net.mcreator.sharks.init.DwurdySharksEntityTypeTags;
 import net.mcreator.sharks.init.DwurdySharksBiomeTags;
 import net.mcreator.sharks.init.DwurdySharksConfig;
-import net.mcreator.sharks.init.BenssharksModItems;
+import net.mcreator.sharks.init.DwurdySharksModItems;
 import net.mcreator.sharks.procedures.StopRidingBoatProcedure;
 import net.mcreator.sharks.procedures.SharkBleedProcedure;
 import net.mcreator.sharks.procedures.EatDroppedItemProcedure;
@@ -173,7 +173,7 @@ public class MakoSharkEntity extends PathfinderMob implements GeoEntity {
             return super.canContinueToUse() && AggressiveSharksProcedureProcedure.execute(MakoSharkEntity.this.level());
          }
       });
-      this.goalSelector.addGoal(34, new TemptGoal(this, 1.0, Ingredient.of(new ItemLike[]{(ItemLike)BenssharksModItems.FISH_BUCKET.get()}), false));
+      this.goalSelector.addGoal(34, new TemptGoal(this, 1.0, Ingredient.of(new ItemLike[]{(ItemLike)DwurdySharksModItems.FISH_BUCKET.get()}), false));
       this.goalSelector.addGoal(36, new LookAtPlayerGoal(this, WaterAnimal.class, 128.0F));
       this.goalSelector.addGoal(37, new AvoidEntityGoal(this, MegalodonEntity.class, 16.0F, 16.0, 16.0));
       this.goalSelector.addGoal(38, new AvoidEntityGoal(this, ElderGuardian.class, 32.0F, 16.0, 16.0));
@@ -275,7 +275,7 @@ public class MakoSharkEntity extends PathfinderMob implements GeoEntity {
 
    public static void init(RegisterSpawnPlacementsEvent event) {
       event.register(
-         (EntityType)BenssharksModEntities.MAKO_SHARK.get(),
+         (EntityType)DwurdySharksModEntities.MAKO_SHARK.get(),
          SpawnPlacementTypes.IN_WATER,
          Types.MOTION_BLOCKING_NO_LEAVES,
          (entityType, world, reason, pos, random) -> world.getBlockState(pos).is(Blocks.WATER) && world.getBlockState(pos.above()).is(Blocks.WATER)

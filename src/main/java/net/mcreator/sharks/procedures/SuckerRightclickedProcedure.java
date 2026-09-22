@@ -1,7 +1,7 @@
 package net.mcreator.sharks.procedures;
 
-import net.mcreator.sharks.init.BenssharksModItems;
-import net.mcreator.sharks.init.BenssharksModMobEffects;
+import net.mcreator.sharks.init.DwurdySharksModItems;
+import net.mcreator.sharks.init.DwurdySharksModMobEffects;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -18,9 +18,9 @@ import net.minecraft.world.level.LevelAccessor;
 public class SuckerRightclickedProcedure {
    public static void execute(LevelAccessor world, double x, double y, double z, Entity entity) {
       if (entity != null) {
-         if ((entity instanceof LivingEntity _livEnt ? _livEnt.getMainHandItem() : ItemStack.EMPTY).getItem() == BenssharksModItems.SUCKER.get()
+         if ((entity instanceof LivingEntity _livEnt ? _livEnt.getMainHandItem() : ItemStack.EMPTY).getItem() == DwurdySharksModItems.SUCKER.get()
             && entity instanceof LivingEntity _livEnt2
-            && _livEnt2.hasEffect(BenssharksModMobEffects.BLEEDING)) {
+            && _livEnt2.hasEffect(DwurdySharksModMobEffects.BLEEDING)) {
             if (entity instanceof LivingEntity _entity) {
                _entity.swing(InteractionHand.MAIN_HAND, true);
             }
@@ -56,11 +56,11 @@ public class SuckerRightclickedProcedure {
             }
 
             if (entity instanceof LivingEntity _entity) {
-               _entity.removeEffect(BenssharksModMobEffects.BLEEDING);
+               _entity.removeEffect(DwurdySharksModMobEffects.BLEEDING);
             }
-         } else if ((entity instanceof LivingEntity _livEnt ? _livEnt.getOffhandItem() : ItemStack.EMPTY).getItem() == BenssharksModItems.SUCKER.get()
+         } else if ((entity instanceof LivingEntity _livEnt ? _livEnt.getOffhandItem() : ItemStack.EMPTY).getItem() == DwurdySharksModItems.SUCKER.get()
             && entity instanceof LivingEntity _livEnt10
-            && _livEnt10.hasEffect(BenssharksModMobEffects.BLEEDING)) {
+            && _livEnt10.hasEffect(DwurdySharksModMobEffects.BLEEDING)) {
             if (entity instanceof LivingEntity _entity) {
                _entity.swing(InteractionHand.OFF_HAND, true);
             }
@@ -96,7 +96,7 @@ public class SuckerRightclickedProcedure {
             }
 
             if (entity instanceof LivingEntity _entity) {
-               _entity.removeEffect(BenssharksModMobEffects.BLEEDING);
+               _entity.removeEffect(DwurdySharksModMobEffects.BLEEDING);
             }
          }
       }

@@ -1,9 +1,9 @@
 package net.mcreator.sharks.procedures;
 
 import javax.annotation.Nullable;
-import net.mcreator.sharks.BenssharksMod;
+import net.mcreator.sharks.DwurdySharksMod;
 import net.mcreator.sharks.entity.MakoSharkEntity;
-import net.mcreator.sharks.init.BenssharksModMobEffects;
+import net.mcreator.sharks.init.DwurdySharksModMobEffects;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -34,10 +34,10 @@ public class MakoSharkEntityIsHurtProcedure {
             }
 
             if (entity instanceof LivingEntity _entity && !_entity.level().isClientSide()) {
-               _entity.addEffect(new MobEffectInstance(BenssharksModMobEffects.FRENZY, 600, 2, true, false));
+               _entity.addEffect(new MobEffectInstance(DwurdySharksModMobEffects.FRENZY, 600, 2, true, false));
             }
 
-            BenssharksMod.queueServerWork(600, () -> {
+            DwurdySharksMod.queueServerWork(600, () -> {
 
                if (entity instanceof MakoSharkEntity) {
                   ((MakoSharkEntity)entity).setAnimation("empty");

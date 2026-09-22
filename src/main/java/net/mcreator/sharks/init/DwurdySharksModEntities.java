@@ -42,7 +42,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 @EventBusSubscriber(
    bus = Bus.MOD
 )
-public class BenssharksModEntities {
+public class DwurdySharksModEntities {
    public static final DeferredRegister<EntityType<?>> REGISTRY = DeferredRegister.create(Registries.ENTITY_TYPE, "dwurdysharks");
    public static final DeferredHolder<EntityType<?>, EntityType<ShrakEntity>> GREATWHITESHARK = register(
       "greatwhiteshark",

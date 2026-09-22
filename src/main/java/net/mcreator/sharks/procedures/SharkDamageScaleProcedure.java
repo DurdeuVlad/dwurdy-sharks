@@ -1,6 +1,6 @@
 package net.mcreator.sharks.procedures;
 
-import net.mcreator.sharks.init.BenssharksModEntities;
+import net.mcreator.sharks.init.DwurdySharksModEntities;
 import net.mcreator.sharks.init.DwurdySharksConfig;
 import net.mcreator.sharks.init.DwurdySharksEntityTypeTags;
 import net.minecraft.core.registries.Registries;
@@ -31,7 +31,7 @@ public final class SharkDamageScaleProcedure {
          return;
       }
       double multiplier = DwurdySharksConfig.SHARK_DAMAGE_MULTIPLIER.get();
-      if (attacker.getType() == BenssharksModEntities.MEGALODON.get()) {
+      if (attacker.getType() == DwurdySharksModEntities.MEGALODON.get()) {
          float damage = (float)(DwurdySharksConfig.MEGALODON_DAMAGE.get() * multiplier);
          if (DwurdySharksConfig.MEGALODON_ARMOR_BYPASS.get()) {
             event.setCanceled(true);

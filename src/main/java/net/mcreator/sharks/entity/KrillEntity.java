@@ -1,9 +1,9 @@
 package net.mcreator.sharks.entity;
 
-import net.mcreator.sharks.init.BenssharksModEntities;
+import net.mcreator.sharks.init.DwurdySharksModEntities;
 import net.mcreator.sharks.init.DwurdySharksBiomeTags;
 import net.mcreator.sharks.init.DwurdySharksConfig;
-import net.mcreator.sharks.init.BenssharksModItems;
+import net.mcreator.sharks.init.DwurdySharksModItems;
 import net.mcreator.sharks.procedures.StopRidingBoatProcedure;
 import net.mcreator.sharks.procedures.KrillOnEntityTickUpdateProcedure;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -138,7 +138,7 @@ public class KrillEntity extends PathfinderMob implements GeoEntity {
 
    protected void dropCustomDeathLoot(ServerLevel serverLevel, DamageSource source, boolean recentlyHitIn) {
       super.dropCustomDeathLoot(serverLevel, source, recentlyHitIn);
-      this.spawnAtLocation(new ItemStack((ItemLike)BenssharksModItems.KRILL_ITEM.get()));
+      this.spawnAtLocation(new ItemStack((ItemLike)DwurdySharksModItems.KRILL_ITEM.get()));
    }
 
    public SoundEvent getAmbientSound() {
@@ -204,7 +204,7 @@ public class KrillEntity extends PathfinderMob implements GeoEntity {
 
    public static void init(RegisterSpawnPlacementsEvent event) {
       event.register(
-         (EntityType)BenssharksModEntities.KRILL.get(),
+         (EntityType)DwurdySharksModEntities.KRILL.get(),
          SpawnPlacementTypes.IN_WATER,
          Types.MOTION_BLOCKING_NO_LEAVES,
          (entityType, world, reason, pos, random) -> world.getBlockState(pos).is(Blocks.WATER) && world.getBlockState(pos.above()).is(Blocks.WATER)

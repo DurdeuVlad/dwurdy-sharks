@@ -11,12 +11,12 @@ import net.neoforged.neoforge.common.BasicItemListing;
 import net.neoforged.neoforge.event.village.VillagerTradesEvent;
 
 @EventBusSubscriber
-public class BenssharksModTrades {
+public class DwurdySharksModTrades {
    @SubscribeEvent
    public static void registerTrades(VillagerTradesEvent event) {
       if (event.getType() == VillagerProfession.SHEPHERD) {
          ((List)event.getTrades().get(4))
-            .add(new BasicItemListing(new ItemStack(Items.EMERALD, 29), new ItemStack((ItemLike)BenssharksModBlocks.SHARK_PLUSH_BLOCK.get()), 10, 10, 0.05F));
+            .add(new BasicItemListing(new ItemStack(Items.EMERALD, 29), new ItemStack((ItemLike)DwurdySharksModBlocks.SHARK_PLUSH_BLOCK.get()), 10, 10, 0.05F));
       }
    }
 }

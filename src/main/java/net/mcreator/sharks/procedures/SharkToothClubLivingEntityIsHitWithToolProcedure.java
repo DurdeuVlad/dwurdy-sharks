@@ -1,6 +1,6 @@
 package net.mcreator.sharks.procedures;
 
-import net.mcreator.sharks.init.BenssharksModMobEffects;
+import net.mcreator.sharks.init.DwurdySharksModMobEffects;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -33,7 +33,7 @@ public class SharkToothClubLivingEntityIsHitWithToolProcedure {
          }
 
          if (entity instanceof LivingEntity _entity && !_entity.level().isClientSide()) {
-            _entity.addEffect(new MobEffectInstance(BenssharksModMobEffects.BLEEDING, 240, 1, false, true));
+            _entity.addEffect(new MobEffectInstance(DwurdySharksModMobEffects.BLEEDING, 240, 1, false, true));
          }
       }
    }

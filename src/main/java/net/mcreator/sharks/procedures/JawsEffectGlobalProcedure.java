@@ -1,7 +1,7 @@
 package net.mcreator.sharks.procedures;
 
 import javax.annotation.Nullable;
-import net.mcreator.sharks.init.BenssharksModMobEffects;
+import net.mcreator.sharks.init.DwurdySharksModMobEffects;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -27,10 +27,10 @@ public class JawsEffectGlobalProcedure {
       if (entity != null && sourceentity != null) {
          if (sourceentity instanceof LivingEntity
             && sourceentity instanceof LivingEntity _livEnt1
-            && _livEnt1.hasEffect(BenssharksModMobEffects.JAWS)
+            && _livEnt1.hasEffect(DwurdySharksModMobEffects.JAWS)
             && entity instanceof LivingEntity _entity
             && !_entity.level().isClientSide()) {
-            _entity.addEffect(new MobEffectInstance(BenssharksModMobEffects.BLEEDING, 400, 0, true, false));
+            _entity.addEffect(new MobEffectInstance(DwurdySharksModMobEffects.BLEEDING, 400, 0, true, false));
          }
       }
    }

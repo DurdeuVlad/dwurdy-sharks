@@ -1,6 +1,6 @@
 package net.mcreator.sharks.procedures;
 
-import net.mcreator.sharks.BenssharksMod;
+import net.mcreator.sharks.DwurdySharksMod;
 import net.mcreator.sharks.entity.BaskingSharkEntity;
 import net.mcreator.sharks.entity.BlacktipReefSharkEntity;
 import net.mcreator.sharks.entity.BlueSharkEntity;
@@ -14,7 +14,7 @@ import net.mcreator.sharks.entity.MegalodonEntity;
 import net.mcreator.sharks.entity.ShrakEntity;
 import net.mcreator.sharks.entity.TigerSharkEntity;
 import net.mcreator.sharks.entity.WhitetipSharkEntity;
-import net.mcreator.sharks.init.BenssharksModMobEffects;
+import net.mcreator.sharks.init.DwurdySharksModMobEffects;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.Entity;
@@ -41,11 +41,11 @@ public class SharkBleedProcedure {
                   || entity instanceof LandSharkEntity
             )
             && entity instanceof LivingEntity _livEnt13
-            && _livEnt13.hasEffect(BenssharksModMobEffects.BLEEDING)
+            && _livEnt13.hasEffect(DwurdySharksModMobEffects.BLEEDING)
             && !entity.getPersistentData().getBoolean("bleed")) {
             entity.getPersistentData().putBoolean("bleed", true);
             entity.hurt(new DamageSource(world.holderOrThrow(DamageTypes.GENERIC_KILL)), 1.0F);
-            BenssharksMod.queueServerWork(60, () -> entity.getPersistentData().putBoolean("bleed", false));
+            DwurdySharksMod.queueServerWork(60, () -> entity.getPersistentData().putBoolean("bleed", false));
          }
       }
    }

@@ -2,8 +2,8 @@ package net.mcreator.sharks.procedures;
 
 import javax.annotation.Nullable;
 import net.mcreator.sharks.entity.CookiecutterSharkEntity;
-import net.mcreator.sharks.init.BenssharksModItems;
-import net.mcreator.sharks.init.BenssharksModMobEffects;
+import net.mcreator.sharks.init.DwurdySharksModItems;
+import net.mcreator.sharks.init.DwurdySharksModMobEffects;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -40,13 +40,13 @@ public class ParasiteApplyProcedure {
       if (entity != null && sourceentity != null) {
          if (!(entity instanceof CookiecutterSharkEntity)) {
             if ((sourceentity instanceof LivingEntity _livEnt ? _livEnt.getMainHandItem() : ItemStack.EMPTY).getItem()
-                  != BenssharksModItems.COOKIECUTTER_SHARK_LIVE.get()
-               || entity instanceof LivingEntity _livEnt3 && _livEnt3.hasEffect(BenssharksModMobEffects.PARASITE)
-               || entity instanceof LivingEntity _livEnt4 && _livEnt4.hasEffect(BenssharksModMobEffects.SEALING)) {
+                  != DwurdySharksModItems.COOKIECUTTER_SHARK_LIVE.get()
+               || entity instanceof LivingEntity _livEnt3 && _livEnt3.hasEffect(DwurdySharksModMobEffects.PARASITE)
+               || entity instanceof LivingEntity _livEnt4 && _livEnt4.hasEffect(DwurdySharksModMobEffects.SEALING)) {
                if ((sourceentity instanceof LivingEntity _livEntx ? _livEntx.getOffhandItem() : ItemStack.EMPTY).getItem()
-                     == BenssharksModItems.COOKIECUTTER_SHARK_LIVE.get()
-                  && !(entity instanceof LivingEntity _livEnt13 && _livEnt13.hasEffect(BenssharksModMobEffects.PARASITE))
-                  && !(entity instanceof LivingEntity _livEnt14 && _livEnt14.hasEffect(BenssharksModMobEffects.SEALING))) {
+                     == DwurdySharksModItems.COOKIECUTTER_SHARK_LIVE.get()
+                  && !(entity instanceof LivingEntity _livEnt13 && _livEnt13.hasEffect(DwurdySharksModMobEffects.PARASITE))
+                  && !(entity instanceof LivingEntity _livEnt14 && _livEnt14.hasEffect(DwurdySharksModMobEffects.SEALING))) {
                   if (world instanceof Level _level) {
                      if (!_level.isClientSide()) {
                         _level.playSound(
@@ -81,7 +81,7 @@ public class ParasiteApplyProcedure {
                   }
 
                   if (entity instanceof LivingEntity _entityx && !_entityx.level().isClientSide()) {
-                     _entityx.addEffect(new MobEffectInstance(BenssharksModMobEffects.PARASITE, 200, 0, true, false));
+                     _entityx.addEffect(new MobEffectInstance(DwurdySharksModMobEffects.PARASITE, 200, 0, true, false));
                   }
                }
             } else {
@@ -119,7 +119,7 @@ public class ParasiteApplyProcedure {
                }
 
                if (entity instanceof LivingEntity _entityxx && !_entityxx.level().isClientSide()) {
-                  _entityxx.addEffect(new MobEffectInstance(BenssharksModMobEffects.PARASITE, 200, 0, true, false));
+                  _entityxx.addEffect(new MobEffectInstance(DwurdySharksModMobEffects.PARASITE, 200, 0, true, false));
                }
             }
          }

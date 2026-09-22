@@ -25,7 +25,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 @EventBusSubscriber
-public class BenssharksModMobEffects {
+public class DwurdySharksModMobEffects {
    public static final DeferredRegister<MobEffect> REGISTRY = DeferredRegister.create(Registries.MOB_EFFECT, "dwurdysharks");
    public static final DeferredHolder<MobEffect, MobEffect> BLEEDING = REGISTRY.register("bleeding", () -> new BleedingMobEffect());
    public static final DeferredHolder<MobEffect, MobEffect> JAWS = REGISTRY.register("jaws", () -> new JawsMobEffect());

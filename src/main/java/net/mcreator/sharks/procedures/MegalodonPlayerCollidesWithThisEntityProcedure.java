@@ -1,6 +1,6 @@
 package net.mcreator.sharks.procedures;
 
-import net.mcreator.sharks.init.BenssharksModMobEffects;
+import net.mcreator.sharks.init.DwurdySharksModMobEffects;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.resources.ResourceLocation;
@@ -26,7 +26,7 @@ public class MegalodonPlayerCollidesWithThisEntityProcedure {
          }
 
          if (sourceentity instanceof LivingEntity _entity && !_entity.level().isClientSide()) {
-            _entity.addEffect(new MobEffectInstance(BenssharksModMobEffects.PREY, 60, 0, true, false));
+            _entity.addEffect(new MobEffectInstance(DwurdySharksModMobEffects.PREY, 60, 0, true, false));
          }
       }
    }

@@ -1,8 +1,8 @@
 package net.mcreator.sharks.entity;
 
 import javax.annotation.Nullable;
-import net.mcreator.sharks.init.BenssharksModEntities;
-import net.mcreator.sharks.init.BenssharksModItems;
+import net.mcreator.sharks.init.DwurdySharksModEntities;
+import net.mcreator.sharks.init.DwurdySharksModItems;
 import net.mcreator.sharks.procedures.SeekingArrowProjectileHitsBlockProcedure;
 import net.mcreator.sharks.procedures.SeekingArrowProjectileHitsLivingEntityProcedure;
 import net.mcreator.sharks.procedures.SeekingArrowProjectileHitsPlayerProcedure;
@@ -33,7 +33,7 @@ import net.neoforged.api.distmarker.OnlyIn;
    _interface = ItemSupplier.class
 )
 public class SeekingArrowEntity extends AbstractArrow implements ItemSupplier {
-   public static final ItemStack PROJECTILE_ITEM = new ItemStack((ItemLike)BenssharksModItems.MAELSTROM_BOW.get());
+   public static final ItemStack PROJECTILE_ITEM = new ItemStack((ItemLike)DwurdySharksModItems.MAELSTROM_BOW.get());
    private int knockback = 0;
 
    public SeekingArrowEntity(EntityType<? extends SeekingArrowEntity> type, Level world) {
@@ -54,7 +54,7 @@ public class SeekingArrowEntity extends AbstractArrow implements ItemSupplier {
    }
 
    protected ItemStack getDefaultPickupItem() {
-      return new ItemStack((ItemLike)BenssharksModItems.MAELSTROM_BOW.get());
+      return new ItemStack((ItemLike)DwurdySharksModItems.MAELSTROM_BOW.get());
    }
 
    protected void doPostHurtEffects(LivingEntity entity) {
@@ -109,7 +109,7 @@ public class SeekingArrowEntity extends AbstractArrow implements ItemSupplier {
 
    public static SeekingArrowEntity shoot(Level world, LivingEntity entity, RandomSource random, float power, double damage, int knockback) {
       SeekingArrowEntity entityarrow = new SeekingArrowEntity(
-         (EntityType<? extends SeekingArrowEntity>)BenssharksModEntities.SEEKING_ARROW.get(), entity, world, null
+         (EntityType<? extends SeekingArrowEntity>)DwurdySharksModEntities.SEEKING_ARROW.get(), entity, world, null
       );
       entityarrow.shoot(entity.getViewVector(1.0F).x, entity.getViewVector(1.0F).y, entity.getViewVector(1.0F).z, power * 2.0F, 0.0F);
       entityarrow.setSilent(true);
@@ -132,7 +132,7 @@ public class SeekingArrowEntity extends AbstractArrow implements ItemSupplier {
 
    public static SeekingArrowEntity shoot(LivingEntity entity, LivingEntity target) {
       SeekingArrowEntity entityarrow = new SeekingArrowEntity(
-         (EntityType<? extends SeekingArrowEntity>)BenssharksModEntities.SEEKING_ARROW.get(), entity, entity.level(), null
+         (EntityType<? extends SeekingArrowEntity>)DwurdySharksModEntities.SEEKING_ARROW.get(), entity, entity.level(), null
       );
       double dx = target.getX() - entity.getX();
       double dy = target.getY() + target.getEyeHeight() - 1.1;

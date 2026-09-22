@@ -1,8 +1,8 @@
 package net.mcreator.sharks.procedures;
 
-import net.mcreator.sharks.BenssharksMod;
+import net.mcreator.sharks.DwurdySharksMod;
 import net.mcreator.sharks.entity.BlueSharkEntity;
-import net.mcreator.sharks.init.BenssharksModItems;
+import net.mcreator.sharks.init.DwurdySharksModItems;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.core.BlockPos;
@@ -30,7 +30,7 @@ public class BlueSharkRightClickedOnEntityProcedure {
    public static void execute(LevelAccessor world, double x, double y, double z, Entity entity, Entity sourceentity) {
       if (entity != null && sourceentity != null) {
          if (sourceentity instanceof Player && entity instanceof BlueSharkEntity) {
-            if ((sourceentity instanceof LivingEntity _livEnt ? _livEnt.getMainHandItem() : ItemStack.EMPTY).getItem() == BenssharksModItems.FISH_BUCKET.get()) {
+            if ((sourceentity instanceof LivingEntity _livEnt ? _livEnt.getMainHandItem() : ItemStack.EMPTY).getItem() == DwurdySharksModItems.FISH_BUCKET.get()) {
                if (!entity.getPersistentData().getBoolean("canBeMilked")) {
                   if (entity instanceof LivingEntity _entity) {
                      _entity.swing(InteractionHand.MAIN_HAND, true);
@@ -100,10 +100,10 @@ public class BlueSharkRightClickedOnEntityProcedure {
                      }
                   }
 
-                  BenssharksMod.queueServerWork(6000, () -> entity.getPersistentData().putBoolean("canBeMilked", false));
+                  DwurdySharksMod.queueServerWork(6000, () -> entity.getPersistentData().putBoolean("canBeMilked", false));
                }
             } else if ((sourceentity instanceof LivingEntity _livEntx ? _livEntx.getOffhandItem() : ItemStack.EMPTY).getItem()
-                  == BenssharksModItems.FISH_BUCKET.get()
+                  == DwurdySharksModItems.FISH_BUCKET.get()
                && !entity.getPersistentData().getBoolean("canBeMilked")) {
                if (entity instanceof LivingEntity _entityx) {
                   _entityx.swing(InteractionHand.MAIN_HAND, true);
@@ -173,16 +173,16 @@ public class BlueSharkRightClickedOnEntityProcedure {
                   }
                }
 
-               BenssharksMod.queueServerWork(6000, () -> entity.getPersistentData().putBoolean("canBeMilked", false));
+               DwurdySharksMod.queueServerWork(6000, () -> entity.getPersistentData().putBoolean("canBeMilked", false));
             }
 
             if ((sourceentity instanceof LivingEntity _livEntx ? _livEntx.getMainHandItem() : ItemStack.EMPTY).getItem()
-               == BenssharksModItems.FISH_BUCKET.get()) {
+               == DwurdySharksModItems.FISH_BUCKET.get()) {
                if (sourceentity instanceof Player _playerxx && !_playerxx.level().isClientSide()) {
                   _playerxx.displayClientMessage(Component.literal("Feeding on Cooldown"), true);
                }
             } else if ((sourceentity instanceof LivingEntity _livEntxx ? _livEntxx.getOffhandItem() : ItemStack.EMPTY).getItem()
-                  == BenssharksModItems.FISH_BUCKET.get()
+                  == DwurdySharksModItems.FISH_BUCKET.get()
                && sourceentity instanceof Player _playerxx
                && !_playerxx.level().isClientSide()) {
                _playerxx.displayClientMessage(Component.literal("Feeding on Cooldown"), true);

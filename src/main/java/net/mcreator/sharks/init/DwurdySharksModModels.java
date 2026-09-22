@@ -13,7 +13,7 @@ import net.neoforged.neoforge.client.event.EntityRenderersEvent.RegisterLayerDef
    bus = Bus.MOD,
    value = {Dist.CLIENT}
 )
-public class BenssharksModModels {
+public class DwurdySharksModModels {
    @SubscribeEvent
    public static void registerLayerDefinitions(RegisterLayerDefinitions event) {
       event.registerLayerDefinition(ModelSeekingArrow.LAYER_LOCATION, ModelSeekingArrow::createBodyLayer);

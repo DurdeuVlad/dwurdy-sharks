@@ -19,9 +19,9 @@ if (($config | Select-String -Pattern '"Enabled"' -AllMatches).Matches.Count -lt
 }
 
 # 2. Config registered on the mod container
-$mod = Get-Content (Join-Path $root "src/main/java/net/mcreator/sharks/BenssharksMod.java") -Raw
+$mod = Get-Content (Join-Path $root "src/main/java/net/mcreator/sharks/DwurdySharksMod.java") -Raw
 if ($mod -notmatch "registerConfig\(ModConfig\.Type\.SERVER, DwurdySharksConfig\.SPEC\)") {
-    Fail "BenssharksMod does not register SERVER config"
+    Fail "DwurdySharksMod does not register SERVER config"
 }
 
 # 3. Spawn guard reads SPAWNING_ENABLED + speciesEnabled, namespace-scoped

@@ -4,7 +4,7 @@ import com.mojang.serialization.MapCodec;
 import java.util.Collections;
 import java.util.List;
 import javax.annotation.Nullable;
-import net.mcreator.sharks.init.BenssharksModBlockEntities;
+import net.mcreator.sharks.init.DwurdySharksModBlockEntities;
 import net.mcreator.sharks.procedures.SharkPlushieOnBlockRightClickedProcedure;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -85,7 +85,7 @@ public class SharkPlushieBlock extends BaseEntityBlock implements SimpleWaterlog
 
    @Nullable
    public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
-      return ((BlockEntityType)BenssharksModBlockEntities.SHARK_PLUSH_BLOCK.get()).create(blockPos, blockState);
+      return ((BlockEntityType)DwurdySharksModBlockEntities.SHARK_PLUSH_BLOCK.get()).create(blockPos, blockState);
    }
 
    public boolean propagatesSkylightDown(BlockState state, BlockGetter reader, BlockPos pos) {

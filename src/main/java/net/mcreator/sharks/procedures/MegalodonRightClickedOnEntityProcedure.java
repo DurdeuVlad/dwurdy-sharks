@@ -1,9 +1,9 @@
 package net.mcreator.sharks.procedures;
 
-import net.mcreator.sharks.BenssharksMod;
+import net.mcreator.sharks.DwurdySharksMod;
 import net.mcreator.sharks.entity.MegalodonEntity;
-import net.mcreator.sharks.init.BenssharksModItems;
-import net.mcreator.sharks.init.BenssharksModMobEffects;
+import net.mcreator.sharks.init.DwurdySharksModItems;
+import net.mcreator.sharks.init.DwurdySharksModMobEffects;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.core.BlockPos;
@@ -30,7 +30,7 @@ public class MegalodonRightClickedOnEntityProcedure {
    public static void execute(LevelAccessor world, double x, double y, double z, Entity entity, Entity sourceentity) {
       if (entity != null && sourceentity != null) {
          if (sourceentity instanceof Player && entity instanceof MegalodonEntity) {
-            if ((sourceentity instanceof LivingEntity _livEnt ? _livEnt.getMainHandItem() : ItemStack.EMPTY).getItem() == BenssharksModItems.FISH_BUCKET.get()) {
+            if ((sourceentity instanceof LivingEntity _livEnt ? _livEnt.getMainHandItem() : ItemStack.EMPTY).getItem() == DwurdySharksModItems.FISH_BUCKET.get()) {
                if (!entity.getPersistentData().getBoolean("canBeMilked")) {
                   if (entity instanceof LivingEntity _entity) {
                      _entity.swing(InteractionHand.MAIN_HAND, true);
@@ -75,11 +75,11 @@ public class MegalodonRightClickedOnEntityProcedure {
                   }
 
                   if (sourceentity instanceof LivingEntity _entityx && !_entityx.level().isClientSide()) {
-                     _entityx.addEffect(new MobEffectInstance(BenssharksModMobEffects.JAWS, 6000, 0));
+                     _entityx.addEffect(new MobEffectInstance(DwurdySharksModMobEffects.JAWS, 6000, 0));
                   }
 
                   if (sourceentity instanceof LivingEntity _entityx && !_entityx.level().isClientSide()) {
-                     _entityx.addEffect(new MobEffectInstance(BenssharksModMobEffects.FRENZY, 6000, 2));
+                     _entityx.addEffect(new MobEffectInstance(DwurdySharksModMobEffects.FRENZY, 6000, 2));
                   }
 
                   if (entity instanceof LivingEntity _entityx && !_entityx.level().isClientSide()) {
@@ -90,10 +90,10 @@ public class MegalodonRightClickedOnEntityProcedure {
                      _levelx.sendParticles(ParticleTypes.CRIT, x, y, z, 5, 1.0, 1.0, 1.0, 1.0);
                   }
 
-                  BenssharksMod.queueServerWork(6000, () -> entity.getPersistentData().putBoolean("canBeMilked", false));
+                  DwurdySharksMod.queueServerWork(6000, () -> entity.getPersistentData().putBoolean("canBeMilked", false));
                }
             } else if ((sourceentity instanceof LivingEntity _livEntx ? _livEntx.getOffhandItem() : ItemStack.EMPTY).getItem()
-                  == BenssharksModItems.FISH_BUCKET.get()
+                  == DwurdySharksModItems.FISH_BUCKET.get()
                && !entity.getPersistentData().getBoolean("canBeMilked")) {
                if (entity instanceof LivingEntity _entityx) {
                   _entityx.swing(InteractionHand.MAIN_HAND, true);
@@ -138,11 +138,11 @@ public class MegalodonRightClickedOnEntityProcedure {
                }
 
                if (sourceentity instanceof LivingEntity _entityxx && !_entityxx.level().isClientSide()) {
-                  _entityxx.addEffect(new MobEffectInstance(BenssharksModMobEffects.JAWS, 6000, 0));
+                  _entityxx.addEffect(new MobEffectInstance(DwurdySharksModMobEffects.JAWS, 6000, 0));
                }
 
                if (sourceentity instanceof LivingEntity _entityxx && !_entityxx.level().isClientSide()) {
-                  _entityxx.addEffect(new MobEffectInstance(BenssharksModMobEffects.FRENZY, 6000, 2));
+                  _entityxx.addEffect(new MobEffectInstance(DwurdySharksModMobEffects.FRENZY, 6000, 2));
                }
 
                if (entity instanceof LivingEntity _entityxx && !_entityxx.level().isClientSide()) {
@@ -153,11 +153,11 @@ public class MegalodonRightClickedOnEntityProcedure {
                   _levelxx.sendParticles(ParticleTypes.CRIT, x, y, z, 5, 1.0, 1.0, 1.0, 1.0);
                }
 
-               BenssharksMod.queueServerWork(6000, () -> entity.getPersistentData().putBoolean("canBeMilked", false));
+               DwurdySharksMod.queueServerWork(6000, () -> entity.getPersistentData().putBoolean("canBeMilked", false));
             }
 
             if ((sourceentity instanceof LivingEntity _livEntx ? _livEntx.getMainHandItem() : ItemStack.EMPTY).getItem()
-               == BenssharksModItems.EGG_CAPSULE.get()) {
+               == DwurdySharksModItems.EGG_CAPSULE.get()) {
                if (!entity.getPersistentData().getBoolean("canBeMilked")) {
                   if (entity instanceof LivingEntity _entityxx) {
                      _entityxx.swing(InteractionHand.MAIN_HAND, true);
@@ -235,13 +235,13 @@ public class MegalodonRightClickedOnEntityProcedure {
                   }
 
                   if (entity instanceof LivingEntity _entityxx && !_entityxx.level().isClientSide()) {
-                     _entityxx.addEffect(new MobEffectInstance(BenssharksModMobEffects.FERTILIZED, 13000, 0, true, false));
+                     _entityxx.addEffect(new MobEffectInstance(DwurdySharksModMobEffects.FERTILIZED, 13000, 0, true, false));
                   }
 
-                  BenssharksMod.queueServerWork(6000, () -> entity.getPersistentData().putBoolean("canBeMilked", false));
+                  DwurdySharksMod.queueServerWork(6000, () -> entity.getPersistentData().putBoolean("canBeMilked", false));
                }
             } else if ((sourceentity instanceof LivingEntity _livEntxx ? _livEntxx.getOffhandItem() : ItemStack.EMPTY).getItem()
-                  == BenssharksModItems.EGG_CAPSULE.get()
+                  == DwurdySharksModItems.EGG_CAPSULE.get()
                && !entity.getPersistentData().getBoolean("canBeMilked")) {
                if (entity instanceof LivingEntity _entityxx) {
                   _entityxx.swing(InteractionHand.MAIN_HAND, true);
@@ -319,21 +319,21 @@ public class MegalodonRightClickedOnEntityProcedure {
                }
 
                if (entity instanceof LivingEntity _entityxx && !_entityxx.level().isClientSide()) {
-                  _entityxx.addEffect(new MobEffectInstance(BenssharksModMobEffects.FERTILIZED, 13000, 0, true, false));
+                  _entityxx.addEffect(new MobEffectInstance(DwurdySharksModMobEffects.FERTILIZED, 13000, 0, true, false));
                }
 
-               BenssharksMod.queueServerWork(6000, () -> entity.getPersistentData().putBoolean("canBeMilked", false));
+               DwurdySharksMod.queueServerWork(6000, () -> entity.getPersistentData().putBoolean("canBeMilked", false));
             }
 
             if ((sourceentity instanceof LivingEntity _livEntxxx ? _livEntxxx.getMainHandItem() : ItemStack.EMPTY).getItem()
-                  != BenssharksModItems.FISH_BUCKET.get()
+                  != DwurdySharksModItems.FISH_BUCKET.get()
                && (sourceentity instanceof LivingEntity _livEntxx ? _livEntxx.getMainHandItem() : ItemStack.EMPTY).getItem()
-                  != BenssharksModItems.EGG_CAPSULE.get()) {
+                  != DwurdySharksModItems.EGG_CAPSULE.get()) {
                if ((
                      (sourceentity instanceof LivingEntity _livEntxxxxx ? _livEntxxxxx.getOffhandItem() : ItemStack.EMPTY).getItem()
-                           == BenssharksModItems.FISH_BUCKET.get()
+                           == DwurdySharksModItems.FISH_BUCKET.get()
                         || (sourceentity instanceof LivingEntity _livEntxxxx ? _livEntxxxx.getOffhandItem() : ItemStack.EMPTY).getItem()
-                           == BenssharksModItems.EGG_CAPSULE.get()
+                           == DwurdySharksModItems.EGG_CAPSULE.get()
                   )
                   && sourceentity instanceof Player _playerxx
                   && !_playerxx.level().isClientSide()) {

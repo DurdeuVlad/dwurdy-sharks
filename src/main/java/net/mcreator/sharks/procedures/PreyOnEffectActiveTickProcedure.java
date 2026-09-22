@@ -4,7 +4,7 @@ import java.util.Comparator;
 import net.mcreator.sharks.entity.BullSharkEntity;
 import net.mcreator.sharks.entity.MegalodonEntity;
 import net.mcreator.sharks.entity.WhitetipSharkEntity;
-import net.mcreator.sharks.init.BenssharksModMobEffects;
+import net.mcreator.sharks.init.DwurdySharksModMobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -19,7 +19,7 @@ public class PreyOnEffectActiveTickProcedure {
       if (entity != null) {
          if ((!(entity instanceof BullSharkEntity) || !(entity instanceof MegalodonEntity) || !(entity instanceof WhitetipSharkEntity))
             && entity instanceof LivingEntity _livEnt3
-            && _livEnt3.hasEffect(BenssharksModMobEffects.PREY)
+            && _livEnt3.hasEffect(DwurdySharksModMobEffects.PREY)
             && !(entity instanceof Player _plr && _plr.getAbilities().instabuild)) {
             Vec3 _center = new Vec3(x, y, z);
 

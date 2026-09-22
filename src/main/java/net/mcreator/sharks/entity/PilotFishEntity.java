@@ -1,11 +1,11 @@
 package net.mcreator.sharks.entity;
 
 import javax.annotation.Nullable;
-import net.mcreator.sharks.init.BenssharksModEntities;
+import net.mcreator.sharks.init.DwurdySharksModEntities;
 import net.mcreator.sharks.init.DwurdySharksEntityTypeTags;
 import net.mcreator.sharks.init.DwurdySharksBiomeTags;
 import net.mcreator.sharks.init.DwurdySharksConfig;
-import net.mcreator.sharks.init.BenssharksModItems;
+import net.mcreator.sharks.init.DwurdySharksModItems;
 import net.mcreator.sharks.procedures.StopRidingBoatProcedure;
 import net.mcreator.sharks.procedures.PilotFishOnEntityTickUpdateProcedure;
 import net.mcreator.sharks.procedures.PilotFishOnInitialEntitySpawnProcedure;
@@ -160,7 +160,7 @@ public class PilotFishEntity extends PathfinderMob implements GeoEntity {
 
    protected void dropCustomDeathLoot(ServerLevel serverLevel, DamageSource source, boolean recentlyHitIn) {
       super.dropCustomDeathLoot(serverLevel, source, recentlyHitIn);
-      this.spawnAtLocation(new ItemStack((ItemLike)BenssharksModItems.RAW_PILOT_FISH.get()));
+      this.spawnAtLocation(new ItemStack((ItemLike)DwurdySharksModItems.RAW_PILOT_FISH.get()));
    }
 
    public SoundEvent getAmbientSound() {
@@ -244,7 +244,7 @@ public class PilotFishEntity extends PathfinderMob implements GeoEntity {
 
    public static void init(RegisterSpawnPlacementsEvent event) {
       event.register(
-         (EntityType)BenssharksModEntities.PILOT_FISH.get(),
+         (EntityType)DwurdySharksModEntities.PILOT_FISH.get(),
          SpawnPlacementTypes.IN_WATER,
          Types.MOTION_BLOCKING_NO_LEAVES,
          (entityType, world, reason, pos, random) -> world.getBlockState(pos).is(Blocks.WATER) && world.getBlockState(pos.above()).is(Blocks.WATER)

@@ -17,7 +17,7 @@ analysis.
   bounded local density, per-entity tick cost reduced by an order of magnitude,
   and all of it proven by automated tests plus Spark CPU/alloc profiles.
 - **System:** Java/NeoForge mod, MCreator-generated sources, biome-modifier
-  JSON spawns, GameTest suite (`BenssharksGameTests`, 5 tests, `pool` template).
+  JSON spawns, GameTest suite (`DwurdySharksGameTests`, 5 tests, `pool` template).
 - **Constraints:** keep `finalizeSpawn` behavior (guardian aggro) working; keep
   tamed/named sharks persistent while wild ones despawn; modded ocean biomes
   must be supported via tags, not hardcoded biome lists; no invented dates,
@@ -31,25 +31,25 @@ analysis.
 | # | Fact | Where |
 |---|------|-------|
 | F1 | 14 `*OnInitialEntitySpawnProcedure` classes are `@EventBusSubscriber`s on `EntityTickEvent.Pre`, running `getEntitiesOfClass(Entity.class, AABB.inflate(25))` + full sort **every tick** | e.g. `BullSharkOnInitialEntitySpawnProcedure.java:19-41`. Affected: Basking, Blue, Bonnethead, Bull, Cookiecutter, Greenland, LandShark, Mako, Megalodon, Nurse, Remora, Shrak, Tiger, Whitetip |
-| F2 | `BenssharksMod.workQueue` is a `ConcurrentLinkedQueue` fully iterated every server tick | `BenssharksMod.java:43,82-93` |
+| F2 | `DwurdySharksMod.workQueue` is a `ConcurrentLinkedQueue` fully iterated every server tick | `DwurdySharksMod.java:43,82-93` |
 | F3 | 19 `*OnEntityTickUpdateProcedure` classes call `queueServerWork(300-600, …)` **every tick** while the shark is out of water → ~600 queued lambdas per beached shark, each pinning the entity | `BullSharkOnEntityTickUpdateProcedure.java:14-19`; DRYOUT grep: 19 files |
 | F4 | `*EntityIsHurtProcedure` `queueServerWork(600)` calls are per-hit (bounded), mostly redundant effect cleanup | `TigerSharkEntityIsHurtProcedure.java:40-48` |
 | F5 | Bull shark spawn JSON lists `river`, `swamp`, `mangrove_swamp`, `beach`, `stony_shore`; other species have similar non-ocean entries (per-file cleanup required) | `bull_shark_biome_modifier.json`; 21 biome modifier files total |
 | F6 | Java spawn predicate checks only "water + water above" — no biome guard | `BullSharkEntity.init:327-335`, same pattern per entity |
-| F7 | `BonnetheadShark`, `BlacktipReefShark`, `Barracuda` registered `WATER_AMBIENT`; Krill, Remora, PilotFish correctly ambient | `BenssharksModEntities.java:97,121,234` |
+| F7 | `BonnetheadShark`, `BlacktipReefShark`, `Barracuda` registered `WATER_AMBIENT`; Krill, Remora, PilotFish correctly ambient | `DwurdySharksModEntities.java:97,121,234` |
 | F8 | Goal counts: Axodile 86 (9+77 targets), GreaterAxodile 52, Bull 47, Mako 44, `RollParticleEntity` 47 incl. 44 target goals | `*Entity.java` `goalSelector`/`targetSelector` |
 | F9 | `LookAtPlayerGoal` ranges 128F on Tiger/Shrak/Nurse/Mako/Bull/Blue, 64F Megalodon, **256F** Axodile | entity `registerGoals` |
 | F10 | `refreshDimensions()` called in `baseTick()` of all 24 entity classes despite static dimensions | e.g. `BullSharkEntity.java:298` |
 | F11 | Repeated per-tick AABB queries: `EatKrillProcedure` 18 calls, `BarracudaSprintProcedure` 19, `EatDroppedItemProcedure` ~9, each with full sort | procedures dir |
 | F12 | No config class, no `data/dwurdysharks/tags` dir, no GitHub issues/milestones | repo |
-| F13 | Existing precedent for server-tunable behavior: `BenssharksModGameRules.AGGRESSIVE_SHARKS` gamerule + 5 GameTests | `BenssharksModGameRules`, `gametest/` |
+| F13 | Existing precedent for server-tunable behavior: `DwurdySharksModGameRules.AGGRESSIVE_SHARKS` gamerule + 5 GameTests | `DwurdySharksModGameRules`, `gametest/` |
 
 ## Decisions taken (reversible, documented)
 
 - **D1 — one GitHub milestone `1.4.0`, issues ordered by dependency.** Priority
   labels (`priority:p0/p1/p2`) carry sequencing; GitHub milestones map to
   releases, not phases.
-- **D2 — caps and spawn toggles use gamerules** (`BenssharksModGameRules`),
+- **D2 — caps and spawn toggles use gamerules** (`DwurdySharksModGameRules`),
   matching the existing `aggressiveSharks` precedent and giving per-world,
   in-game control. `DwurdySharksConfig` (issue #9) holds global toggles/damage
   numbers only — no double source of truth.

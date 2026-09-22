@@ -1,7 +1,7 @@
 package net.mcreator.sharks.procedures;
 
 import net.mcreator.sharks.entity.CookiecutterSharkEntity;
-import net.mcreator.sharks.init.BenssharksModMobEffects;
+import net.mcreator.sharks.init.DwurdySharksModMobEffects;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.Entity;
@@ -14,7 +14,7 @@ public class ParasiteOnEffectActiveTickProcedure {
       if (entity != null) {
          if (!(entity instanceof CookiecutterSharkEntity)
             && !(entity instanceof Player _plr && _plr.getAbilities().instabuild)
-            && !(entity instanceof LivingEntity _livEnt2 && _livEnt2.hasEffect(BenssharksModMobEffects.SEALING))) {
+            && !(entity instanceof LivingEntity _livEnt2 && _livEnt2.hasEffect(DwurdySharksModMobEffects.SEALING))) {
             entity.hurt(new DamageSource(world.holderOrThrow(DamageTypes.GENERIC_KILL)), 0.125F);
          }
       }

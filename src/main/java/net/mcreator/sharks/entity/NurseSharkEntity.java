@@ -2,10 +2,10 @@ package net.mcreator.sharks.entity;
 
 import java.util.List;
 import javax.annotation.Nullable;
-import net.mcreator.sharks.init.BenssharksModEntities;
+import net.mcreator.sharks.init.DwurdySharksModEntities;
 import net.mcreator.sharks.init.DwurdySharksBiomeTags;
 import net.mcreator.sharks.init.DwurdySharksConfig;
-import net.mcreator.sharks.init.BenssharksModItems;
+import net.mcreator.sharks.init.DwurdySharksModItems;
 import net.mcreator.sharks.procedures.StopRidingBoatProcedure;
 import net.mcreator.sharks.procedures.SharkBleedProcedure;
 import net.mcreator.sharks.procedures.EatDroppedItemProcedure;
@@ -169,7 +169,7 @@ public class NurseSharkEntity extends TamableAnimal implements GeoEntity {
 
    protected void registerGoals() {
       super.registerGoals();
-      this.goalSelector.addGoal(1, new TemptGoal(this, 1.0, Ingredient.of(new ItemLike[]{(ItemLike)BenssharksModItems.FISH_BUCKET.get()}), false));
+      this.goalSelector.addGoal(1, new TemptGoal(this, 1.0, Ingredient.of(new ItemLike[]{(ItemLike)DwurdySharksModItems.FISH_BUCKET.get()}), false));
       this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this) {
          public boolean canUse() {
             double x = NurseSharkEntity.this.getX();
@@ -423,7 +423,7 @@ public class NurseSharkEntity extends TamableAnimal implements GeoEntity {
    }
 
    public AgeableMob getBreedOffspring(ServerLevel serverWorld, AgeableMob ageable) {
-      NurseSharkEntity retval = (NurseSharkEntity)((EntityType)BenssharksModEntities.NURSE_SHARK.get()).create(serverWorld);
+      NurseSharkEntity retval = (NurseSharkEntity)((EntityType)DwurdySharksModEntities.NURSE_SHARK.get()).create(serverWorld);
       retval.finalizeSpawn(serverWorld, serverWorld.getCurrentDifficultyAt(retval.blockPosition()), MobSpawnType.BREEDING, null);
       return retval;
    }
@@ -451,7 +451,7 @@ public class NurseSharkEntity extends TamableAnimal implements GeoEntity {
 
    public static void init(RegisterSpawnPlacementsEvent event) {
       event.register(
-         (EntityType)BenssharksModEntities.NURSE_SHARK.get(),
+         (EntityType)DwurdySharksModEntities.NURSE_SHARK.get(),
          SpawnPlacementTypes.IN_WATER,
          Types.MOTION_BLOCKING_NO_LEAVES,
          (entityType, world, reason, pos, random) -> world.getBlockState(pos).is(Blocks.WATER) && world.getBlockState(pos.above()).is(Blocks.WATER)

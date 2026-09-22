@@ -1,7 +1,7 @@
 package net.mcreator.sharks.procedures;
 
 import net.mcreator.sharks.entity.LandSharkEntity;
-import net.mcreator.sharks.init.BenssharksModMobEffects;
+import net.mcreator.sharks.init.DwurdySharksModMobEffects;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -21,7 +21,7 @@ public class LandSharkOnEntityTickUpdateProcedure {
 
          if (entity instanceof LandSharkEntity && entity.isInWaterOrBubble()) {
             if (entity instanceof LivingEntity _entity && !_entity.level().isClientSide()) {
-               _entity.addEffect(new MobEffectInstance(BenssharksModMobEffects.FRENZY, 20, 3, true, false));
+               _entity.addEffect(new MobEffectInstance(DwurdySharksModMobEffects.FRENZY, 20, 3, true, false));
             }
 
             if (entity instanceof LandSharkEntity) {

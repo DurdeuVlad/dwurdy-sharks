@@ -1,7 +1,7 @@
 package net.mcreator.sharks.procedures;
 
 import net.mcreator.sharks.entity.BarracudaEntity;
-import net.mcreator.sharks.init.BenssharksModItems;
+import net.mcreator.sharks.init.DwurdySharksModItems;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.LevelAccessor;
 
@@ -14,8 +14,8 @@ public class BarracudaEatProcedure {
          return;
       }
       DroppedFoodProcedure.execute(world, x, y, z, entity,
-         stack -> stack.getItem() != BenssharksModItems.RAW_BARRACUDA.get()
-            && stack.getItem() != BenssharksModItems.COOKED_BARRACUDA.get(),
+         stack -> stack.getItem() != DwurdySharksModItems.RAW_BARRACUDA.get()
+            && stack.getItem() != DwurdySharksModItems.COOKED_BARRACUDA.get(),
          0.0F);
    }
 }

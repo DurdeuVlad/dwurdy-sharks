@@ -15,8 +15,8 @@ import net.mcreator.sharks.entity.MegalodonEntity;
 import net.mcreator.sharks.entity.ShrakEntity;
 import net.mcreator.sharks.entity.TigerSharkEntity;
 import net.mcreator.sharks.entity.WhitetipSharkEntity;
-import net.mcreator.sharks.init.BenssharksModItems;
-import net.mcreator.sharks.init.BenssharksModMobEffects;
+import net.mcreator.sharks.init.DwurdySharksModItems;
+import net.mcreator.sharks.init.DwurdySharksModMobEffects;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -67,7 +67,7 @@ public class BleedingGlobalProcedure {
             )
             && entity instanceof LivingEntity _entity
             && !_entity.level().isClientSide()) {
-            _entity.addEffect(new MobEffectInstance(BenssharksModMobEffects.BLEEDING, 200, 0, true, false));
+            _entity.addEffect(new MobEffectInstance(DwurdySharksModMobEffects.BLEEDING, 200, 0, true, false));
          }
 
          if ((sourceentity instanceof LivingEntity _livEntxxxxxxxxx ? _livEntxxxxxxxxx.getMainHandItem() : ItemStack.EMPTY)
@@ -96,7 +96,7 @@ public class BleedingGlobalProcedure {
             )
             && entity instanceof LivingEntity _entity
             && !_entity.level().isClientSide()) {
-            _entity.addEffect(new MobEffectInstance(BenssharksModMobEffects.BLEEDING, 200, 0, true, false));
+            _entity.addEffect(new MobEffectInstance(DwurdySharksModMobEffects.BLEEDING, 200, 0, true, false));
          }
 
          if (damagesource.isDirect()
@@ -104,17 +104,17 @@ public class BleedingGlobalProcedure {
                entity instanceof AxodileEntity
                   || entity instanceof GreaterAxodileEntity
                   || (entity instanceof LivingEntity _entGetArmorxxx ? _entGetArmorxxx.getItemBySlot(EquipmentSlot.HEAD) : ItemStack.EMPTY).getItem()
-                        == BenssharksModItems.JAGGED_HELMET.get()
+                        == DwurdySharksModItems.JAGGED_HELMET.get()
                      && (entity instanceof LivingEntity _entGetArmorxx ? _entGetArmorxx.getItemBySlot(EquipmentSlot.CHEST) : ItemStack.EMPTY).getItem()
-                        == BenssharksModItems.JAGGED_CHESTPLATE.get()
+                        == DwurdySharksModItems.JAGGED_CHESTPLATE.get()
                      && (entity instanceof LivingEntity _entGetArmorx ? _entGetArmorx.getItemBySlot(EquipmentSlot.LEGS) : ItemStack.EMPTY).getItem()
-                        == BenssharksModItems.JAGGED_LEGGINGS.get()
+                        == DwurdySharksModItems.JAGGED_LEGGINGS.get()
                      && (entity instanceof LivingEntity _entGetArmor ? _entGetArmor.getItemBySlot(EquipmentSlot.FEET) : ItemStack.EMPTY).getItem()
-                        == BenssharksModItems.JAGGED_BOOTS.get()
+                        == DwurdySharksModItems.JAGGED_BOOTS.get()
             )
             && sourceentity instanceof LivingEntity _entity
             && !_entity.level().isClientSide()) {
-            _entity.addEffect(new MobEffectInstance(BenssharksModMobEffects.BLEEDING, 100, 0, true, false));
+            _entity.addEffect(new MobEffectInstance(DwurdySharksModMobEffects.BLEEDING, 100, 0, true, false));
          }
       }
    }

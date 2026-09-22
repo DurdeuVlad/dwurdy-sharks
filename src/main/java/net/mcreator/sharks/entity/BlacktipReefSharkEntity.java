@@ -2,7 +2,7 @@ package net.mcreator.sharks.entity;
 
 import java.util.List;
 import javax.annotation.Nullable;
-import net.mcreator.sharks.init.BenssharksModEntities;
+import net.mcreator.sharks.init.DwurdySharksModEntities;
 import net.mcreator.sharks.init.DwurdySharksEntityTypeTags;
 import net.mcreator.sharks.init.DwurdySharksBiomeTags;
 import net.mcreator.sharks.init.DwurdySharksConfig;
@@ -293,7 +293,7 @@ public class BlacktipReefSharkEntity extends Animal implements GeoEntity {
    }
 
    public AgeableMob getBreedOffspring(ServerLevel serverWorld, AgeableMob ageable) {
-      BlacktipReefSharkEntity retval = (BlacktipReefSharkEntity)((EntityType)BenssharksModEntities.BLACKTIP_REEF_SHARK.get()).create(serverWorld);
+      BlacktipReefSharkEntity retval = (BlacktipReefSharkEntity)((EntityType)DwurdySharksModEntities.BLACKTIP_REEF_SHARK.get()).create(serverWorld);
       retval.finalizeSpawn(serverWorld, serverWorld.getCurrentDifficultyAt(retval.blockPosition()), MobSpawnType.BREEDING, null);
       return retval;
    }
@@ -321,7 +321,7 @@ public class BlacktipReefSharkEntity extends Animal implements GeoEntity {
 
    public static void init(RegisterSpawnPlacementsEvent event) {
       event.register(
-         (EntityType)BenssharksModEntities.BLACKTIP_REEF_SHARK.get(),
+         (EntityType)DwurdySharksModEntities.BLACKTIP_REEF_SHARK.get(),
          SpawnPlacementTypes.IN_WATER,
          Types.MOTION_BLOCKING_NO_LEAVES,
          (entityType, world, reason, pos, random) -> world.getBlockState(pos).is(Blocks.WATER) && world.getBlockState(pos.above()).is(Blocks.WATER)

@@ -6,7 +6,7 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 import net.mcreator.sharks.client.model.ModelJaggedArmorJava;
-import net.mcreator.sharks.init.BenssharksModItems;
+import net.mcreator.sharks.init.DwurdySharksModItems;
 import net.mcreator.sharks.procedures.JaggedHelmetTickEventProcedure;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
@@ -61,7 +61,7 @@ public abstract class JaggedItem extends ArmorItem {
                }),
                50,
                DeferredHolder.create(Registries.SOUND_EVENT, ResourceLocation.parse("item.armor.equip_turtle")),
-               () -> Ingredient.of(new ItemStack[]{new ItemStack((ItemLike)BenssharksModItems.AXOSCUTE.get())}),
+               () -> Ingredient.of(new ItemStack[]{new ItemStack((ItemLike)DwurdySharksModItems.AXOSCUTE.get())}),
                List.of(new Layer(ResourceLocation.parse("dwurdysharks:jaggedarmor_"))),
                2.0F,
                0.1F
@@ -104,7 +104,7 @@ public abstract class JaggedItem extends ArmorItem {
                return armorModel;
             }
          },
-         new Item[]{(Item)BenssharksModItems.JAGGED_HELMET.get()}
+         new Item[]{(Item)DwurdySharksModItems.JAGGED_HELMET.get()}
       );
       event.registerItem(
          new IClientItemExtensions() {
@@ -137,7 +137,7 @@ public abstract class JaggedItem extends ArmorItem {
                return armorModel;
             }
          },
-         new Item[]{(Item)BenssharksModItems.JAGGED_CHESTPLATE.get()}
+         new Item[]{(Item)DwurdySharksModItems.JAGGED_CHESTPLATE.get()}
       );
    }
 

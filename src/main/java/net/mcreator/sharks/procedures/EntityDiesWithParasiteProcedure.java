@@ -1,8 +1,8 @@
 package net.mcreator.sharks.procedures;
 
 import javax.annotation.Nullable;
-import net.mcreator.sharks.init.BenssharksModEntities;
-import net.mcreator.sharks.init.BenssharksModMobEffects;
+import net.mcreator.sharks.init.DwurdySharksModEntities;
+import net.mcreator.sharks.init.DwurdySharksModMobEffects;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -31,13 +31,13 @@ public class EntityDiesWithParasiteProcedure {
 
    private static void execute(@Nullable Event event, LevelAccessor world, double x, double y, double z, Entity entity) {
       if (entity != null) {
-         if (entity instanceof LivingEntity _livEnt0 && _livEnt0.hasEffect(BenssharksModMobEffects.PARASITE) && !entity.isAlive()) {
+         if (entity instanceof LivingEntity _livEnt0 && _livEnt0.hasEffect(DwurdySharksModMobEffects.PARASITE) && !entity.isAlive()) {
             if (entity instanceof LivingEntity _entity && !_entity.level().isClientSide()) {
-               _entity.addEffect(new MobEffectInstance(BenssharksModMobEffects.SEALING, 60, 1, true, false));
+               _entity.addEffect(new MobEffectInstance(DwurdySharksModMobEffects.SEALING, 60, 1, true, false));
             }
 
             if (world instanceof ServerLevel _level) {
-               Entity entityToSpawn = ((EntityType)BenssharksModEntities.COOKIECUTTER_SHARK.get())
+               Entity entityToSpawn = ((EntityType)DwurdySharksModEntities.COOKIECUTTER_SHARK.get())
                   .spawn(_level, BlockPos.containing(x, y, z), MobSpawnType.MOB_SUMMONED);
                if (entityToSpawn != null) {
                   entityToSpawn.setDeltaMovement(0.0, 0.0, 0.0);

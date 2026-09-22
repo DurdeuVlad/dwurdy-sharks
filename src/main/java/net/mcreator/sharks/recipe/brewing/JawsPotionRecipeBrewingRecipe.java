@@ -1,8 +1,8 @@
 package net.mcreator.sharks.recipe.brewing;
 
 import java.util.Optional;
-import net.mcreator.sharks.init.BenssharksModItems;
-import net.mcreator.sharks.init.BenssharksModPotions;
+import net.mcreator.sharks.init.DwurdySharksModItems;
+import net.mcreator.sharks.init.DwurdySharksModPotions;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.Item;
@@ -34,12 +34,12 @@ public class JawsPotionRecipeBrewingRecipe implements IBrewingRecipe {
    }
 
    public boolean isIngredient(ItemStack ingredient) {
-      return Ingredient.of(new ItemStack[]{new ItemStack((ItemLike)BenssharksModItems.SHARK_TOOTH.get())}).test(ingredient);
+      return Ingredient.of(new ItemStack[]{new ItemStack((ItemLike)DwurdySharksModItems.SHARK_TOOTH.get())}).test(ingredient);
    }
 
    public ItemStack getOutput(ItemStack input, ItemStack ingredient) {
       return this.isInput(input) && this.isIngredient(ingredient)
-         ? PotionContents.createItemStack(input.getItem(), BenssharksModPotions.JAWS_POTION)
+         ? PotionContents.createItemStack(input.getItem(), DwurdySharksModPotions.JAWS_POTION)
          : ItemStack.EMPTY;
    }
 }

@@ -2,11 +2,11 @@ package net.mcreator.sharks.entity;
 
 import java.util.List;
 import javax.annotation.Nullable;
-import net.mcreator.sharks.init.BenssharksModEntities;
+import net.mcreator.sharks.init.DwurdySharksModEntities;
 import net.mcreator.sharks.init.DwurdySharksEntityTypeTags;
 import net.mcreator.sharks.init.DwurdySharksBiomeTags;
 import net.mcreator.sharks.init.DwurdySharksConfig;
-import net.mcreator.sharks.init.BenssharksModItems;
+import net.mcreator.sharks.init.DwurdySharksModItems;
 import net.mcreator.sharks.procedures.StopRidingBoatProcedure;
 import net.mcreator.sharks.procedures.SharkBleedProcedure;
 import net.mcreator.sharks.procedures.EatDroppedItemProcedure;
@@ -177,7 +177,7 @@ public class LemonSharkEntity extends Animal implements GeoEntity {
             return super.canContinueToUse() && AggressiveSharksProcedureProcedure.execute(LemonSharkEntity.this.level());
          }
       });
-      this.goalSelector.addGoal(12, new TemptGoal(this, 1.0, Ingredient.of(new ItemLike[]{(ItemLike)BenssharksModItems.FISH_BUCKET.get()}), false));
+      this.goalSelector.addGoal(12, new TemptGoal(this, 1.0, Ingredient.of(new ItemLike[]{(ItemLike)DwurdySharksModItems.FISH_BUCKET.get()}), false));
       this.goalSelector.addGoal(13, new TemptGoal(this, 1.0, Ingredient.of(new ItemLike[]{Items.COD}), false));
       this.goalSelector.addGoal(14, new TemptGoal(this, 1.0, Ingredient.of(new ItemLike[]{Items.SALMON}), false));
       this.goalSelector.addGoal(15, new LookAtPlayerGoal(this, BlacktipReefSharkEntity.class, 32.0F));
@@ -253,7 +253,7 @@ public class LemonSharkEntity extends Animal implements GeoEntity {
    }
 
    public AgeableMob getBreedOffspring(ServerLevel serverWorld, AgeableMob ageable) {
-      LemonSharkEntity retval = (LemonSharkEntity)((EntityType)BenssharksModEntities.LEMON_SHARK.get()).create(serverWorld);
+      LemonSharkEntity retval = (LemonSharkEntity)((EntityType)DwurdySharksModEntities.LEMON_SHARK.get()).create(serverWorld);
       retval.finalizeSpawn(serverWorld, serverWorld.getCurrentDifficultyAt(retval.blockPosition()), MobSpawnType.BREEDING, null);
       return retval;
    }
@@ -281,7 +281,7 @@ public class LemonSharkEntity extends Animal implements GeoEntity {
 
    public static void init(RegisterSpawnPlacementsEvent event) {
       event.register(
-         (EntityType)BenssharksModEntities.LEMON_SHARK.get(),
+         (EntityType)DwurdySharksModEntities.LEMON_SHARK.get(),
          SpawnPlacementTypes.IN_WATER,
          Types.MOTION_BLOCKING_NO_LEAVES,
          (entityType, world, reason, pos, random) -> world.getBlockState(pos).is(Blocks.WATER) && world.getBlockState(pos.above()).is(Blocks.WATER)

@@ -4,7 +4,7 @@ $ErrorActionPreference = 'Stop'
 # delayed DRYOUT_EFFECT work. The previous pattern queued a new
 # queueServerWork(delay, lambda) every tick while the shark was beached,
 # producing up to ~600 live Tuple<Runnable,int> entries per shark and pinning
-# entity references in BenssharksMod.workQueue. Dryout timing now lives in
+# entity references in DwurdySharksMod.workQueue. Dryout timing now lives in
 # DryoutProcedure's per-entity counter.
 
 $root = Split-Path -Parent $PSScriptRoot
