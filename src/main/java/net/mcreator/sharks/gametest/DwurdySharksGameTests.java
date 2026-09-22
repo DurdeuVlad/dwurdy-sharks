@@ -42,6 +42,8 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.animal.Pig;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnPlacements;
@@ -52,7 +54,10 @@ import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.AABB;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.common.ModConfigSpec;
 import net.neoforged.neoforge.event.EventHooks;
+import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.gametest.GameTestHolder;
 
 @GameTestHolder(DwurdySharksMod.MODID)
@@ -673,6 +678,149 @@ public class DwurdySharksGameTests {
             "tamed nurse shark was removed at 140 blocks");
          helper.succeed();
       });
+   }
+
+   @GameTest(template = "pool", batch = "config", timeoutTicks = 200)
+   public static void configSpeedMultiplierApplied(GameTestHelper helper) {
+      ServerLevel level = helper.getLevel();
+      BlockPos base = helper.absolutePos(new BlockPos(2, 2, 2));
+      purgeModMobs(level, base, 48.0);
+      double prev = DwurdySharksConfig.SHARK_SPEED_MULTIPLIER.get();
+      try {
+         DwurdySharksConfig.SHARK_SPEED_MULTIPLIER.set(1.0);
+         BullSharkEntity control = spawnedShark(level, base);
+         double baseSpeed = control.getAttributeValue(Attributes.MOVEMENT_SPEED);
+         DwurdySharksConfig.SHARK_SPEED_MULTIPLIER.set(2.0);
+         BullSharkEntity scaled = spawnedShark(level, base);
+         double scaledSpeed = scaled.getAttributeValue(Attributes.MOVEMENT_SPEED);
+         helper.assertTrue(Math.abs(scaledSpeed - baseSpeed * 2.0) < 1.0E-4,
+            "MOVEMENT_SPEED " + scaledSpeed + " != 2x base " + baseSpeed + " at sharkSpeedMultiplier=2.0");
+         helper.succeed();
+      } finally {
+         DwurdySharksConfig.SHARK_SPEED_MULTIPLIER.set(prev);
+      }
+   }
+
+   @GameTest(template = "pool", batch = "config", timeoutTicks = 200)
+   public static void configSpeciesSpeedOverrideWins(GameTestHelper helper) {
+      ServerLevel level = helper.getLevel();
+      BlockPos base = helper.absolutePos(new BlockPos(2, 2, 2));
+      purgeModMobs(level, base, 48.0);
+      double prevGlobal = DwurdySharksConfig.SHARK_SPEED_MULTIPLIER.get();
+      ModConfigSpec.DoubleValue bullOverride = DwurdySharksConfig.speciesSpeedMultiplierValue("bull_shark");
+      helper.assertTrue(bullOverride != null, "movement.speciesMultiplier.bull_shark missing from config");
+      double prevBull = bullOverride.get();
+      try {
+         DwurdySharksConfig.SHARK_SPEED_MULTIPLIER.set(1.0);
+         BullSharkEntity control = spawnedShark(level, base);
+         double baseSpeed = control.getAttributeValue(Attributes.MOVEMENT_SPEED);
+         bullOverride.set(0.5);
+         BullSharkEntity halved = spawnedShark(level, base);
+         double halvedSpeed = halved.getAttributeValue(Attributes.MOVEMENT_SPEED);
+         helper.assertTrue(Math.abs(halvedSpeed - baseSpeed * 0.5) < 1.0E-4,
+            "bull_shark MOVEMENT_SPEED " + halvedSpeed + " != 0.5x base " + baseSpeed + " at speciesMultiplier=0.5");
+         NurseSharkEntity nurse = DwurdySharksModEntities.NURSE_SHARK.get().create(level);
+         nurse.moveTo(base.getX() + 2.5, base.getY(), base.getZ() + 0.5, 0.0F, 0.0F);
+         nurse.setPersistenceRequired();
+         level.addFreshEntity(nurse);
+         double nurseSpeed = nurse.getAttributeValue(Attributes.MOVEMENT_SPEED);
+         helper.assertTrue(bullOverride.get() == 0.5 && Math.abs(nurseSpeed - nurse.getAttribute(Attributes.MOVEMENT_SPEED).getBaseValue()) < 1.0E-4,
+            "nurse_shark speed " + nurseSpeed + " changed although only bull_shark override was set");
+         helper.succeed();
+      } finally {
+         DwurdySharksConfig.SHARK_SPEED_MULTIPLIER.set(prevGlobal);
+         bullOverride.set(prevBull);
+      }
+   }
+
+   @GameTest(template = "pool", batch = "config", timeoutTicks = 200)
+   public static void configSpeciesHealthOverride(GameTestHelper helper) {
+      ServerLevel level = helper.getLevel();
+      BlockPos base = helper.absolutePos(new BlockPos(2, 2, 2));
+      purgeModMobs(level, base, 48.0);
+      ModConfigSpec.DoubleValue bullHealth = DwurdySharksConfig.speciesHealthOverrideValue("bull_shark");
+      helper.assertTrue(bullHealth != null, "damage.speciesHealth.bull_shark missing from config");
+      double prev = bullHealth.get();
+      try {
+         bullHealth.set(40.0);
+         BullSharkEntity scaled = spawnedShark(level, base);
+         double maxHealth = scaled.getAttributeValue(Attributes.MAX_HEALTH);
+         helper.assertTrue(Math.abs(maxHealth - 40.0) < 1.0E-4,
+            "bull_shark MAX_HEALTH " + maxHealth + " != configured override 40.0");
+         helper.assertTrue(scaled.getHealth() <= scaled.getMaxHealth(),
+            "health " + scaled.getHealth() + " exceeds overridden max " + scaled.getMaxHealth());
+         helper.succeed();
+      } finally {
+         bullHealth.set(prev);
+      }
+   }
+
+   @GameTest(template = "pool", batch = "config", timeoutTicks = 200)
+   public static void configSpeciesDamageOverrideScalesHits(GameTestHelper helper) {
+      ServerLevel level = helper.getLevel();
+      BlockPos base = helper.absolutePos(new BlockPos(2, 2, 2));
+      purgeModMobs(level, base, 48.0);
+      ModConfigSpec.DoubleValue bullDamage = DwurdySharksConfig.speciesDamageMultiplierValue("bull_shark");
+      helper.assertTrue(bullDamage != null, "damage.speciesMultiplier.bull_shark missing from config");
+      double prevSpecies = bullDamage.get();
+      double prevGlobal = DwurdySharksConfig.SHARK_DAMAGE_MULTIPLIER.get();
+      try {
+         DwurdySharksConfig.SHARK_DAMAGE_MULTIPLIER.set(1.0);
+         bullDamage.set(1.0);
+         BullSharkEntity shark = spawnedShark(level, base);
+         Pig pigA = EntityType.PIG.create(level);
+         pigA.moveTo(base.getX() + 1.5, base.getY(), base.getZ() + 0.5, 0.0F, 0.0F);
+         pigA.setPersistenceRequired();
+         level.addFreshEntity(pigA);
+         float healthA = pigA.getHealth();
+         pigA.hurt(level.damageSources().mobAttack(shark), 4.0F);
+         float deltaA = healthA - pigA.getHealth();
+         helper.assertTrue(deltaA > 0.0F, "control pig took no damage from shark mobAttack");
+
+         bullDamage.set(0.5);
+         Pig pigB = EntityType.PIG.create(level);
+         pigB.moveTo(base.getX() + 2.5, base.getY(), base.getZ() + 0.5, 0.0F, 0.0F);
+         pigB.setPersistenceRequired();
+         level.addFreshEntity(pigB);
+         float healthB = pigB.getHealth();
+         pigB.hurt(level.damageSources().mobAttack(shark), 4.0F);
+         float deltaB = healthB - pigB.getHealth();
+         helper.assertTrue(Math.abs(deltaB - deltaA * 0.5F) < 0.01F,
+            "damage at speciesMultiplier=0.5 (" + deltaB + ") != half of " + deltaA);
+         helper.succeed();
+      } finally {
+         bullDamage.set(prevSpecies);
+         DwurdySharksConfig.SHARK_DAMAGE_MULTIPLIER.set(prevGlobal);
+      }
+   }
+
+   @GameTest(template = "pool", batch = "config", timeoutTicks = 200)
+   public static void configModifiersIdempotentOnRejoin(GameTestHelper helper) {
+      ServerLevel level = helper.getLevel();
+      BlockPos base = helper.absolutePos(new BlockPos(2, 2, 2));
+      purgeModMobs(level, base, 48.0);
+      double prev = DwurdySharksConfig.SHARK_SPEED_MULTIPLIER.get();
+      try {
+         DwurdySharksConfig.SHARK_SPEED_MULTIPLIER.set(2.0);
+         BullSharkEntity shark = spawnedShark(level, base);
+         double firstJoin = shark.getAttributeValue(Attributes.MOVEMENT_SPEED);
+         NeoForge.EVENT_BUS.post(new EntityJoinLevelEvent(shark, level));
+         NeoForge.EVENT_BUS.post(new EntityJoinLevelEvent(shark, level));
+         double afterRepost = shark.getAttributeValue(Attributes.MOVEMENT_SPEED);
+         helper.assertTrue(Math.abs(afterRepost - firstJoin) < 1.0E-4,
+            "MOVEMENT_SPEED stacked on repeated join: " + firstJoin + " -> " + afterRepost);
+         helper.succeed();
+      } finally {
+         DwurdySharksConfig.SHARK_SPEED_MULTIPLIER.set(prev);
+      }
+   }
+
+   private static BullSharkEntity spawnedShark(ServerLevel level, BlockPos pos) {
+      BullSharkEntity shark = DwurdySharksModEntities.BULL_SHARK.get().create(level);
+      shark.moveTo(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, 0.0F, 0.0F);
+      shark.setPersistenceRequired();
+      level.addFreshEntity(shark);
+      return shark;
    }
 
    private static void scheduleEvery(GameTestHelper helper, long intervalTicks, Runnable task) {

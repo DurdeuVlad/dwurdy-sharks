@@ -45,7 +45,9 @@ if ($withToggle.Count -ne $withTag.Count) { Fail "$($withTag.Count - $withToggle
 
 # 5. Damage path
 $dmg = Get-Content (Join-Path $src "procedures/SharkDamageScaleProcedure.java") -Raw
-if ($dmg -notmatch "SHARK_DAMAGE_MULTIPLIER") { Fail "damage handler missing multiplier" }
+if ($dmg -notmatch "damageMultiplier\(") { Fail "damage handler missing multiplier" }
+if ($config -notmatch "sharkSpeedMultiplier") { Fail "DwurdySharksConfig missing sharkSpeedMultiplier" }
+if ($config -notmatch "speciesMultiplier") { Fail "DwurdySharksConfig missing species multiplier tables" }
 if ($dmg -notmatch "MEGALODON_ARMOR_BYPASS") { Fail "damage handler missing armor bypass" }
 foreach ($p in @(
     "$root/src/main/resources/data/dwurdysharks/tags/entity_type/sharks.json",

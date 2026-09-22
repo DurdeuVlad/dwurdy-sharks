@@ -30,7 +30,7 @@ public final class SharkDamageScaleProcedure {
       if (event.getSource().is(MEGALODON_BITE)) {
          return;
       }
-      double multiplier = DwurdySharksConfig.SHARK_DAMAGE_MULTIPLIER.get();
+      double multiplier = DwurdySharksConfig.damageMultiplier(attacker.getType());
       if (attacker.getType() == DwurdySharksModEntities.MEGALODON.get()) {
          float damage = (float)(DwurdySharksConfig.MEGALODON_DAMAGE.get() * multiplier);
          if (DwurdySharksConfig.MEGALODON_ARMOR_BYPASS.get()) {
