@@ -19,13 +19,17 @@ public final class SharkDespawnProcedure {
       if (event.getEntity().level().isClientSide()
          || !(event.getEntity() instanceof Mob mob)
          || (mob.tickCount + mob.getId()) % CHECK_INTERVAL_TICKS != 0
-         || !DwurdySharksConfig.isModEntity(mob.getType())
-         || mob.isPersistenceRequired()
-         || mob.hasCustomName()
-         || (mob instanceof TamableAnimal tamable && tamable.isTame())) {
+         || !isDespawnEligible(mob)) {
          return;
       }
       checkHardDespawn(mob);
+   }
+
+   public static boolean isDespawnEligible(Mob mob) {
+      return DwurdySharksConfig.isModEntity(mob.getType())
+         && !mob.isPersistenceRequired()
+         && !mob.hasCustomName()
+         && !(mob instanceof TamableAnimal tamable && tamable.isTame());
    }
 
    public static void checkHardDespawn(Mob mob) {
