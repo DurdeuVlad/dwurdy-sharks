@@ -33,6 +33,7 @@ import net.minecraft.network.protocol.PacketFlow;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.commands.FillBiomeCommand;
+import net.minecraft.tags.TagKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.CommonListenerCookie;
@@ -823,6 +824,59 @@ public class DwurdySharksGameTests {
       return shark;
    }
 
+   @GameTest(template = "pool", batch = "global_cap", timeoutTicks = 400)
+   public static void globalCapBoundsWholeDimension(GameTestHelper helper) {
+      ServerLevel level = helper.getLevel();
+      level.getServer().setDifficulty(Difficulty.NORMAL, true);
+      GameRules rules = level.getGameRules();
+      int prevGlobal = rules.getInt(DwurdySharksModGameRules.AMBIENT_FISH_GLOBAL_CAP);
+      int prevLocal = rules.getInt(DwurdySharksModGameRules.AMBIENT_FISH_LOCAL_CAP);
+      boolean prevManual = rules.getBoolean(DwurdySharksModGameRules.ENFORCE_CAP_FOR_MANUAL_SPAWNS);
+      int prevConfig = DwurdySharksConfig.AMBIENT_FISH_GLOBAL_CAP.get();
+      rules.getRule(DwurdySharksModGameRules.AGGRESSIVE_SHARKS).set(false, level.getServer());
+      fillPool(helper);
+      BlockPos base = helper.absolutePos(new BlockPos(2, 2, 2));
+      try {
+         rules.getRule(DwurdySharksModGameRules.AMBIENT_FISH_LOCAL_CAP).set(0, level.getServer());
+         int baselineFish = countTaggedEntities(level, DwurdySharksEntityTypeTags.AMBIENT_FISH);
+         rules.getRule(DwurdySharksModGameRules.AMBIENT_FISH_GLOBAL_CAP).set(baselineFish + 6, level.getServer());
+         int admitted = 0;
+         for (int i = 0; i < 10; i++) {
+            if (DwurdySharksModEntities.KRILL.get().spawn(level, base, MobSpawnType.NATURAL) != null) {
+               admitted++;
+            }
+         }
+         helper.assertTrue(admitted == 6,
+            "expected plateau at ambientFishGlobalCap=" + (baselineFish + 6) + " (baseline " + baselineFish
+               + ") with local cap disabled, but " + admitted + " of 10 were admitted");
+         rules.getRule(DwurdySharksModGameRules.ENFORCE_CAP_FOR_MANUAL_SPAWNS).set(true, level.getServer());
+         helper.assertTrue(DwurdySharksModEntities.KRILL.get().spawn(level, base, MobSpawnType.COMMAND) == null,
+            "manual /summon spawn admitted past the global cap while enforceCapForManualSpawns=true");
+         rules.getRule(DwurdySharksModGameRules.ENFORCE_CAP_FOR_MANUAL_SPAWNS).set(false, level.getServer());
+         helper.assertTrue(DwurdySharksModEntities.KRILL.get().spawn(level, base, MobSpawnType.COMMAND) != null,
+            "manual /summon spawn refused at global cap while enforceCapForManualSpawns=false");
+         rules.getRule(DwurdySharksModGameRules.ENFORCE_CAP_FOR_MANUAL_SPAWNS).set(true, level.getServer());
+         int baselineFish2 = countTaggedEntities(level, DwurdySharksEntityTypeTags.AMBIENT_FISH);
+         rules.getRule(DwurdySharksModGameRules.AMBIENT_FISH_GLOBAL_CAP).set(-1, level.getServer());
+         DwurdySharksConfig.AMBIENT_FISH_GLOBAL_CAP.set(baselineFish2 + 3);
+         int configAdmitted = 0;
+         for (int i = 0; i < 6; i++) {
+            if (DwurdySharksModEntities.KRILL.get().spawn(level, base, MobSpawnType.NATURAL) != null) {
+               configAdmitted++;
+            }
+         }
+         helper.assertTrue(configAdmitted == 3,
+            "gamerule -1 should inherit config cap " + (baselineFish2 + 3) + ", but " + configAdmitted
+               + " of 6 were admitted");
+         helper.succeed();
+      } finally {
+         rules.getRule(DwurdySharksModGameRules.AMBIENT_FISH_GLOBAL_CAP).set(prevGlobal, level.getServer());
+         rules.getRule(DwurdySharksModGameRules.AMBIENT_FISH_LOCAL_CAP).set(prevLocal, level.getServer());
+         rules.getRule(DwurdySharksModGameRules.ENFORCE_CAP_FOR_MANUAL_SPAWNS).set(prevManual, level.getServer());
+         DwurdySharksConfig.AMBIENT_FISH_GLOBAL_CAP.set(prevConfig);
+      }
+   }
+
    private static void scheduleEvery(GameTestHelper helper, long intervalTicks, Runnable task) {
       task.run();
       scheduleNext(helper, intervalTicks, task);
@@ -866,6 +920,23 @@ public class DwurdySharksGameTests {
          e -> DwurdySharksConfig.isModEntity(e.getType()));
       strays.forEach(Entity::discard);
       return strays.size();
+   }
+
+   private static int countTaggedEntities(ServerLevel level, TagKey<EntityType<?>> tag) {
+      int count = 0;
+      for (Entity e : level.getEntities().getAll()) {
+         if (e.getType().is(tag) && !isCapExempt(e)) {
+            count++;
+         }
+      }
+      return count;
+   }
+
+   private static boolean isCapExempt(Entity e) {
+      if (e instanceof net.minecraft.world.entity.TamableAnimal tamable && tamable.isTame()) {
+         return true;
+      }
+      return e.hasCustomName() || (e instanceof Mob mob && mob.isPersistenceRequired());
    }
 
    private static void fillTestBiome(GameTestHelper helper, ResourceKey<Biome> key) {

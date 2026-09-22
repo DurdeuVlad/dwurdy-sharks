@@ -51,13 +51,32 @@ public final class SharkSpawnCapProcedure {
          ? DwurdySharksModGameRules.LARGE_SHARK_LOCAL_CAP
          : DwurdySharksModGameRules.AMBIENT_FISH_LOCAL_CAP);
       int radius = rules.getInt(DwurdySharksModGameRules.SPAWN_CAP_RADIUS);
-      if (cap <= 0 || radius <= 0) {
+      if (cap > 0 && radius > 0) {
+         AABB area = mob.getBoundingBox().inflate(radius);
+         long wildCount = event.getLevel().getLevel().getEntitiesOfClass(Entity.class, area,
+            e -> e != mob && e.getType().is(groupTag) && !isExempt(e)).size();
+         if (wildCount >= cap) {
+            event.setSpawnCancelled(true);
+            return;
+         }
+      }
+      boolean large = groupTag == DwurdySharksEntityTypeTags.LARGE_SHARKS;
+      int globalGamerule = rules.getInt(large
+         ? DwurdySharksModGameRules.LARGE_SHARK_GLOBAL_CAP
+         : DwurdySharksModGameRules.AMBIENT_FISH_GLOBAL_CAP);
+      int globalCap = globalGamerule >= 0 ? globalGamerule : (int) (large
+         ? DwurdySharksConfig.LARGE_SHARK_GLOBAL_CAP.get()
+         : DwurdySharksConfig.AMBIENT_FISH_GLOBAL_CAP.get());
+      if (globalCap <= 0) {
          return;
       }
-      AABB area = mob.getBoundingBox().inflate(radius);
-      long wildCount = event.getLevel().getLevel().getEntitiesOfClass(Entity.class, area,
-         e -> e != mob && e.getType().is(groupTag) && !isExempt(e)).size();
-      if (wildCount >= cap) {
+      long globalCount = 0;
+      for (Entity e : event.getLevel().getLevel().getEntities().getAll()) {
+         if (e != mob && e.getType().is(groupTag) && !isExempt(e)) {
+            globalCount++;
+         }
+      }
+      if (globalCount >= globalCap) {
          event.setSpawnCancelled(true);
       }
    }
