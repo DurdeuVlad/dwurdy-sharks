@@ -133,7 +133,7 @@ public class DwurdySharksGameTests {
       placeSurvivalPlayer(helper, 3, 2, 4);
       helper.runAtTickTime(base + 200L, guardedEnd(() -> {
          level.getGameRules().getRule(DwurdySharksModGameRules.AGGRESSIVE_SHARKS).set(prevAggro, level.getServer());
-         helper.assertTrue(shark.getTarget() == null, "bull shark targeted a player with aggressiveSharks=false");
+         helper.assertTrue(shark.getTarget() == null, "bull shark targeted a player with dwurdySharksAggressiveSharks=false");
          helper.succeed();
       }));
    }
@@ -152,7 +152,7 @@ public class DwurdySharksGameTests {
       BullSharkEntity shark = helper.spawn(DwurdySharksModEntities.BULL_SHARK.get(), 3, 2, 3);
       ServerPlayer player = placeSurvivalPlayer(helper, 3, 2, 4);
       helper.succeedWhen(() -> {
-         helper.assertTrue(shark.getTarget() == player, "bull shark did not target a player with aggressiveSharks=true");
+         helper.assertTrue(shark.getTarget() == player, "bull shark did not target a player with dwurdySharksAggressiveSharks=true");
          level.getGameRules().getRule(DwurdySharksModGameRules.AGGRESSIVE_SHARKS).set(prevAggro, level.getServer());
          EXCLUSIVE.set(false);
       });
@@ -173,7 +173,7 @@ public class DwurdySharksGameTests {
       placeSurvivalPlayer(helper, 3, 2, 4);
       helper.runAtTickTime(base + 200L, guardedEnd(() -> {
          level.getGameRules().getRule(DwurdySharksModGameRules.AGGRESSIVE_SHARKS).set(prevAggro, level.getServer());
-         helper.assertTrue(shark.getTarget() == null, "whale shark targeted a player with aggressiveSharks=true");
+         helper.assertTrue(shark.getTarget() == null, "whale shark targeted a player with dwurdySharksAggressiveSharks=true");
          helper.succeed();
       }));
    }
@@ -194,7 +194,7 @@ public class DwurdySharksGameTests {
       shark.tame(owner);
       helper.runAtTickTime(base + 200L, guardedEnd(() -> {
          level.getGameRules().getRule(DwurdySharksModGameRules.AGGRESSIVE_SHARKS).set(prevAggro, level.getServer());
-         helper.assertTrue(shark.getTarget() == null, "tamed nurse shark targeted its owner with aggressiveSharks=true");
+         helper.assertTrue(shark.getTarget() == null, "tamed nurse shark targeted its owner with dwurdySharksAggressiveSharks=true");
          helper.succeed();
       }));
    }
@@ -281,7 +281,7 @@ public class DwurdySharksGameTests {
          double p95 = tickP95Ms(level);
          long elapsedSec = (System.currentTimeMillis() - start) / 1000;
          DwurdySharksMod.LOGGER.info(
-            "[{}] {}s elapsed | {} spawned incl. top-up, {} alive of target {}, avg tick {} ms, p95 tick {} ms (aggressiveSharks=true, survival player present)",
+            "[{}] {}s elapsed | {} spawned incl. top-up, {} alive of target {}, avg tick {} ms, p95 tick {} ms (dwurdySharksAggressiveSharks=true, survival player present)",
             tag, elapsedSec, spawned[0], alive, target, fmt(mspt), fmt(p95));
          helper.assertTrue(alive > 0, tag + " load vanished: no mod entities remain alive");
       });
@@ -459,7 +459,7 @@ public class DwurdySharksGameTests {
             }
          }
          helper.assertTrue(admitted == 8,
-            "expected spawn plateau at largeSharkLocalCap=8, but " + admitted + " of 40 natural attempts were admitted");
+            "expected spawn plateau at dwurdySharksLargeSharkLocalCap=8, but " + admitted + " of 40 natural attempts were admitted");
          helper.runAtTickTime(40L, () -> {
             int inWorld = countLargeSharks(level, helper.getBounds().inflate(4.0));
             helper.assertTrue(inWorld == 8,
@@ -1166,14 +1166,14 @@ public class DwurdySharksGameTests {
             }
          }
          helper.assertTrue(admitted == 6,
-            "expected plateau at ambientFishGlobalCap=" + (baselineFish + 6) + " (baseline " + baselineFish
+            "expected plateau at dwurdySharksAmbientFishGlobalCap=" + (baselineFish + 6) + " (baseline " + baselineFish
                + ") with local cap disabled, but " + admitted + " of 10 were admitted");
          rules.getRule(DwurdySharksModGameRules.ENFORCE_CAP_FOR_MANUAL_SPAWNS).set(true, level.getServer());
          helper.assertTrue(DwurdySharksModEntities.KRILL.get().spawn(level, base, MobSpawnType.COMMAND) == null,
-            "manual /summon spawn admitted past the global cap while enforceCapForManualSpawns=true");
+            "manual /summon spawn admitted past the global cap while dwurdySharksEnforceCapForManualSpawns=true");
          rules.getRule(DwurdySharksModGameRules.ENFORCE_CAP_FOR_MANUAL_SPAWNS).set(false, level.getServer());
          helper.assertTrue(DwurdySharksModEntities.KRILL.get().spawn(level, base, MobSpawnType.COMMAND) != null,
-            "manual /summon spawn refused at global cap while enforceCapForManualSpawns=false");
+            "manual /summon spawn refused at global cap while dwurdySharksEnforceCapForManualSpawns=false");
          rules.getRule(DwurdySharksModGameRules.ENFORCE_CAP_FOR_MANUAL_SPAWNS).set(true, level.getServer());
          int baselineFish2 = countTaggedEntities(level, DwurdySharksEntityTypeTags.AMBIENT_FISH);
          rules.getRule(DwurdySharksModGameRules.AMBIENT_FISH_GLOBAL_CAP).set(-1, level.getServer());

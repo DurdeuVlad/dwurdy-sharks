@@ -44,14 +44,14 @@ Required tests:
 
 | Batch | Covers |
 |---|---|
-| `aggressive_off` / `aggressive_on` / `aggressive_whaleshark` / `aggressive_tamed` | `aggressiveSharks` gamerule gating; filter feeders never target; tamed sharks never target owner |
+| `aggressive_off` / `aggressive_on` / `aggressive_whaleshark` / `aggressive_tamed` | `dwurdySharksAggressiveSharks` gamerule gating; filter feeders never target; tamed sharks never target owner |
 | `tamed_follow` | tamed sharks do not path to an owner standing on land |
 | `spawn_biomes` | `SpawnPlacements.checkSpawnRules` rejects river/swamp/plains, accepts ocean biomes; every biome carrying mod spawn data is in `dwurdysharks:shark_spawning_oceans` |
 | `dryout_once` | dryout effect applies exactly once after the 600-tick delay and counts down; `workQueue` stays flat while beached |
-| `cap` | natural spawns plateau at exactly `largeSharkLocalCap=8` out of 40 attempts; cancelled spawns never join the world |
+| `cap` | natural spawns plateau at exactly `dwurdySharksLargeSharkLocalCap=8` out of 40 attempts; cancelled spawns never join the world |
 | `cap_exemptions` | tamed, named, and persistence-required sharks bypass the cap; a 9th wild shark is rejected |
 | `cap_abuse` | 2,000-attempt spawn storm plateaus at 8, post-storm P95 < 50 ms, no workQueue growth |
-| `cap_disabled` | `largeSharkLocalCap=0` disables enforcement, 150/150 spawn, heap is reclaimed after despawn+GC |
+| `cap_disabled` | `dwurdySharksLargeSharkLocalCap=0` disables enforcement, 150/150 spawn, heap is reclaimed after despawn+GC |
 | `despawn` | wild shark despawns past 128 blocks; tamed shark persists |
 
 Optional (timed) stress profiles — each runs at least
@@ -60,7 +60,7 @@ Optional (timed) stress profiles — each runs at least
 | Batch | Profile |
 |---|---|
 | `stress_baseline` | empty-world reference; asserts zero mod entities after purge and P95 < 50 ms |
-| `stress_population_100` | 100 mixed sharks (prey species included) with per-sample top-up, survival player present, `aggressiveSharks=true` |
+| `stress_population_100` | 100 mixed sharks (prey species included) with per-sample top-up, survival player present, `dwurdySharksAggressiveSharks=true` |
 | `stress_population_500` | same at target 500; asserts the sustained trough stays >= target/4 |
 | `stress_dryout_beached` | 60 beached sharks per 1,200 ticks; asserts queue growth stays linear in live beached count (`start + 128 + 8 per beached shark`) |
 | `stress_item_eat` | 70 filter feeders + 30 item drops per 600 ticks, top-up maintained |

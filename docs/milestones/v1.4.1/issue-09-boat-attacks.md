@@ -28,7 +28,7 @@ place sharks along a canal or border and they punish boat crossings.
 - Empty boats are ignored (harbor decorations are not targets).
 - Tamed sharks never attack boats. Named/persistent sharks DO — deliberate
   border markers are the primary use case.
-- Independent of the `aggressiveSharks` gamerule — a server can run
+- Independent of the `dwurdySharksAggressiveSharks` gamerule — a server can run
   "harmless to swimmers, hostile to boats" borders.
 
 ## Non-goals

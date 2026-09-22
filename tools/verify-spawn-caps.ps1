@@ -22,7 +22,7 @@ foreach ($mod in @('large_shark_spawn_costs', 'ambient_fish_spawn_costs')) {
 }
 
 $rules = Get-Content (Join-Path $root 'src/main/java/net/mcreator/sharks/init/DwurdySharksModGameRules.java') -Raw
-foreach ($rule in @('largeSharkLocalCap', 'ambientFishLocalCap', 'sharkSpawnCapRadius', 'enforceCapForManualSpawns')) {
+foreach ($rule in @('dwurdySharksLargeSharkLocalCap', 'dwurdySharksAmbientFishLocalCap', 'dwurdySharksSpawnCapRadius', 'dwurdySharksEnforceCapForManualSpawns')) {
     if ($rules -notmatch "`"$rule`"") { throw "Missing gamerule: $rule" }
 }
 
