@@ -13,6 +13,10 @@ public class DwurdySharksModGameRules {
       GameRules.register("sharkSpawnCapRadius", GameRules.Category.MOBS, GameRules.IntegerValue.create(128));
    public static final GameRules.Key<GameRules.BooleanValue> ENFORCE_CAP_FOR_MANUAL_SPAWNS =
       GameRules.register("enforceCapForManualSpawns", GameRules.Category.MOBS, GameRules.BooleanValue.create(true));
+   public static final GameRules.Key<GameRules.IntegerValue> LARGE_SHARK_GLOBAL_CAP =
+      GameRules.register("largeSharkGlobalCap", GameRules.Category.MOBS, GameRules.IntegerValue.create(-1));
+   public static final GameRules.Key<GameRules.IntegerValue> AMBIENT_FISH_GLOBAL_CAP =
+      GameRules.register("ambientFishGlobalCap", GameRules.Category.MOBS, GameRules.IntegerValue.create(-1));
 
    public static void register() {
    }

@@ -823,6 +823,60 @@ public class DwurdySharksGameTests {
       return shark;
    }
 
+   @GameTest(template = "pool", batch = "global_cap", timeoutTicks = 400)
+   public static void globalCapBoundsWholeDimension(GameTestHelper helper) {
+      ServerLevel level = helper.getLevel();
+      level.getServer().setDifficulty(Difficulty.NORMAL, true);
+      GameRules rules = level.getGameRules();
+      int prevGlobal = rules.getInt(DwurdySharksModGameRules.LARGE_SHARK_GLOBAL_CAP);
+      int prevLocal = rules.getInt(DwurdySharksModGameRules.LARGE_SHARK_LOCAL_CAP);
+      int prevRadius = rules.getInt(DwurdySharksModGameRules.SPAWN_CAP_RADIUS);
+      boolean prevManual = rules.getBoolean(DwurdySharksModGameRules.ENFORCE_CAP_FOR_MANUAL_SPAWNS);
+      int prevConfig = DwurdySharksConfig.LARGE_SHARK_GLOBAL_CAP.get();
+      rules.getRule(DwurdySharksModGameRules.AGGRESSIVE_SHARKS).set(false, level.getServer());
+      fillPool(helper);
+      BlockPos base = helper.absolutePos(new BlockPos(2, 2, 2));
+      try {
+         purgeAllModMobs(level);
+         rules.getRule(DwurdySharksModGameRules.LARGE_SHARK_LOCAL_CAP).set(0, level.getServer());
+         rules.getRule(DwurdySharksModGameRules.SPAWN_CAP_RADIUS).set(24, level.getServer());
+         rules.getRule(DwurdySharksModGameRules.LARGE_SHARK_GLOBAL_CAP).set(6, level.getServer());
+         int admitted = 0;
+         for (int i = 0; i < 10; i++) {
+            if (DwurdySharksModEntities.BULL_SHARK.get().spawn(level, base, MobSpawnType.NATURAL) != null) {
+               admitted++;
+            }
+         }
+         helper.assertTrue(admitted == 6,
+            "expected plateau at largeSharkGlobalCap=6 with local cap disabled, but " + admitted + " of 10 were admitted");
+         rules.getRule(DwurdySharksModGameRules.ENFORCE_CAP_FOR_MANUAL_SPAWNS).set(true, level.getServer());
+         helper.assertTrue(DwurdySharksModEntities.BULL_SHARK.get().spawn(level, base, MobSpawnType.COMMAND) == null,
+            "manual /summon spawn admitted past the global cap while enforceCapForManualSpawns=true");
+         rules.getRule(DwurdySharksModGameRules.ENFORCE_CAP_FOR_MANUAL_SPAWNS).set(false, level.getServer());
+         helper.assertTrue(DwurdySharksModEntities.BULL_SHARK.get().spawn(level, base, MobSpawnType.COMMAND) != null,
+            "manual /summon spawn refused at global cap while enforceCapForManualSpawns=false");
+         rules.getRule(DwurdySharksModGameRules.ENFORCE_CAP_FOR_MANUAL_SPAWNS).set(true, level.getServer());
+         purgeAllModMobs(level);
+         rules.getRule(DwurdySharksModGameRules.LARGE_SHARK_GLOBAL_CAP).set(-1, level.getServer());
+         DwurdySharksConfig.LARGE_SHARK_GLOBAL_CAP.set(3);
+         int configAdmitted = 0;
+         for (int i = 0; i < 6; i++) {
+            if (DwurdySharksModEntities.BULL_SHARK.get().spawn(level, base, MobSpawnType.NATURAL) != null) {
+               configAdmitted++;
+            }
+         }
+         helper.assertTrue(configAdmitted == 3,
+            "gamerule -1 should inherit config cap 3, but " + configAdmitted + " of 6 were admitted");
+         helper.succeed();
+      } finally {
+         rules.getRule(DwurdySharksModGameRules.LARGE_SHARK_GLOBAL_CAP).set(prevGlobal, level.getServer());
+         rules.getRule(DwurdySharksModGameRules.LARGE_SHARK_LOCAL_CAP).set(prevLocal, level.getServer());
+         rules.getRule(DwurdySharksModGameRules.SPAWN_CAP_RADIUS).set(prevRadius, level.getServer());
+         rules.getRule(DwurdySharksModGameRules.ENFORCE_CAP_FOR_MANUAL_SPAWNS).set(prevManual, level.getServer());
+         DwurdySharksConfig.LARGE_SHARK_GLOBAL_CAP.set(prevConfig);
+      }
+   }
+
    private static void scheduleEvery(GameTestHelper helper, long intervalTicks, Runnable task) {
       task.run();
       scheduleNext(helper, intervalTicks, task);
@@ -866,6 +920,17 @@ public class DwurdySharksGameTests {
          e -> DwurdySharksConfig.isModEntity(e.getType()));
       strays.forEach(Entity::discard);
       return strays.size();
+   }
+
+   private static int purgeAllModMobs(ServerLevel level) {
+      int removed = 0;
+      for (Entity e : level.getEntities().getAll()) {
+         if (DwurdySharksConfig.isModEntity(e.getType()) && !(e instanceof Player)) {
+            e.discard();
+            removed++;
+         }
+      }
+      return removed;
    }
 
    private static void fillTestBiome(GameTestHelper helper, ResourceKey<Biome> key) {
