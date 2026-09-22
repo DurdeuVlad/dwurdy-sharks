@@ -9,7 +9,7 @@ public class BullSharkOnEntityTickUpdateProcedure {
    public static void execute(LevelAccessor world, Entity entity) {
       if (entity != null) {
          if (entity instanceof BullSharkEntity && !entity.isInWaterOrBubble()) {
-            DryoutProcedure.dryTick(entity, 600, 600);
+            DryoutProcedure.dryTick(entity);
          } else if (entity.isInWaterOrBubble() && entity instanceof LivingEntity _entity) {
             DryoutProcedure.wetTick(_entity);
          }

@@ -9,7 +9,7 @@ public class KrillOnEntityTickUpdateProcedure {
    public static void execute(LevelAccessor world, Entity entity) {
       if (entity != null) {
          if (entity instanceof KrillEntity && !entity.isInWaterOrBubble()) {
-            DryoutProcedure.dryTick(entity, 300, 300);
+            DryoutProcedure.dryTick(entity);
          } else if (entity.isInWaterRainOrBubble() && entity instanceof LivingEntity _entity) {
             DryoutProcedure.wetTick(_entity);
          }

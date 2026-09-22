@@ -13,7 +13,7 @@ public class NurseSharkOnEntityTickUpdateProcedure {
          double velocityZ = 0.0;
          double dis = 0.0;
          if (entity instanceof NurseSharkEntity && !entity.isInWaterOrBubble()) {
-            DryoutProcedure.dryTick(entity, 600, 600);
+            DryoutProcedure.dryTick(entity);
          } else if (entity.isInWaterOrBubble() && entity instanceof LivingEntity _entity) {
             DryoutProcedure.wetTick(_entity);
          }

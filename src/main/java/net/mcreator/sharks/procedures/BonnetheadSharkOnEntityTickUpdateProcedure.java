@@ -12,7 +12,7 @@ public class BonnetheadSharkOnEntityTickUpdateProcedure {
       if (entity != null) {
          double velocityY = 0.0;
          if (entity instanceof BonnetheadSharkEntity && !entity.isInWaterOrBubble()) {
-            DryoutProcedure.dryTick(entity, 600, 600);
+            DryoutProcedure.dryTick(entity);
          } else if (entity.isInWaterOrBubble() && entity instanceof LivingEntity _entity) {
             DryoutProcedure.wetTick(_entity);
          }
