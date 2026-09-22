@@ -918,11 +918,13 @@ public class DwurdySharksGameTests {
       shark.setPersistenceRequired();
       shark.setNoAi(true);
       shark.setInvulnerable(true);
+      shark.setNoGravity(true);
       level.addFreshEntity(shark);
       net.minecraft.world.entity.item.ItemEntity apple = new net.minecraft.world.entity.item.ItemEntity(
          level, base.getX() + 0.5, base.getY(), base.getZ() + 0.5,
          new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.APPLE));
       apple.setNoPickUpDelay();
+      apple.setNoGravity(true);
       level.addFreshEntity(apple);
       helper.runAtTickTime(80L, () -> {
          helper.assertTrue(apple.isAlive(),
