@@ -57,4 +57,34 @@ foreach ($p in @(
 }
 if ($dmg -notmatch "MEGALODON_BITE\)\) \{\s*return") { Fail "bypass recursion guard missing" }
 
+# 6. Every config key is documented in docs/CONFIG.md
+$docsPath = Join-Path $root "docs/CONFIG.md"
+if (!(Test-Path $docsPath)) { Fail "docs/CONFIG.md missing" }
+$docs = Get-Content $docsPath -Raw
+$keys = [regex]::Matches($config, 'define\w*\("([a-zA-Z0-9_]+)"') | ForEach-Object { $_.Groups[1].Value } | Sort-Object -Unique
+foreach ($k in $keys) {
+    if ($docs -notmatch [regex]::Escape($k)) { Fail "config key '$k' not documented in docs/CONFIG.md" }
+}
+
+# 7. No literal dryout timings remain at call sites
+$dryCallSites = Get-ChildItem (Join-Path $src "procedures") -Filter "*OnEntityTickUpdateProcedure.java"
+foreach ($f in $dryCallSites) {
+    if ((Get-Content $f.FullName -Raw) -match "dryTick\(entity,\s*\d") { Fail "$($f.Name) still passes literal dryout timings" }
+}
+$dryProc = Get-Content (Join-Path $src "procedures/DryoutProcedure.java") -Raw
+if ($dryProc -notmatch "DRYOUT_DELAY_TICKS" -or $dryProc -notmatch "DRYOUT_DURATION_TICKS") {
+    Fail "DryoutProcedure does not read config timings"
+}
+
+# 8. Attribute modifier IDs are unique and dwurdysharks-namespaced
+$attrProcPath = Join-Path $src "procedures/ConfigAttributeProcedure.java"
+if (!(Test-Path $attrProcPath)) { Fail "ConfigAttributeProcedure.java missing" }
+$attrProc = Get-Content $attrProcPath -Raw
+$ids = [regex]::Matches($attrProc, '"dwurdysharks",\s*"([a-z_]+)"') | ForEach-Object { $_.Groups[1].Value }
+if ($ids.Count -lt 3) { Fail "expected >=3 attribute modifier IDs in ConfigAttributeProcedure, found $($ids.Count)" }
+if (($ids | Sort-Object -Unique).Count -ne $ids.Count) { Fail "duplicate attribute modifier IDs in ConfigAttributeProcedure" }
+
+# 9. Global caps wired in the spawn guard
+if ($cap -notmatch "GLOBAL_CAP") { Fail "spawn guard does not read global caps" }
+
 if ($fail -eq 0) { Write-Host "Config guard passed." } else { exit 1 }
