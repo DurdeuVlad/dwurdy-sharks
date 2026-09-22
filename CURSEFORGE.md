@@ -19,17 +19,18 @@
 - 🍲 Food and cooking items made from the mod's marine life
 - ✅ A fix for the upstream 1.21.x persistent-shark bug tracked in [issue #7](https://github.com/PaoloBen/BensSharks/issues/7): wild sharks despawn normally, while tamed sharks still persist
 
-### New in 1.4.0
+### New in 1.4.1
 
-- � **Wild sharks stay in the ocean.** A fix for sharks spawning in rivers, lakes, swamps, and beaches — natural spawns are now restricted to the `dwurdysharks:shark_spawning_oceans` biome tag, extensible by datapacks.
-- 🚦 **Server protection built in.** Local population caps (`dwurdySharksLargeSharkLocalCap` 24, `dwurdySharksAmbientFishLocalCap` 64, `dwurdySharksSpawnCapRadius` 128) with density shaping stop entity floods before they start. Tamed and named sharks are exempt.
-- ⚡ **Major tick-time fixes.** Beached sharks no longer flood the server work queue, spawn procedures no longer scan every tick, and all 24 species dropped per-tick dimension refreshes — the 5-minute automated stress gate holds p95 tick under 15 ms at ~470 live sharks.
-- ⚙️ **New server config** (`dwurdysharks-server.toml`): master spawn switch, per-species toggles, damage multiplier, and Megalodon damage/armor-bypass options.
-- 🧪 **Automated regression + stress suite** (`gradlew runGameTestServer`): 17 tests including five 5-minute wall-clock stress profiles.
+- 🎛️ **Full server balance surface.** `dwurdysharks-server.toml` gains whole-dimension population caps, per-species damage/speed multipliers and health overrides, dryout timing, item-eating and aggro-range toggles, and configurable despawn distance.
+- 🛶 **Sharks as border guards.** New `behavior.sharksAttackBoats` — large sharks ram and sink *occupied* boats while ignoring empty ones. Park named sharks along a canal and it becomes a moat.
+- 🏷️ **Namespaced gamerules.** All seven rules are now `dwurdySharks*` (e.g. `dwurdySharksAggressiveSharks`) so `/gamerule` output shows ownership. Worlds using the old names revert to defaults — re-apply under the new names.
+- 🐛 **Empty-server fix.** Wild sharks no longer despawn when nobody is online.
 
 <details><summary>Earlier highlights</summary>
 
-**1.3.0** — `aggressiveSharks` gamerule (opt-in player hunting), in-game effect descriptions, Simplified Chinese localization, shader-friendly cutout rendering, tamed sharks no longer beach themselves while following.
+**1.4.0** — wild sharks restricted to ocean biomes, local population caps with density shaping, major tick-time fixes (dryout queue storm, per-tick spawn scans), new server config, automated regression + stress suite.
+
+**1.3.0** — `aggressiveSharks` gamerule (opt-in player hunting, renamed `dwurdySharksAggressiveSharks` in 1.4.1), in-game effect descriptions, Simplified Chinese localization, shader-friendly cutout rendering, tamed sharks no longer beach themselves while following.
 
 </details>
 
