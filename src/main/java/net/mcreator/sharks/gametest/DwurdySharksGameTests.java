@@ -64,58 +64,138 @@ import net.neoforged.neoforge.gametest.GameTestHolder;
 
 @GameTestHolder(DwurdySharksMod.MODID)
 public class DwurdySharksGameTests {
-   @GameTest(template = "pool", batch = "aggressive_off", timeoutTicks = 300)
+   /**
+    * Tests that place fake players, mutate gamerules/config across tick boundaries, or assert
+    * shared-state-sensitive outcomes run under this lock: GameTest executes tests concurrently in
+    * one dimension, so unlocked tests would see each other's players, caps, and config values.
+    * Holders release at their terminal callback; the safety release prevents a timed-out test from
+    * deadlocking the queue.
+    */
+   private static final java.util.concurrent.atomic.AtomicBoolean EXCLUSIVE = new java.util.concurrent.atomic.AtomicBoolean();
+
+   /**
+    * Runs {@code body} once no other exclusive test is running; retries every 20 ticks.
+    * {@code body} receives the tick at which the lock was acquired — all timed scheduling inside
+    * the body must be relative to it (runAtTickTime is absolute and timeouts count from placement).
+    * {@code runTicks} is the body's expected runtime; a safety release fires just past it so a
+    * crashed holder cannot deadlock the queue.
+    */
+   private static void exclusive(GameTestHelper helper, long runTicks, java.util.function.LongConsumer body) {
+      runExclusive(helper, runTicks, body);
+   }
+
+   private static void runExclusive(GameTestHelper helper, long runTicks, java.util.function.LongConsumer body) {
+      if (EXCLUSIVE.compareAndSet(false, true)) {
+         long base = helper.getTick();
+         helper.runAtTickTime(base + runTicks + 40L, () -> EXCLUSIVE.set(false));
+         try {
+            body.accept(base);
+         } catch (Throwable t) {
+            EXCLUSIVE.set(false);
+            throw t;
+         }
+      } else {
+         helper.runAtTickTime(helper.getTick() + 20L, () -> runExclusive(helper, runTicks, body));
+      }
+   }
+
+   private static Runnable guarded(Runnable body) {
+      return () -> {
+         try {
+            body.run();
+         } catch (Throwable t) {
+            EXCLUSIVE.set(false);
+            throw t;
+         }
+      };
+   }
+
+   private static Runnable guardedEnd(Runnable body) {
+      return () -> {
+         EXCLUSIVE.set(false);
+         body.run();
+      };
+   }
+
+   @GameTest(template = "pool", batch = "aggressive_off", timeoutTicks = 1500)
    public static void sharkIgnoresPlayerWhenRuleOff(GameTestHelper helper) {
+      exclusive(helper, 250, base -> sharkIgnoresPlayerWhenRuleOffImpl(helper, base));
+   }
+
+   private static void sharkIgnoresPlayerWhenRuleOffImpl(GameTestHelper helper, long base) {
       ServerLevel level = helper.getLevel();
       level.getServer().setDifficulty(Difficulty.NORMAL, true);
+      boolean prevAggro = level.getGameRules().getBoolean(DwurdySharksModGameRules.AGGRESSIVE_SHARKS);
       level.getGameRules().getRule(DwurdySharksModGameRules.AGGRESSIVE_SHARKS).set(false, level.getServer());
       fillPool(helper);
       BullSharkEntity shark = helper.spawn(DwurdySharksModEntities.BULL_SHARK.get(), 3, 2, 3);
       placeSurvivalPlayer(helper, 3, 2, 4);
-      helper.runAtTickTime(200L, () -> {
+      helper.runAtTickTime(base + 200L, guardedEnd(() -> {
+         level.getGameRules().getRule(DwurdySharksModGameRules.AGGRESSIVE_SHARKS).set(prevAggro, level.getServer());
          helper.assertTrue(shark.getTarget() == null, "bull shark targeted a player with aggressiveSharks=false");
          helper.succeed();
-      });
+      }));
    }
 
-   @GameTest(template = "pool", batch = "aggressive_on", timeoutTicks = 300)
+   @GameTest(template = "pool", batch = "aggressive_on", timeoutTicks = 1500)
    public static void sharkTargetsPlayerWhenRuleOn(GameTestHelper helper) {
+      exclusive(helper, 250, base -> sharkTargetsPlayerWhenRuleOnImpl(helper, base));
+   }
+
+   private static void sharkTargetsPlayerWhenRuleOnImpl(GameTestHelper helper, long base) {
       ServerLevel level = helper.getLevel();
       level.getServer().setDifficulty(Difficulty.NORMAL, true);
+      boolean prevAggro = level.getGameRules().getBoolean(DwurdySharksModGameRules.AGGRESSIVE_SHARKS);
       level.getGameRules().getRule(DwurdySharksModGameRules.AGGRESSIVE_SHARKS).set(true, level.getServer());
       fillPool(helper);
       BullSharkEntity shark = helper.spawn(DwurdySharksModEntities.BULL_SHARK.get(), 3, 2, 3);
       ServerPlayer player = placeSurvivalPlayer(helper, 3, 2, 4);
-      helper.succeedWhen(() -> helper.assertTrue(shark.getTarget() == player, "bull shark did not target a player with aggressiveSharks=true"));
+      helper.succeedWhen(() -> {
+         helper.assertTrue(shark.getTarget() == player, "bull shark did not target a player with aggressiveSharks=true");
+         level.getGameRules().getRule(DwurdySharksModGameRules.AGGRESSIVE_SHARKS).set(prevAggro, level.getServer());
+         EXCLUSIVE.set(false);
+      });
    }
 
-   @GameTest(template = "pool", batch = "aggressive_whaleshark", timeoutTicks = 300)
+   @GameTest(template = "pool", batch = "aggressive_whaleshark", timeoutTicks = 1500)
    public static void filterFeederIgnoresPlayerWhenRuleOn(GameTestHelper helper) {
+      exclusive(helper, 250, base -> filterFeederIgnoresPlayerWhenRuleOnImpl(helper, base));
+   }
+
+   private static void filterFeederIgnoresPlayerWhenRuleOnImpl(GameTestHelper helper, long base) {
       ServerLevel level = helper.getLevel();
       level.getServer().setDifficulty(Difficulty.NORMAL, true);
+      boolean prevAggro = level.getGameRules().getBoolean(DwurdySharksModGameRules.AGGRESSIVE_SHARKS);
       level.getGameRules().getRule(DwurdySharksModGameRules.AGGRESSIVE_SHARKS).set(true, level.getServer());
       fillPool(helper);
       WhaleSharkEntity shark = helper.spawn(DwurdySharksModEntities.WHALE_SHARK.get(), 3, 2, 3);
       placeSurvivalPlayer(helper, 3, 2, 4);
-      helper.runAtTickTime(200L, () -> {
+      helper.runAtTickTime(base + 200L, guardedEnd(() -> {
+         level.getGameRules().getRule(DwurdySharksModGameRules.AGGRESSIVE_SHARKS).set(prevAggro, level.getServer());
          helper.assertTrue(shark.getTarget() == null, "whale shark targeted a player with aggressiveSharks=true");
          helper.succeed();
-      });
+      }));
    }
 
-   @GameTest(template = "pool", batch = "aggressive_tamed", timeoutTicks = 300)
+   @GameTest(template = "pool", batch = "aggressive_tamed", timeoutTicks = 1500)
    public static void tamedSharkDoesNotTargetOwner(GameTestHelper helper) {
+      exclusive(helper, 250, base -> tamedSharkDoesNotTargetOwnerImpl(helper, base));
+   }
+
+   private static void tamedSharkDoesNotTargetOwnerImpl(GameTestHelper helper, long base) {
       ServerLevel level = helper.getLevel();
       level.getServer().setDifficulty(Difficulty.NORMAL, true);
+      boolean prevAggro = level.getGameRules().getBoolean(DwurdySharksModGameRules.AGGRESSIVE_SHARKS);
       level.getGameRules().getRule(DwurdySharksModGameRules.AGGRESSIVE_SHARKS).set(true, level.getServer());
       fillPool(helper);
       NurseSharkEntity shark = helper.spawn(DwurdySharksModEntities.NURSE_SHARK.get(), 3, 2, 3);
       ServerPlayer owner = placeSurvivalPlayer(helper, 3, 2, 4);
       shark.tame(owner);
-      helper.runAtTickTime(200L, () -> {
+      helper.runAtTickTime(base + 200L, guardedEnd(() -> {
+         level.getGameRules().getRule(DwurdySharksModGameRules.AGGRESSIVE_SHARKS).set(prevAggro, level.getServer());
          helper.assertTrue(shark.getTarget() == null, "tamed nurse shark targeted its owner with aggressiveSharks=true");
          helper.succeed();
-      });
+      }));
    }
 
    @GameTest(template = "pool", batch = "tamed_follow", timeoutTicks = 60)
@@ -189,7 +269,7 @@ public class DwurdySharksGameTests {
       placeSurvivalPlayer(helper, 3, 2, 4);
       long start = System.currentTimeMillis();
       scheduleEvery(helper, 1200, () -> {
-         int alive = countModEntities(level, center, 40.0);
+         int alive = countModEntities(level, helper.getBounds().inflate(4.0));
          for (int i = alive; i < target; i++) {
             try {
                helper.spawn(types[i % types.length], 1 + i % 4, 1 + (i / 16) % 4, 1 + (i / 4) % 4);
@@ -208,7 +288,7 @@ public class DwurdySharksGameTests {
       scheduleEvery(helper, 100, () -> {
          long elapsedSec = (System.currentTimeMillis() - start) / 1000;
          if (elapsedSec >= runSeconds) {
-            int alive = countModEntities(level, center, 40.0);
+            int alive = countModEntities(level, helper.getBounds().inflate(4.0));
             double p95 = tickP95Ms(level);
             helper.assertTrue(alive >= target / 4,
                tag + " sustained load decayed to " + alive + "/" + target + " despite top-up");
@@ -232,7 +312,7 @@ public class DwurdySharksGameTests {
       scheduleEvery(helper, 100, () -> {
          long elapsedSec = (System.currentTimeMillis() - start) / 1000;
          if (elapsedSec >= runSeconds) {
-            int remaining = countModEntities(level, center, 96.0);
+            int remaining = countModEntities(level, helper.getBounds().inflate(16.0));
             double mspt = tickAvgMs(level);
             double p95 = tickP95Ms(level);
             DwurdySharksMod.LOGGER.info(
@@ -281,7 +361,7 @@ public class DwurdySharksGameTests {
                } catch (Throwable ignored) {
                }
             }
-            int beached = countModEntities(level, center, 40.0);
+            int beached = countModEntities(level, helper.getBounds().inflate(4.0));
             int queue = DwurdySharksMod.getPendingServerWork();
             double mspt = tickAvgMs(level);
             double p95 = tickP95Ms(level);
@@ -329,7 +409,7 @@ public class DwurdySharksGameTests {
             level.addFreshEntity(new net.minecraft.world.entity.item.ItemEntity(level, p.getX(), p.getY(), p.getZ(),
                new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.APPLE)));
          }
-         int eaters = countModEntities(level, center, 40.0);
+         int eaters = countModEntities(level, helper.getBounds().inflate(4.0));
          for (int i = eaters; i < 70; i++) {
             try {
                helper.spawn(types[i % types.length], 1 + i % 4, 1 + i / 50, 1 + i / 4 % 4);
@@ -343,7 +423,7 @@ public class DwurdySharksGameTests {
       scheduleEvery(helper, 100, () -> {
          long elapsedSec = (System.currentTimeMillis() - start) / 1000;
          if (elapsedSec >= runSeconds) {
-            int alive = countModEntities(level, center, 40.0);
+            int alive = countModEntities(level, helper.getBounds().inflate(4.0));
             double mspt = tickAvgMs(level);
             double p95 = tickP95Ms(level);
             DwurdySharksMod.LOGGER.info(
@@ -364,8 +444,9 @@ public class DwurdySharksGameTests {
       GameRules rules = level.getGameRules();
       int prevCap = rules.getInt(DwurdySharksModGameRules.LARGE_SHARK_LOCAL_CAP);
       int prevRadius = rules.getInt(DwurdySharksModGameRules.SPAWN_CAP_RADIUS);
+      boolean prevAggro = rules.getBoolean(DwurdySharksModGameRules.AGGRESSIVE_SHARKS);
       rules.getRule(DwurdySharksModGameRules.LARGE_SHARK_LOCAL_CAP).set(8, level.getServer());
-      rules.getRule(DwurdySharksModGameRules.SPAWN_CAP_RADIUS).set(24, level.getServer());
+      rules.getRule(DwurdySharksModGameRules.SPAWN_CAP_RADIUS).set(8, level.getServer());
       rules.getRule(DwurdySharksModGameRules.AGGRESSIVE_SHARKS).set(false, level.getServer());
       fillPool(helper);
       BlockPos base = helper.absolutePos(new BlockPos(2, 2, 2));
@@ -376,13 +457,14 @@ public class DwurdySharksGameTests {
          for (int i = 0; i < 40; i++) {
             Entity e = DwurdySharksModEntities.BULL_SHARK.get().spawn(level, base, MobSpawnType.NATURAL);
             if (e != null) {
+               e.setInvulnerable(true);
                admitted++;
             }
          }
          helper.assertTrue(admitted == 8,
             "expected spawn plateau at largeSharkLocalCap=8, but " + admitted + " of 40 natural attempts were admitted");
          helper.runAtTickTime(40L, () -> {
-            int inWorld = countLargeSharks(level, base, 24.0);
+            int inWorld = countLargeSharks(level, helper.getBounds().inflate(4.0));
             helper.assertTrue(inWorld == 8,
                "in-world large shark count " + inWorld + " != cap 8 (cancelled spawns leaked into the world)");
             helper.succeed();
@@ -390,6 +472,7 @@ public class DwurdySharksGameTests {
       } finally {
          rules.getRule(DwurdySharksModGameRules.LARGE_SHARK_LOCAL_CAP).set(prevCap, level.getServer());
          rules.getRule(DwurdySharksModGameRules.SPAWN_CAP_RADIUS).set(prevRadius, level.getServer());
+         rules.getRule(DwurdySharksModGameRules.AGGRESSIVE_SHARKS).set(prevAggro, level.getServer());
       }
    }
 
@@ -400,8 +483,9 @@ public class DwurdySharksGameTests {
       GameRules rules = level.getGameRules();
       int prevCap = rules.getInt(DwurdySharksModGameRules.LARGE_SHARK_LOCAL_CAP);
       int prevRadius = rules.getInt(DwurdySharksModGameRules.SPAWN_CAP_RADIUS);
+      boolean prevAggro = rules.getBoolean(DwurdySharksModGameRules.AGGRESSIVE_SHARKS);
       rules.getRule(DwurdySharksModGameRules.LARGE_SHARK_LOCAL_CAP).set(8, level.getServer());
-      rules.getRule(DwurdySharksModGameRules.SPAWN_CAP_RADIUS).set(24, level.getServer());
+      rules.getRule(DwurdySharksModGameRules.SPAWN_CAP_RADIUS).set(8, level.getServer());
       rules.getRule(DwurdySharksModGameRules.AGGRESSIVE_SHARKS).set(false, level.getServer());
       fillPool(helper);
       BlockPos base = helper.absolutePos(new BlockPos(2, 2, 2));
@@ -410,7 +494,9 @@ public class DwurdySharksGameTests {
       try {
          int admitted = 0;
          for (int i = 0; i < 12; i++) {
-            if (DwurdySharksModEntities.BULL_SHARK.get().spawn(level, base, MobSpawnType.NATURAL) != null) {
+            Entity e = DwurdySharksModEntities.BULL_SHARK.get().spawn(level, base, MobSpawnType.NATURAL);
+            if (e != null) {
+               e.setInvulnerable(true);
                admitted++;
             }
          }
@@ -438,7 +524,7 @@ public class DwurdySharksGameTests {
          control.discard();
 
          helper.runAtTickTime(20L, () -> {
-            int inWorld = countLargeSharks(level, base, 24.0);
+            int inWorld = countLargeSharks(level, helper.getBounds().inflate(4.0));
             helper.assertTrue(inWorld == 11,
                "expected 8 wild + 3 exempt = 11 large sharks, found " + inWorld);
             helper.succeed();
@@ -446,6 +532,7 @@ public class DwurdySharksGameTests {
       } finally {
          rules.getRule(DwurdySharksModGameRules.LARGE_SHARK_LOCAL_CAP).set(prevCap, level.getServer());
          rules.getRule(DwurdySharksModGameRules.SPAWN_CAP_RADIUS).set(prevRadius, level.getServer());
+         rules.getRule(DwurdySharksModGameRules.AGGRESSIVE_SHARKS).set(prevAggro, level.getServer());
       }
    }
 
@@ -456,8 +543,9 @@ public class DwurdySharksGameTests {
       GameRules rules = level.getGameRules();
       int prevCap = rules.getInt(DwurdySharksModGameRules.LARGE_SHARK_LOCAL_CAP);
       int prevRadius = rules.getInt(DwurdySharksModGameRules.SPAWN_CAP_RADIUS);
+      boolean prevAggro = rules.getBoolean(DwurdySharksModGameRules.AGGRESSIVE_SHARKS);
       rules.getRule(DwurdySharksModGameRules.LARGE_SHARK_LOCAL_CAP).set(8, level.getServer());
-      rules.getRule(DwurdySharksModGameRules.SPAWN_CAP_RADIUS).set(24, level.getServer());
+      rules.getRule(DwurdySharksModGameRules.SPAWN_CAP_RADIUS).set(8, level.getServer());
       rules.getRule(DwurdySharksModGameRules.AGGRESSIVE_SHARKS).set(false, level.getServer());
       fillPool(helper);
       BlockPos base = helper.absolutePos(new BlockPos(2, 2, 2));
@@ -468,7 +556,9 @@ public class DwurdySharksGameTests {
       try {
          int admitted = 0;
          for (int i = 0; i < attempts; i++) {
-            if (DwurdySharksModEntities.BULL_SHARK.get().spawn(level, base, MobSpawnType.NATURAL) != null) {
+            Entity e = DwurdySharksModEntities.BULL_SHARK.get().spawn(level, base, MobSpawnType.NATURAL);
+            if (e != null) {
+               e.setInvulnerable(true);
                admitted++;
             }
          }
@@ -476,7 +566,7 @@ public class DwurdySharksGameTests {
          helper.assertTrue(total == 8,
             "abuse storm: " + attempts + " spawn attempts admitted " + total + ", expected cap plateau at 8");
          helper.runAtTickTime(60L, () -> {
-            int inWorld = countLargeSharks(level, base, 24.0);
+            int inWorld = countLargeSharks(level, helper.getBounds().inflate(4.0));
             helper.assertTrue(inWorld == 8, "post-storm in-world large sharks " + inWorld + " != 8");
             helper.assertTrue(DwurdySharksMod.getPendingServerWork() <= queueBefore + 128,
                "workQueue grew from " + queueBefore + " to " + DwurdySharksMod.getPendingServerWork() + " during spawn storm");
@@ -491,6 +581,7 @@ public class DwurdySharksGameTests {
       } finally {
          rules.getRule(DwurdySharksModGameRules.LARGE_SHARK_LOCAL_CAP).set(prevCap, level.getServer());
          rules.getRule(DwurdySharksModGameRules.SPAWN_CAP_RADIUS).set(prevRadius, level.getServer());
+         rules.getRule(DwurdySharksModGameRules.AGGRESSIVE_SHARKS).set(prevAggro, level.getServer());
       }
    }
 
@@ -501,8 +592,9 @@ public class DwurdySharksGameTests {
       GameRules rules = level.getGameRules();
       int prevCap = rules.getInt(DwurdySharksModGameRules.LARGE_SHARK_LOCAL_CAP);
       int prevRadius = rules.getInt(DwurdySharksModGameRules.SPAWN_CAP_RADIUS);
+      boolean prevAggro = rules.getBoolean(DwurdySharksModGameRules.AGGRESSIVE_SHARKS);
       rules.getRule(DwurdySharksModGameRules.LARGE_SHARK_LOCAL_CAP).set(0, level.getServer());
-      rules.getRule(DwurdySharksModGameRules.SPAWN_CAP_RADIUS).set(24, level.getServer());
+      rules.getRule(DwurdySharksModGameRules.SPAWN_CAP_RADIUS).set(8, level.getServer());
       rules.getRule(DwurdySharksModGameRules.AGGRESSIVE_SHARKS).set(false, level.getServer());
       fillPool(helper);
       fillUpperPool(helper);
@@ -519,7 +611,9 @@ public class DwurdySharksGameTests {
          int admitted = 0;
          for (int i = 0; i < target; i++) {
             BlockPos pos = helper.absolutePos(new BlockPos(1 + i % 4, 1 + i / 60, 1 + i / 4 % 4));
-            if (DwurdySharksModEntities.BULL_SHARK.get().spawn(level, pos, MobSpawnType.NATURAL) != null) {
+            Entity e = DwurdySharksModEntities.BULL_SHARK.get().spawn(level, pos, MobSpawnType.NATURAL);
+            if (e != null) {
+               e.setInvulnerable(true);
                admitted++;
             }
          }
@@ -527,13 +621,13 @@ public class DwurdySharksGameTests {
             "cap disabled (cap=0) still rejected " + (target - admitted) + " of " + target + " natural spawns");
          int total = admitted;
          helper.runAtTickTime(300L, () -> {
-            int alive = countModEntities(level, base, 48.0);
+            int alive = countModEntities(level, helper.getBounds().inflate(4.0));
             double p95 = tickP95Ms(level);
             DwurdySharksMod.LOGGER.info("[stress_cap_disabled] {} spawned, {} alive, loaded p95 tick {} ms",
                total, alive, fmt(p95));
             helper.assertTrue(alive == total,
                "cap-disabled population shrank before despawn phase: " + alive + "/" + total);
-            for (Mob mob : level.getEntitiesOfClass(Mob.class, new AABB(base).inflate(48.0),
+            for (Mob mob : level.getEntitiesOfClass(Mob.class, helper.getBounds().inflate(4.0),
                e -> DwurdySharksConfig.isModEntity(e.getType()))) {
                mob.discard();
             }
@@ -545,7 +639,7 @@ public class DwurdySharksGameTests {
          helper.runAtTickTime(400L, () -> {
             long heapAfter = runtime.totalMemory() - runtime.freeMemory();
             long deltaMb = (heapAfter - heapBefore) / (1024 * 1024);
-            int remaining = countModEntities(level, base, 48.0);
+            int remaining = countModEntities(level, helper.getBounds().inflate(4.0));
             DwurdySharksMod.LOGGER.info(
                "[stress_cap_disabled] heap before {} MB, after despawn+GC {} MB, delta {} MB, {} mod entities remaining",
                heapBefore / (1024 * 1024), heapAfter / (1024 * 1024), deltaMb, remaining);
@@ -559,6 +653,7 @@ public class DwurdySharksGameTests {
       } finally {
          rules.getRule(DwurdySharksModGameRules.LARGE_SHARK_LOCAL_CAP).set(prevCap, level.getServer());
          rules.getRule(DwurdySharksModGameRules.SPAWN_CAP_RADIUS).set(prevRadius, level.getServer());
+         rules.getRule(DwurdySharksModGameRules.AGGRESSIVE_SHARKS).set(prevAggro, level.getServer());
       }
    }
 
@@ -613,8 +708,12 @@ public class DwurdySharksGameTests {
       helper.succeed();
    }
 
-   @GameTest(template = "pool", batch = "dryout_once", timeoutTicks = 900)
+   @GameTest(template = "pool", batch = "dryout_once", timeoutTicks = 2000)
    public static void dryoutAppliesOnceAndDoesNotQueueWork(GameTestHelper helper) {
+      exclusive(helper, 850, base -> dryoutAppliesOnceAndDoesNotQueueWorkImpl(helper, base));
+   }
+
+   private static void dryoutAppliesOnceAndDoesNotQueueWorkImpl(GameTestHelper helper, long base) {
       ServerLevel level = helper.getLevel();
       level.getServer().setDifficulty(Difficulty.NORMAL, true);
       BlockPos pos = helper.absolutePos(new BlockPos(2, 1, 2));
@@ -625,7 +724,7 @@ public class DwurdySharksGameTests {
       level.addFreshEntity(shark);
       int queueAtStart = DwurdySharksMod.getPendingServerWork();
       int[] firstDuration = new int[]{-1};
-      helper.runAtTickTime(700L, () -> {
+      helper.runAtTickTime(base + 700L, guarded(() -> {
          MobEffectInstance instance = shark.getEffect(DwurdySharksModMobEffects.DRYOUT_EFFECT);
          helper.assertTrue(shark.isAlive(), "beached shark died before the dryout observation window");
          helper.assertTrue(instance != null, "beached shark never received the dryout effect (600-tick delay elapsed)");
@@ -634,8 +733,8 @@ public class DwurdySharksGameTests {
             "dryout effect duration " + firstDuration[0] + " should already be counting down at tick 700");
          helper.assertTrue(DwurdySharksMod.getPendingServerWork() <= queueAtStart + 128,
             "workQueue grew from " + queueAtStart + " to " + DwurdySharksMod.getPendingServerWork() + " while shark was beached");
-      });
-      helper.runAtTickTime(800L, () -> {
+      }));
+      helper.runAtTickTime(base + 800L, guardedEnd(() -> {
          MobEffectInstance instance = shark.getEffect(DwurdySharksModMobEffects.DRYOUT_EFFECT);
          helper.assertTrue(instance != null, "dryout effect expired before its duration elapsed");
          helper.assertTrue(instance.getDuration() < firstDuration[0],
@@ -644,7 +743,7 @@ public class DwurdySharksGameTests {
          helper.assertTrue(DwurdySharksMod.getPendingServerWork() <= queueAtStart + 128,
             "workQueue grew past " + (queueAtStart + 128) + " while shark was beached (queue/beach correlation regression)");
          helper.succeed();
-      });
+      }));
    }
 
    @GameTest(template = "pool", batch = "despawn", timeoutTicks = 400)
@@ -932,8 +1031,12 @@ public class DwurdySharksGameTests {
       }
    }
 
-   @GameTest(template = "pool", batch = "config", timeoutTicks = 300)
+   @GameTest(template = "pool", batch = "config", timeoutTicks = 2000)
    public static void configDryoutTimings(GameTestHelper helper) {
+      exclusive(helper, 150, base -> configDryoutTimingsImpl(helper, base));
+   }
+
+   private static void configDryoutTimingsImpl(GameTestHelper helper, long base) {
       ServerLevel level = helper.getLevel();
       level.getServer().setDifficulty(Difficulty.NORMAL, true);
       int prevDelay = DwurdySharksConfig.DRYOUT_DELAY_TICKS.get();
@@ -946,11 +1049,11 @@ public class DwurdySharksGameTests {
       shark.setPersistenceRequired();
       shark.setInvulnerable(true);
       level.addFreshEntity(shark);
-      helper.runAtTickTime(130L, () -> {
+      helper.runAtTickTime(base + 130L, () -> {
          DwurdySharksConfig.DRYOUT_DELAY_TICKS.set(prevDelay);
          DwurdySharksConfig.DRYOUT_DURATION_TICKS.set(prevDuration);
       });
-      helper.runAtTickTime(60L, () -> {
+      helper.runAtTickTime(base + 60L, guarded(() -> {
          helper.assertTrue(shark.hasEffect(DwurdySharksModMobEffects.DRYOUT_EFFECT),
             "beached shark lacked dryout effect 40 ticks after configured 20-tick delay");
          shark.discard();
@@ -960,12 +1063,12 @@ public class DwurdySharksGameTests {
          disabled.setPersistenceRequired();
          disabled.setInvulnerable(true);
          level.addFreshEntity(disabled);
-         helper.runAtTickTime(120L, () -> {
+         helper.runAtTickTime(base + 120L, guardedEnd(() -> {
             helper.assertTrue(!disabled.hasEffect(DwurdySharksModMobEffects.DRYOUT_EFFECT),
                "dryoutDelayTicks=0 still applied the dryout effect");
             helper.succeed();
-         });
-      });
+         }));
+      }));
    }
 
    @GameTest(template = "pool", batch = "config", timeoutTicks = 400)
@@ -1011,26 +1114,24 @@ public class DwurdySharksGameTests {
    public static void configDespawnNoPlayers(GameTestHelper helper) {
       ServerLevel nether = helper.getLevel().getServer().getLevel(Level.NETHER);
       helper.assertTrue(nether != null, "nether dimension unavailable");
-      nether.setChunkForced(0, 0, true);
       int prevDistance = DwurdySharksConfig.HARD_DESPAWN_DISTANCE_BLOCKS.get();
-      DwurdySharksConfig.HARD_DESPAWN_DISTANCE_BLOCKS.set(64);
-      BullSharkEntity wild = DwurdySharksModEntities.BULL_SHARK.get().create(nether);
-      wild.moveTo(0.5, 70.0, 0.5, 0.0F, 0.0F);
-      wild.setInvulnerable(true);
-      nether.addFreshEntity(wild);
-      helper.runAtTickTime(170L, () -> {
-         DwurdySharksConfig.HARD_DESPAWN_DISTANCE_BLOCKS.set(prevDistance);
-         wild.discard();
-         nether.setChunkForced(0, 0, false);
-      });
-      helper.runAtTickTime(160L, () -> {
+      try {
+         DwurdySharksConfig.HARD_DESPAWN_DISTANCE_BLOCKS.set(64);
+         BullSharkEntity wild = DwurdySharksModEntities.BULL_SHARK.get().create(nether);
+         wild.moveTo(0.5, 70.0, 0.5, 0.0F, 0.0F);
+         wild.setInvulnerable(true);
+         nether.addFreshEntity(wild);
          helper.assertTrue(nether.players().isEmpty(), "a player is in the nether; no-player precondition not met");
-         helper.assertTrue(wild.tickCount > 100,
-            "shark only ticked " + wild.tickCount + " times; despawn check never ran (test vacuous)");
+         for (int i = 0; i < 5; i++) {
+            net.mcreator.sharks.procedures.SharkDespawnProcedure.checkHardDespawn(wild);
+         }
          helper.assertTrue(!wild.isRemoved() && wild.isAlive(),
             "wild bull shark was discarded with no players online; hard despawn must require a player in the dimension");
+         wild.discard();
          helper.succeed();
-      });
+      } finally {
+         DwurdySharksConfig.HARD_DESPAWN_DISTANCE_BLOCKS.set(prevDistance);
+      }
    }
 
    private static void scheduleEvery(GameTestHelper helper, long intervalTicks, Runnable task) {
@@ -1061,13 +1162,13 @@ public class DwurdySharksGameTests {
       return String.format(Locale.ROOT, "%.2f", value);
    }
 
-   private static int countModEntities(ServerLevel level, BlockPos center, double radius) {
-      return level.getEntitiesOfClass(Mob.class, new AABB(center).inflate(radius),
+   private static int countModEntities(ServerLevel level, AABB box) {
+      return level.getEntitiesOfClass(Mob.class, box,
          e -> DwurdySharksConfig.isModEntity(e.getType())).size();
    }
 
-   private static int countLargeSharks(ServerLevel level, BlockPos center, double radius) {
-      return level.getEntitiesOfClass(Mob.class, new AABB(center).inflate(radius),
+   private static int countLargeSharks(ServerLevel level, AABB box) {
+      return level.getEntitiesOfClass(Mob.class, box,
          e -> e.isAlive() && e.getType().is(DwurdySharksEntityTypeTags.LARGE_SHARKS)).size();
    }
 

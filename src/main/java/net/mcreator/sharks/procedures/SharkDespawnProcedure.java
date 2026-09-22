@@ -25,6 +25,10 @@ public final class SharkDespawnProcedure {
          || (mob instanceof TamableAnimal tamable && tamable.isTame())) {
          return;
       }
+      checkHardDespawn(mob);
+   }
+
+   public static void checkHardDespawn(Mob mob) {
       int distance = DwurdySharksConfig.HARD_DESPAWN_DISTANCE_BLOCKS.get();
       if (distance <= 0 || mob.level().getNearestPlayer(mob, -1.0) == null) {
          return;
