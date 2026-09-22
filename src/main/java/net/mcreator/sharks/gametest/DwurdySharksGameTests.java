@@ -50,6 +50,7 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.GameRules;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.biome.MobSpawnSettings;
@@ -175,7 +176,7 @@ public class DwurdySharksGameTests {
          DwurdySharksModEntities.BONNETHEAD_SHARK.get(), DwurdySharksModEntities.BARRACUDA.get()
       };
       BlockPos center = helper.absolutePos(new BlockPos(2, 1, 2));
-      purgeModMobs(level, center, 48.0);
+      purgeModMobs(helper);
       int[] spawned = new int[]{0};
       long runSeconds = Long.getLong("sharks.stress.seconds", 300L);
       for (int i = 0; i < target; i++) {
@@ -222,7 +223,7 @@ public class DwurdySharksGameTests {
    public static void baselineIdleTickCost(GameTestHelper helper) {
       ServerLevel level = helper.getLevel();
       BlockPos center = helper.absolutePos(new BlockPos(2, 1, 2));
-      int leaked = purgeModMobs(level, center, 96.0);
+      int leaked = purgeModMobs(helper);
       if (leaked > 0) {
          DwurdySharksMod.LOGGER.warn("[stress_baseline] purged {} mod entities leaked from earlier batches", leaked);
       }
@@ -313,7 +314,7 @@ public class DwurdySharksGameTests {
          DwurdySharksModEntities.BLUE_SHARK.get()
       };
       BlockPos center = helper.absolutePos(new BlockPos(2, 1, 2));
-      purgeModMobs(level, center, 48.0);
+      purgeModMobs(helper);
       int[] spawned = new int[]{0};
       for (int i = 0; i < 70; i++) {
          try {
@@ -368,7 +369,7 @@ public class DwurdySharksGameTests {
       rules.getRule(DwurdySharksModGameRules.AGGRESSIVE_SHARKS).set(false, level.getServer());
       fillPool(helper);
       BlockPos base = helper.absolutePos(new BlockPos(2, 2, 2));
-      purgeModMobs(level, base, 48.0);
+      purgeModMobs(helper);
       placeSurvivalPlayer(helper, 2, 2, 4);
       try {
          int admitted = 0;
@@ -404,7 +405,7 @@ public class DwurdySharksGameTests {
       rules.getRule(DwurdySharksModGameRules.AGGRESSIVE_SHARKS).set(false, level.getServer());
       fillPool(helper);
       BlockPos base = helper.absolutePos(new BlockPos(2, 2, 2));
-      purgeModMobs(level, base, 48.0);
+      purgeModMobs(helper);
       ServerPlayer owner = placeSurvivalPlayer(helper, 3, 2, 4);
       try {
          int admitted = 0;
@@ -460,7 +461,7 @@ public class DwurdySharksGameTests {
       rules.getRule(DwurdySharksModGameRules.AGGRESSIVE_SHARKS).set(false, level.getServer());
       fillPool(helper);
       BlockPos base = helper.absolutePos(new BlockPos(2, 2, 2));
-      purgeModMobs(level, base, 48.0);
+      purgeModMobs(helper);
       placeSurvivalPlayer(helper, 2, 2, 4);
       int attempts = Integer.getInteger("sharks.stress.abuseAttempts", 2000);
       int queueBefore = DwurdySharksMod.getPendingServerWork();
@@ -506,7 +507,7 @@ public class DwurdySharksGameTests {
       fillPool(helper);
       fillUpperPool(helper);
       BlockPos base = helper.absolutePos(new BlockPos(2, 2, 2));
-      purgeModMobs(level, base, 48.0);
+      purgeModMobs(helper);
       placeSurvivalPlayer(helper, 2, 2, 4);
       int target = Integer.getInteger("sharks.stress.capDisabledCount", 150);
       int queueBefore = DwurdySharksMod.getPendingServerWork();
@@ -662,6 +663,7 @@ public class DwurdySharksGameTests {
       level.addFreshEntity(tamed);
       ServerPlayer player = placeSurvivalPlayer(helper, 3, 2, 4);
       tamed.tame(player);
+      tamed.setInvulnerable(true);
       helper.runAtTickTime(40L, () -> {
          BlockPos base = helper.absolutePos(new BlockPos(3, 2, 4));
          for (ServerPlayer p : level.players()) {
@@ -685,7 +687,7 @@ public class DwurdySharksGameTests {
    public static void configSpeedMultiplierApplied(GameTestHelper helper) {
       ServerLevel level = helper.getLevel();
       BlockPos base = helper.absolutePos(new BlockPos(2, 2, 2));
-      purgeModMobs(level, base, 48.0);
+      purgeModMobs(helper);
       double prev = DwurdySharksConfig.SHARK_SPEED_MULTIPLIER.get();
       try {
          DwurdySharksConfig.SHARK_SPEED_MULTIPLIER.set(1.0);
@@ -706,7 +708,7 @@ public class DwurdySharksGameTests {
    public static void configSpeciesSpeedOverrideWins(GameTestHelper helper) {
       ServerLevel level = helper.getLevel();
       BlockPos base = helper.absolutePos(new BlockPos(2, 2, 2));
-      purgeModMobs(level, base, 48.0);
+      purgeModMobs(helper);
       double prevGlobal = DwurdySharksConfig.SHARK_SPEED_MULTIPLIER.get();
       ModConfigSpec.DoubleValue bullOverride = DwurdySharksConfig.speciesSpeedMultiplierValue("bull_shark");
       helper.assertTrue(bullOverride != null, "movement.speciesMultiplier.bull_shark missing from config");
@@ -738,7 +740,7 @@ public class DwurdySharksGameTests {
    public static void configSpeciesHealthOverride(GameTestHelper helper) {
       ServerLevel level = helper.getLevel();
       BlockPos base = helper.absolutePos(new BlockPos(2, 2, 2));
-      purgeModMobs(level, base, 48.0);
+      purgeModMobs(helper);
       ModConfigSpec.DoubleValue bullHealth = DwurdySharksConfig.speciesHealthOverrideValue("bull_shark");
       helper.assertTrue(bullHealth != null, "damage.speciesHealth.bull_shark missing from config");
       double prev = bullHealth.get();
@@ -760,7 +762,7 @@ public class DwurdySharksGameTests {
    public static void configSpeciesDamageOverrideScalesHits(GameTestHelper helper) {
       ServerLevel level = helper.getLevel();
       BlockPos base = helper.absolutePos(new BlockPos(2, 2, 2));
-      purgeModMobs(level, base, 48.0);
+      purgeModMobs(helper);
       ModConfigSpec.DoubleValue bullDamage = DwurdySharksConfig.speciesDamageMultiplierValue("bull_shark");
       helper.assertTrue(bullDamage != null, "damage.speciesMultiplier.bull_shark missing from config");
       double prevSpecies = bullDamage.get();
@@ -799,7 +801,7 @@ public class DwurdySharksGameTests {
    public static void configModifiersIdempotentOnRejoin(GameTestHelper helper) {
       ServerLevel level = helper.getLevel();
       BlockPos base = helper.absolutePos(new BlockPos(2, 2, 2));
-      purgeModMobs(level, base, 48.0);
+      purgeModMobs(helper);
       double prev = DwurdySharksConfig.SHARK_SPEED_MULTIPLIER.get();
       try {
          DwurdySharksConfig.SHARK_SPEED_MULTIPLIER.set(2.0);
@@ -829,6 +831,7 @@ public class DwurdySharksGameTests {
       shark.moveTo(base.getX() + 0.5, base.getY(), base.getZ() + 0.5, 0.0F, 0.0F);
       shark.setPersistenceRequired();
       shark.setNoAi(true);
+      shark.setInvulnerable(true);
       level.addFreshEntity(shark);
       net.minecraft.world.entity.item.ItemEntity apple = new net.minecraft.world.entity.item.ItemEntity(
          level, base.getX() + 0.5, base.getY(), base.getZ() + 0.5,
@@ -851,7 +854,7 @@ public class DwurdySharksGameTests {
    public static void configAggroRangeMultiplierApplied(GameTestHelper helper) {
       ServerLevel level = helper.getLevel();
       BlockPos base = helper.absolutePos(new BlockPos(2, 2, 2));
-      purgeModMobs(level, base, 48.0);
+      purgeModMobs(helper);
       double prev = DwurdySharksConfig.AGGRO_FOLLOW_RANGE_MULTIPLIER.get();
       try {
          DwurdySharksConfig.AGGRO_FOLLOW_RANGE_MULTIPLIER.set(1.0);
@@ -983,6 +986,7 @@ public class DwurdySharksGameTests {
       level.addFreshEntity(tamed);
       ServerPlayer player = placeSurvivalPlayer(helper, 3, 2, 4);
       tamed.tame(player);
+      tamed.setInvulnerable(true);
       helper.runAtTickTime(20L, () -> {
          for (ServerPlayer p : level.players()) {
             p.moveTo(wildPos.getX() + 100.0, wildPos.getY(), wildPos.getZ(), 0.0F, 0.0F);
@@ -1005,26 +1009,24 @@ public class DwurdySharksGameTests {
 
    @GameTest(template = "pool", batch = "config", timeoutTicks = 400)
    public static void configDespawnNoPlayers(GameTestHelper helper) {
-      ServerLevel level = helper.getLevel();
-      level.getServer().setDifficulty(Difficulty.NORMAL, true);
-      level.getGameRules().getRule(DwurdySharksModGameRules.AGGRESSIVE_SHARKS).set(false, level.getServer());
-      fillPool(helper);
+      ServerLevel nether = helper.getLevel().getServer().getLevel(Level.NETHER);
+      helper.assertTrue(nether != null, "nether dimension unavailable");
+      nether.setChunkForced(0, 0, true);
       int prevDistance = DwurdySharksConfig.HARD_DESPAWN_DISTANCE_BLOCKS.get();
       DwurdySharksConfig.HARD_DESPAWN_DISTANCE_BLOCKS.set(64);
-      BlockPos wildPos = helper.absolutePos(new BlockPos(2, 2, 2));
-      BullSharkEntity wild = DwurdySharksModEntities.BULL_SHARK.get().create(level);
-      wild.moveTo(wildPos.getX() + 0.5, wildPos.getY(), wildPos.getZ() + 0.5, 0.0F, 0.0F);
-      level.addFreshEntity(wild);
-      helper.runAtTickTime(20L, () -> {
-         for (ServerPlayer p : new ArrayList<>(level.players())) {
-            level.removePlayerImmediately(p, Entity.RemovalReason.DISCARDED);
-         }
-      });
+      BullSharkEntity wild = DwurdySharksModEntities.BULL_SHARK.get().create(nether);
+      wild.moveTo(0.5, 70.0, 0.5, 0.0F, 0.0F);
+      wild.setInvulnerable(true);
+      nether.addFreshEntity(wild);
       helper.runAtTickTime(170L, () -> {
          DwurdySharksConfig.HARD_DESPAWN_DISTANCE_BLOCKS.set(prevDistance);
+         wild.discard();
+         nether.setChunkForced(0, 0, false);
       });
       helper.runAtTickTime(160L, () -> {
-         helper.assertTrue(level.players().isEmpty(), "players remained in the level; no-player precondition not met");
+         helper.assertTrue(nether.players().isEmpty(), "a player is in the nether; no-player precondition not met");
+         helper.assertTrue(wild.tickCount > 100,
+            "shark only ticked " + wild.tickCount + " times; despawn check never ran (test vacuous)");
          helper.assertTrue(!wild.isRemoved() && wild.isAlive(),
             "wild bull shark was discarded with no players online; hard despawn must require a player in the dimension");
          helper.succeed();
@@ -1069,8 +1071,8 @@ public class DwurdySharksGameTests {
          e -> e.isAlive() && e.getType().is(DwurdySharksEntityTypeTags.LARGE_SHARKS)).size();
    }
 
-   private static int purgeModMobs(ServerLevel level, BlockPos center, double radius) {
-      List<Mob> strays = level.getEntitiesOfClass(Mob.class, new AABB(center).inflate(radius),
+   private static int purgeModMobs(GameTestHelper helper) {
+      List<Mob> strays = helper.getLevel().getEntitiesOfClass(Mob.class, helper.getBounds().inflate(4.0),
          e -> DwurdySharksConfig.isModEntity(e.getType()));
       strays.forEach(Entity::discard);
       return strays.size();
