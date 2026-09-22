@@ -49,6 +49,13 @@ public class DwurdySharksMod {
       NeoForge.EVENT_BUS.register(this);
       modEventBus.addListener(this::registerNetworking);
       modContainer.registerConfig(ModConfig.Type.SERVER, DwurdySharksConfig.SPEC);
+      modEventBus.addListener((net.neoforged.fml.event.config.ModConfigEvent.Loading event) -> {
+         if (event.getConfig().getSpec() == DwurdySharksConfig.SPEC
+            && DwurdySharksConfig.CONFIG_VERSION.get() > DwurdySharksConfig.CURRENT_CONFIG_VERSION) {
+            LOGGER.warn("dwurdysharks-server.toml has configVersion {} but this build understands {}; unknown keys are ignored.",
+               DwurdySharksConfig.CONFIG_VERSION.get(), DwurdySharksConfig.CURRENT_CONFIG_VERSION);
+         }
+      });
       DwurdySharksModSounds.REGISTRY.register(modEventBus);
       DwurdySharksModBlocks.REGISTRY.register(modEventBus);
       DwurdySharksModBlockEntities.REGISTRY.register(modEventBus);
