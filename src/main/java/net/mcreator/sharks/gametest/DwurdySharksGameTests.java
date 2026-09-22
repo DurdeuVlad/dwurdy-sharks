@@ -203,7 +203,7 @@ public class DwurdySharksGameTests {
       ServerLevel level = helper.getLevel();
       fillPool(helper);
       NurseSharkEntity shark = helper.spawn(DwurdySharksModEntities.NURSE_SHARK.get(), 2, 2, 2);
-      ServerPlayer owner = placeSurvivalPlayer(helper, 7, 1, 7);
+      ServerPlayer owner = placeSurvivalPlayer(helper, 2, 7, 2);
       shark.tame(owner);
       helper.runAtTickTime(3L, () -> {
          shark.getNavigation().stop();
@@ -247,7 +247,6 @@ public class DwurdySharksGameTests {
       int prevCramming = rules.getInt(GameRules.RULE_MAX_ENTITY_CRAMMING);
       rules.getRule(GameRules.RULE_MAX_ENTITY_CRAMMING).set(0, level.getServer());
       fillPool(helper);
-      fillUpperPool(helper);
       EntityType<?>[] types = new EntityType[]{
          DwurdySharksModEntities.BULL_SHARK.get(), DwurdySharksModEntities.TIGER_SHARK.get(),
          DwurdySharksModEntities.MAKO_SHARK.get(), DwurdySharksModEntities.LEMON_SHARK.get(),
@@ -332,6 +331,7 @@ public class DwurdySharksGameTests {
       GameRules rules = level.getGameRules();
       int prevCramming = rules.getInt(GameRules.RULE_MAX_ENTITY_CRAMMING);
       rules.getRule(GameRules.RULE_MAX_ENTITY_CRAMMING).set(0, level.getServer());
+      sealArena(helper);
       int queueAtStart = DwurdySharksMod.getPendingServerWork();
       EntityType<?>[] types = new EntityType[]{
          DwurdySharksModEntities.BULL_SHARK.get(), DwurdySharksModEntities.TIGER_SHARK.get(),
@@ -387,7 +387,6 @@ public class DwurdySharksGameTests {
       int prevCramming = rules.getInt(GameRules.RULE_MAX_ENTITY_CRAMMING);
       rules.getRule(GameRules.RULE_MAX_ENTITY_CRAMMING).set(0, level.getServer());
       fillPool(helper);
-      fillUpperPool(helper);
       EntityType<?>[] types = new EntityType[]{
          DwurdySharksModEntities.BASKING_SHARK.get(), DwurdySharksModEntities.WHALE_SHARK.get(),
          DwurdySharksModEntities.TIGER_SHARK.get(), DwurdySharksModEntities.LEMON_SHARK.get(),
@@ -597,7 +596,6 @@ public class DwurdySharksGameTests {
       rules.getRule(DwurdySharksModGameRules.SPAWN_CAP_RADIUS).set(8, level.getServer());
       rules.getRule(DwurdySharksModGameRules.AGGRESSIVE_SHARKS).set(false, level.getServer());
       fillPool(helper);
-      fillUpperPool(helper);
       BlockPos base = helper.absolutePos(new BlockPos(2, 2, 2));
       purgeModMobs(helper);
       placeSurvivalPlayer(helper, 2, 2, 4);
@@ -716,6 +714,7 @@ public class DwurdySharksGameTests {
    private static void dryoutAppliesOnceAndDoesNotQueueWorkImpl(GameTestHelper helper, long base) {
       ServerLevel level = helper.getLevel();
       level.getServer().setDifficulty(Difficulty.NORMAL, true);
+      sealArena(helper);
       BlockPos pos = helper.absolutePos(new BlockPos(2, 1, 2));
       BullSharkEntity shark = DwurdySharksModEntities.BULL_SHARK.get().create(level);
       shark.moveTo(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, 0.0F, 0.0F);
@@ -1039,6 +1038,7 @@ public class DwurdySharksGameTests {
    private static void configDryoutTimingsImpl(GameTestHelper helper, long base) {
       ServerLevel level = helper.getLevel();
       level.getServer().setDifficulty(Difficulty.NORMAL, true);
+      sealArena(helper);
       int prevDelay = DwurdySharksConfig.DRYOUT_DELAY_TICKS.get();
       int prevDuration = DwurdySharksConfig.DRYOUT_DURATION_TICKS.get();
       BlockPos pos = helper.absolutePos(new BlockPos(2, 1, 2));
@@ -1215,20 +1215,33 @@ public class DwurdySharksGameTests {
          "biome fill failed for " + key.location() + ": " + result.right().map(CommandSyntaxException::getMessage).orElse("no error"));
    }
 
-   private static void fillPool(GameTestHelper helper) {
-      for (int x = 0; x <= 4; x++) {
-         for (int z = 0; z <= 4; z++) {
-            for (int y = 1; y <= 2; y++) {
-               helper.setBlock(new BlockPos(x, y, z), Blocks.WATER.defaultBlockState());
-            }
+   /**
+    * Seals the 8x8x8 template with a stone shell (floor y=0, walls x/z=0 and 5, ceiling y=6).
+    * Adjacent GameTest structures sit only ~5 blocks apart, so unsealed water flows into the
+    * gap and entities drift or fall between tests — this shell makes every test self-contained.
+    */
+   private static void sealArena(GameTestHelper helper) {
+      for (int x = 0; x <= 5; x++) {
+         for (int z = 0; z <= 5; z++) {
+            helper.setBlock(new BlockPos(x, 0, z), Blocks.STONE.defaultBlockState());
+            helper.setBlock(new BlockPos(x, 6, z), Blocks.STONE.defaultBlockState());
+         }
+      }
+      for (int y = 1; y <= 5; y++) {
+         for (int i = 0; i <= 5; i++) {
+            helper.setBlock(new BlockPos(i, y, 0), Blocks.STONE.defaultBlockState());
+            helper.setBlock(new BlockPos(i, y, 5), Blocks.STONE.defaultBlockState());
+            helper.setBlock(new BlockPos(0, y, i), Blocks.STONE.defaultBlockState());
+            helper.setBlock(new BlockPos(5, y, i), Blocks.STONE.defaultBlockState());
          }
       }
    }
 
-   private static void fillUpperPool(GameTestHelper helper) {
-      for (int x = 0; x <= 4; x++) {
-         for (int y = 3; y <= 4; y++) {
-            for (int z = 0; z <= 4; z++) {
+   private static void fillPool(GameTestHelper helper) {
+      sealArena(helper);
+      for (int x = 1; x <= 4; x++) {
+         for (int z = 1; z <= 4; z++) {
+            for (int y = 1; y <= 4; y++) {
                helper.setBlock(new BlockPos(x, y, z), Blocks.WATER.defaultBlockState());
             }
          }
