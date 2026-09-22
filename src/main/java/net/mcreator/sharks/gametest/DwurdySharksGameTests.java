@@ -913,6 +913,44 @@ public class DwurdySharksGameTests {
       });
    }
 
+   @GameTest(template = "pool", batch = "config", timeoutTicks = 400)
+   public static void configDespawnDistance(GameTestHelper helper) {
+      ServerLevel level = helper.getLevel();
+      level.getServer().setDifficulty(Difficulty.NORMAL, true);
+      level.getGameRules().getRule(DwurdySharksModGameRules.AGGRESSIVE_SHARKS).set(false, level.getServer());
+      fillPool(helper);
+      int prevDistance = DwurdySharksConfig.HARD_DESPAWN_DISTANCE_BLOCKS.get();
+      DwurdySharksConfig.HARD_DESPAWN_DISTANCE_BLOCKS.set(64);
+      BlockPos wildPos = helper.absolutePos(new BlockPos(2, 2, 2));
+      BullSharkEntity wild = DwurdySharksModEntities.BULL_SHARK.get().create(level);
+      wild.moveTo(wildPos.getX() + 0.5, wildPos.getY(), wildPos.getZ() + 0.5, 0.0F, 0.0F);
+      level.addFreshEntity(wild);
+      BlockPos tamedPos = helper.absolutePos(new BlockPos(4, 2, 2));
+      NurseSharkEntity tamed = DwurdySharksModEntities.NURSE_SHARK.get().create(level);
+      tamed.moveTo(tamedPos.getX() + 0.5, tamedPos.getY(), tamedPos.getZ() + 0.5, 0.0F, 0.0F);
+      level.addFreshEntity(tamed);
+      ServerPlayer player = placeSurvivalPlayer(helper, 3, 2, 4);
+      tamed.tame(player);
+      helper.runAtTickTime(20L, () -> {
+         for (ServerPlayer p : level.players()) {
+            p.moveTo(wildPos.getX() + 100.0, wildPos.getY(), wildPos.getZ(), 0.0F, 0.0F);
+         }
+      });
+      helper.runAtTickTime(170L, () -> {
+         DwurdySharksConfig.HARD_DESPAWN_DISTANCE_BLOCKS.set(prevDistance);
+      });
+      helper.runAtTickTime(160L, () -> {
+         helper.assertTrue(
+            level.getNearestPlayer(wildPos.getX() + 0.5, wildPos.getY(), wildPos.getZ() + 0.5, 90.0, false) == null,
+            "a player remained within 90 blocks of the wild shark; configured despawn precondition not met");
+         helper.assertTrue(wild.isRemoved(),
+            "wild bull shark was not discarded at 100 blocks with hardDespawnDistanceBlocks=64");
+         helper.assertTrue(!tamed.isRemoved() && tamed.isAlive(),
+            "tamed nurse shark was discarded despite the exemption");
+         helper.succeed();
+      });
+   }
+
    private static void scheduleEvery(GameTestHelper helper, long intervalTicks, Runnable task) {
       task.run();
       scheduleNext(helper, intervalTicks, task);

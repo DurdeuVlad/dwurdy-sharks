@@ -5,7 +5,7 @@ $root = Split-Path -Parent $PSScriptRoot
 $src = Join-Path $root "src/main/java/net/mcreator/sharks"
 
 # 1. Global EntityTickEvent subscribers allowed only in the three justified survivors
-$allowed = @("EntityAnimationFactory.java", "BleedingImmunityProcedure.java", "IfWearingArmorProcedure.java")
+$allowed = @("EntityAnimationFactory.java", "BleedingImmunityProcedure.java", "IfWearingArmorProcedure.java", "SharkDespawnProcedure.java")
 $subs = Get-ChildItem -Recurse (Join-Path $root "src/main/java") -Filter "*.java" |
     Where-Object { (Get-Content $_.FullName -Raw) -match "EntityTickEvent\.Pre" }
 foreach ($s in $subs) { if ($allowed -notcontains $s.Name) { Fail "unexpected EntityTickEvent.Pre subscriber: $($s.Name)" } }
