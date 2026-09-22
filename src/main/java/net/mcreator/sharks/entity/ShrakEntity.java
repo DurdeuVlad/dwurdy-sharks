@@ -5,6 +5,7 @@ import net.mcreator.sharks.init.DwurdySharksModEntities;
 import net.mcreator.sharks.init.DwurdySharksEntityTypeTags;
 import net.mcreator.sharks.init.DwurdySharksBiomeTags;
 import net.mcreator.sharks.init.DwurdySharksConfig;
+import net.mcreator.sharks.procedures.SharkAttackBoatProcedure;
 import net.mcreator.sharks.procedures.StopRidingBoatProcedure;
 import net.mcreator.sharks.procedures.SharkBleedProcedure;
 import net.mcreator.sharks.procedures.AggressiveSharksProcedureProcedure;
@@ -242,6 +243,7 @@ public class ShrakEntity extends PathfinderMob implements GeoEntity {
       super.baseTick();
       ShrakOnEntityTickUpdateProcedure.execute(this.level(), this);
       SharkBleedProcedure.execute(this.level(), this);
+      SharkAttackBoatProcedure.execute(this.level(), this.getX(), this.getY(), this.getZ(), this);
       StopRidingBoatProcedure.execute(this);
    }
 

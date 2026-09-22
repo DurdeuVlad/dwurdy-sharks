@@ -69,6 +69,7 @@ bucket-released, and bred entities.
 | `dryoutDelayTicks` | `600` | 0–72000 | Ticks out of water before dryout starts (600 = 30 s). `0` disables dryout. |
 | `dryoutDurationTicks` | `600` | 20–72000 | Duration of each dryout effect application. |
 | `itemEatingEnabled` | `true` | — | `false` stops all dropped-food-eater species from consuming dropped items. |
+| `sharksAttackBoats` | `false` | — | `true` makes `large_sharks`-tagged sharks path to and ram **occupied** boats (rowboats and chest boats) until they break — deterrent/border-marking use. Empty boats are ignored, tamed sharks are exempt, named/persistent sharks stay eligible. Independent of the `aggressiveSharks` gamerule. |
 | `aggroFollowRangeMultiplier` | `1.0` | 0.1–10 | Scales `FOLLOW_RANGE` — how far sharks acquire and chase targets (see `aggressiveSharks` gamerule). Applied on entity join. |
 
 ### `[despawn]`

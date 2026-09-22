@@ -6,6 +6,7 @@ import net.mcreator.sharks.init.DwurdySharksEntityTypeTags;
 import net.mcreator.sharks.init.DwurdySharksBiomeTags;
 import net.mcreator.sharks.init.DwurdySharksConfig;
 import net.mcreator.sharks.init.DwurdySharksModItems;
+import net.mcreator.sharks.procedures.SharkAttackBoatProcedure;
 import net.mcreator.sharks.procedures.StopRidingBoatProcedure;
 import net.mcreator.sharks.procedures.SharkBleedProcedure;
 import net.mcreator.sharks.procedures.EatDroppedItemProcedure;
@@ -249,6 +250,7 @@ public class MakoSharkEntity extends PathfinderMob implements GeoEntity {
       MakoSprintProcedure.execute(this.level(), this.getX(), this.getY(), this.getZ(), this);
       EatDroppedItemProcedure.execute(this.level(), this.getX(), this.getY(), this.getZ(), this);
       SharkBleedProcedure.execute(this.level(), this);
+      SharkAttackBoatProcedure.execute(this.level(), this.getX(), this.getY(), this.getZ(), this);
       StopRidingBoatProcedure.execute(this);
    }
 

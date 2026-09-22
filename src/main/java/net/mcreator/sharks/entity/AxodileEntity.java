@@ -5,6 +5,7 @@ import net.mcreator.sharks.init.DwurdySharksModEntities;
 import net.mcreator.sharks.init.DwurdySharksEntityTypeTags;
 import net.mcreator.sharks.init.DwurdySharksBiomeTags;
 import net.mcreator.sharks.init.DwurdySharksConfig;
+import net.mcreator.sharks.procedures.SharkAttackBoatProcedure;
 import net.mcreator.sharks.procedures.StopRidingBoatProcedure;
 import net.mcreator.sharks.procedures.EatDroppedItemProcedure;
 import net.mcreator.sharks.procedures.AxodileOnEntityTickUpdateProcedure;
@@ -192,6 +193,7 @@ public class AxodileEntity extends PathfinderMob implements GeoEntity {
       super.baseTick();
       AxodileOnEntityTickUpdateProcedure.execute(this.level(), this.getX(), this.getY(), this.getZ(), this);
       EatDroppedItemProcedure.execute(this.level(), this.getX(), this.getY(), this.getZ(), this);
+      SharkAttackBoatProcedure.execute(this.level(), this.getX(), this.getY(), this.getZ(), this);
       StopRidingBoatProcedure.execute(this);
    }
 

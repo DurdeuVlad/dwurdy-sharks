@@ -6,6 +6,7 @@ import net.mcreator.sharks.init.DwurdySharksEntityTypeTags;
 import net.mcreator.sharks.init.DwurdySharksBiomeTags;
 import net.mcreator.sharks.init.DwurdySharksConfig;
 import net.mcreator.sharks.init.DwurdySharksModItems;
+import net.mcreator.sharks.procedures.SharkAttackBoatProcedure;
 import net.mcreator.sharks.procedures.StopRidingBoatProcedure;
 import net.mcreator.sharks.procedures.BarracudaSprintProcedure;
 import net.mcreator.sharks.procedures.BarracudaEatProcedure;
@@ -243,6 +244,7 @@ public class BarracudaEntity extends PathfinderMob implements GeoEntity {
       BarracudaOnEntityTickUpdateProcedure.execute(this.level(), this);
       BarracudaEatProcedure.execute(this.level(), this.getX(), this.getY(), this.getZ(), this);
       BarracudaSprintProcedure.execute(this.level(), this.getX(), this.getY(), this.getZ(), this);
+      SharkAttackBoatProcedure.execute(this.level(), this.getX(), this.getY(), this.getZ(), this);
       StopRidingBoatProcedure.execute(this);
    }
 

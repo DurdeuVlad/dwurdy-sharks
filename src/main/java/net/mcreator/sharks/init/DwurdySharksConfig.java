@@ -26,6 +26,7 @@ public final class DwurdySharksConfig {
    public static final ModConfigSpec.IntValue DRYOUT_DELAY_TICKS;
    public static final ModConfigSpec.IntValue DRYOUT_DURATION_TICKS;
    public static final ModConfigSpec.BooleanValue ITEM_EATING_ENABLED;
+   public static final ModConfigSpec.BooleanValue SHARKS_ATTACK_BOATS;
    public static final ModConfigSpec.DoubleValue AGGRO_FOLLOW_RANGE_MULTIPLIER;
    public static final ModConfigSpec.IntValue HARD_DESPAWN_DISTANCE_BLOCKS;
    private static final Map<String, ModConfigSpec.BooleanValue> SPECIES_FLAGS = new HashMap<>();
@@ -124,6 +125,12 @@ public final class DwurdySharksConfig {
       ITEM_EATING_ENABLED = builder
          .comment("True (default): sharks may consume dropped food items. False disables item eating mod-wide.")
          .define("itemEatingEnabled", true);
+      SHARKS_ATTACK_BOATS = builder
+         .comment("True: large sharks (large_sharks tag) actively seek out and ram boats or chest boats",
+            "carrying passengers, breaking the boat after a few hits — border/moat deterrent.",
+            "False (default): sharks ignore boats. Tamed sharks never attack boats; empty boats are",
+            "ignored. Independent of the aggressiveSharks gamerule.")
+         .define("sharksAttackBoats", false);
       AGGRO_FOLLOW_RANGE_MULTIPLIER = builder
          .comment("Multiplier on FOLLOW_RANGE, i.e. how far aggressive sharks notice and chase targets",
             "(1.0 = unchanged). Range: 0.1-10.")

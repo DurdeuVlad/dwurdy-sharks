@@ -950,6 +950,171 @@ public class DwurdySharksGameTests {
    }
 
    @GameTest(template = "pool", batch = "config", timeoutTicks = 200)
+   public static void configBoatAttackDisabledByDefault(GameTestHelper helper) {
+      ServerLevel level = helper.getLevel();
+      level.getServer().setDifficulty(Difficulty.NORMAL, true);
+      fillPool(helper);
+      BlockPos base = helper.absolutePos(new BlockPos(2, 3, 2));
+      BullSharkEntity shark = DwurdySharksModEntities.BULL_SHARK.get().create(level);
+      shark.moveTo(base.getX() + 0.5, base.getY(), base.getZ() + 0.5, 0.0F, 0.0F);
+      shark.setPersistenceRequired();
+      shark.setNoAi(true);
+      shark.setInvulnerable(true);
+      shark.setNoGravity(true);
+      level.addFreshEntity(shark);
+      shark.tick();
+      net.minecraft.world.entity.vehicle.Boat boat = helper.spawn(EntityType.BOAT, 2, 5, 2);
+      Pig passenger = helper.spawn(EntityType.PIG, 2, 6, 2);
+      passenger.startRiding(boat);
+      helper.assertTrue(passenger.isPassenger(), "passenger did not board the boat");
+      boolean prev = DwurdySharksConfig.SHARKS_ATTACK_BOATS.get();
+      try {
+         DwurdySharksConfig.SHARKS_ATTACK_BOATS.set(false);
+         for (int i = 0; i <= 20; i++) {
+            shark.tickCount = i;
+            net.mcreator.sharks.procedures.SharkAttackBoatProcedure.execute(level,
+               shark.getX(), shark.getY(), shark.getZ(), shark);
+         }
+         helper.assertTrue(boat.isAlive() && boat.getDamage() <= 0.0F,
+            "occupied boat was damaged while sharksAttackBoats=false");
+         helper.succeed();
+      } finally {
+         DwurdySharksConfig.SHARKS_ATTACK_BOATS.set(prev);
+      }
+   }
+
+   @GameTest(template = "pool", batch = "config", timeoutTicks = 200)
+   public static void configBoatAttackRamsOccupiedBoat(GameTestHelper helper) {
+      ServerLevel level = helper.getLevel();
+      level.getServer().setDifficulty(Difficulty.NORMAL, true);
+      fillPool(helper);
+      BlockPos base = helper.absolutePos(new BlockPos(2, 3, 2));
+      BullSharkEntity shark = DwurdySharksModEntities.BULL_SHARK.get().create(level);
+      shark.moveTo(base.getX() + 0.5, base.getY(), base.getZ() + 0.5, 0.0F, 0.0F);
+      shark.setPersistenceRequired();
+      shark.setNoAi(true);
+      shark.setInvulnerable(true);
+      shark.setNoGravity(true);
+      level.addFreshEntity(shark);
+      shark.tick();
+      net.minecraft.world.entity.vehicle.Boat boat = helper.spawn(EntityType.BOAT, 2, 5, 2);
+      Pig passenger = helper.spawn(EntityType.PIG, 2, 6, 2);
+      passenger.startRiding(boat);
+      helper.assertTrue(passenger.isPassenger(), "passenger did not board the boat");
+      boolean prev = DwurdySharksConfig.SHARKS_ATTACK_BOATS.get();
+      try {
+         DwurdySharksConfig.SHARKS_ATTACK_BOATS.set(true);
+         shark.tickCount = -shark.getId();
+         net.mcreator.sharks.procedures.SharkAttackBoatProcedure.execute(level,
+            shark.getX(), shark.getY(), shark.getZ(), shark);
+         helper.assertTrue(boat.getDamage() > 0.0F,
+            "execute() at an aligned tick phase did not damage an occupied boat with sharksAttackBoats=true");
+         int calls = 0;
+         while (boat.isAlive() && calls++ < 40) {
+            net.mcreator.sharks.procedures.SharkAttackBoatProcedure.checkBoatAttack(level, shark);
+         }
+         helper.assertTrue(!boat.isAlive(), "occupied boat survived " + calls + " direct ram calls");
+         helper.succeed();
+      } finally {
+         DwurdySharksConfig.SHARKS_ATTACK_BOATS.set(prev);
+      }
+   }
+
+   @GameTest(template = "pool", batch = "config", timeoutTicks = 200)
+   public static void configBoatAttackIgnoresEmptyBoat(GameTestHelper helper) {
+      ServerLevel level = helper.getLevel();
+      level.getServer().setDifficulty(Difficulty.NORMAL, true);
+      fillPool(helper);
+      BlockPos base = helper.absolutePos(new BlockPos(2, 3, 2));
+      BullSharkEntity shark = DwurdySharksModEntities.BULL_SHARK.get().create(level);
+      shark.moveTo(base.getX() + 0.5, base.getY(), base.getZ() + 0.5, 0.0F, 0.0F);
+      shark.setPersistenceRequired();
+      shark.setNoAi(true);
+      shark.setInvulnerable(true);
+      shark.setNoGravity(true);
+      level.addFreshEntity(shark);
+      shark.tick();
+      net.minecraft.world.entity.vehicle.Boat boat = helper.spawn(EntityType.BOAT, 2, 5, 2);
+      boolean prev = DwurdySharksConfig.SHARKS_ATTACK_BOATS.get();
+      try {
+         DwurdySharksConfig.SHARKS_ATTACK_BOATS.set(true);
+         for (int i = 0; i < 10; i++) {
+            net.mcreator.sharks.procedures.SharkAttackBoatProcedure.checkBoatAttack(level, shark);
+         }
+         helper.assertTrue(boat.isAlive() && boat.getDamage() <= 0.0F,
+            "unoccupied boat was attacked with sharksAttackBoats=true");
+         helper.succeed();
+      } finally {
+         DwurdySharksConfig.SHARKS_ATTACK_BOATS.set(prev);
+      }
+   }
+
+   @GameTest(template = "pool", batch = "config", timeoutTicks = 200)
+   public static void configBoatAttackTamedSharkExempt(GameTestHelper helper) {
+      ServerLevel level = helper.getLevel();
+      level.getServer().setDifficulty(Difficulty.NORMAL, true);
+      fillPool(helper);
+      BlockPos base = helper.absolutePos(new BlockPos(2, 3, 2));
+      NurseSharkEntity shark = DwurdySharksModEntities.NURSE_SHARK.get().create(level);
+      shark.moveTo(base.getX() + 0.5, base.getY(), base.getZ() + 0.5, 0.0F, 0.0F);
+      shark.setPersistenceRequired();
+      shark.setNoAi(true);
+      shark.setInvulnerable(true);
+      shark.setNoGravity(true);
+      shark.setTame(true, false);
+      level.addFreshEntity(shark);
+      shark.tick();
+      net.minecraft.world.entity.vehicle.Boat boat = helper.spawn(EntityType.BOAT, 2, 5, 2);
+      Pig passenger = helper.spawn(EntityType.PIG, 2, 6, 2);
+      passenger.startRiding(boat);
+      helper.assertTrue(passenger.isPassenger(), "passenger did not board the boat");
+      boolean prev = DwurdySharksConfig.SHARKS_ATTACK_BOATS.get();
+      try {
+         DwurdySharksConfig.SHARKS_ATTACK_BOATS.set(true);
+         for (int i = 0; i < 10; i++) {
+            net.mcreator.sharks.procedures.SharkAttackBoatProcedure.checkBoatAttack(level, shark);
+         }
+         helper.assertTrue(boat.isAlive() && boat.getDamage() <= 0.0F,
+            "tamed shark attacked an occupied boat with sharksAttackBoats=true");
+         helper.succeed();
+      } finally {
+         DwurdySharksConfig.SHARKS_ATTACK_BOATS.set(prev);
+      }
+   }
+
+   @GameTest(template = "pool", batch = "config", timeoutTicks = 200)
+   public static void configBoatAttackChestBoat(GameTestHelper helper) {
+      ServerLevel level = helper.getLevel();
+      level.getServer().setDifficulty(Difficulty.NORMAL, true);
+      fillPool(helper);
+      BlockPos base = helper.absolutePos(new BlockPos(2, 3, 2));
+      BullSharkEntity shark = DwurdySharksModEntities.BULL_SHARK.get().create(level);
+      shark.moveTo(base.getX() + 0.5, base.getY(), base.getZ() + 0.5, 0.0F, 0.0F);
+      shark.setPersistenceRequired();
+      shark.setNoAi(true);
+      shark.setInvulnerable(true);
+      shark.setNoGravity(true);
+      level.addFreshEntity(shark);
+      shark.tick();
+      net.minecraft.world.entity.vehicle.Boat chestBoat = helper.spawn(EntityType.CHEST_BOAT, 2, 5, 2);
+      Pig passenger = helper.spawn(EntityType.PIG, 2, 6, 2);
+      passenger.startRiding(chestBoat);
+      helper.assertTrue(passenger.isPassenger(), "passenger did not board the chest boat");
+      boolean prev = DwurdySharksConfig.SHARKS_ATTACK_BOATS.get();
+      try {
+         DwurdySharksConfig.SHARKS_ATTACK_BOATS.set(true);
+         for (int i = 0; i < 10 && chestBoat.isAlive(); i++) {
+            net.mcreator.sharks.procedures.SharkAttackBoatProcedure.checkBoatAttack(level, shark);
+         }
+         helper.assertTrue(chestBoat.getDamage() > 0.0F || !chestBoat.isAlive(),
+            "occupied chest boat was never damaged with sharksAttackBoats=true");
+         helper.succeed();
+      } finally {
+         DwurdySharksConfig.SHARKS_ATTACK_BOATS.set(prev);
+      }
+   }
+
+   @GameTest(template = "pool", batch = "config", timeoutTicks = 200)
    public static void configAggroRangeMultiplierApplied(GameTestHelper helper) {
       ServerLevel level = helper.getLevel();
       BlockPos base = helper.absolutePos(new BlockPos(2, 2, 2));
