@@ -19,13 +19,19 @@
 - 🍲 Food and cooking items made from the mod's marine life
 - ✅ A fix for the upstream 1.21.x persistent-shark bug tracked in [issue #7](https://github.com/PaoloBen/BensSharks/issues/7): wild sharks despawn normally, while tamed sharks still persist
 
-### New in 1.3.0
+### New in 1.4.0
 
-- 🎯 **`aggressiveSharks` gamerule** (opt-in, `false` by default): when enabled, large predatory sharks — great white, bull, tiger, mako, megalodon, and more — actively hunt players. Filter feeders and tamed sharks stay passive. Toggle per world with `/gamerule aggressiveSharks true`.
-- 🧪 **In-game effect descriptions** for the nine custom mob effects, shown on the effects screen and potion tooltips.
-- 🈶 **Simplified Chinese localization** (`zh_cn`) covering all 157 lang keys.
-- 🎨 **Shader-friendly rendering**: sharks now render in the cutout pass, fixing invisible sharks above water with shader packs such as Iris "makeup-ultrafast".
-- 🐕 **Tamed sharks no longer beach themselves** while following their owner — they only path through water.
+- � **Wild sharks stay in the ocean.** A fix for sharks spawning in rivers, lakes, swamps, and beaches — natural spawns are now restricted to the `dwurdysharks:shark_spawning_oceans` biome tag, extensible by datapacks.
+- 🚦 **Server protection built in.** Local population caps (`largeSharkLocalCap` 24, `ambientFishLocalCap` 64, `sharkSpawnCapRadius` 128) with density shaping stop entity floods before they start. Tamed and named sharks are exempt.
+- ⚡ **Major tick-time fixes.** Beached sharks no longer flood the server work queue, spawn procedures no longer scan every tick, and all 24 species dropped per-tick dimension refreshes — the 5-minute automated stress gate holds p95 tick under 15 ms at ~470 live sharks.
+- ⚙️ **New server config** (`dwurdysharks-server.toml`): master spawn switch, per-species toggles, damage multiplier, and Megalodon damage/armor-bypass options.
+- 🧪 **Automated regression + stress suite** (`gradlew runGameTestServer`): 17 tests including five 5-minute wall-clock stress profiles.
+
+<details><summary>Earlier highlights</summary>
+
+**1.3.0** — `aggressiveSharks` gamerule (opt-in player hunting), in-game effect descriptions, Simplified Chinese localization, shader-friendly cutout rendering, tamed sharks no longer beach themselves while following.
+
+</details>
 
 ### Requirements
 
