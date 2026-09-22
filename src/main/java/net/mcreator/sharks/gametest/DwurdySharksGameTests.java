@@ -962,9 +962,11 @@ public class DwurdySharksGameTests {
       shark.setInvulnerable(true);
       shark.setNoGravity(true);
       level.addFreshEntity(shark);
+      shark.tick();
       net.minecraft.world.entity.vehicle.Boat boat = helper.spawn(EntityType.BOAT, 2, 5, 2);
       Pig passenger = helper.spawn(EntityType.PIG, 2, 6, 2);
       passenger.startRiding(boat);
+      helper.assertTrue(passenger.isPassenger(), "passenger did not board the boat");
       boolean prev = DwurdySharksConfig.SHARKS_ATTACK_BOATS.get();
       try {
          DwurdySharksConfig.SHARKS_ATTACK_BOATS.set(false);
@@ -994,9 +996,11 @@ public class DwurdySharksGameTests {
       shark.setInvulnerable(true);
       shark.setNoGravity(true);
       level.addFreshEntity(shark);
+      shark.tick();
       net.minecraft.world.entity.vehicle.Boat boat = helper.spawn(EntityType.BOAT, 2, 5, 2);
       Pig passenger = helper.spawn(EntityType.PIG, 2, 6, 2);
       passenger.startRiding(boat);
+      helper.assertTrue(passenger.isPassenger(), "passenger did not board the boat");
       boolean prev = DwurdySharksConfig.SHARKS_ATTACK_BOATS.get();
       try {
          DwurdySharksConfig.SHARKS_ATTACK_BOATS.set(true);
@@ -1029,6 +1033,7 @@ public class DwurdySharksGameTests {
       shark.setInvulnerable(true);
       shark.setNoGravity(true);
       level.addFreshEntity(shark);
+      shark.tick();
       net.minecraft.world.entity.vehicle.Boat boat = helper.spawn(EntityType.BOAT, 2, 5, 2);
       boolean prev = DwurdySharksConfig.SHARKS_ATTACK_BOATS.get();
       try {
@@ -1058,9 +1063,11 @@ public class DwurdySharksGameTests {
       shark.setNoGravity(true);
       shark.setTame(true, false);
       level.addFreshEntity(shark);
+      shark.tick();
       net.minecraft.world.entity.vehicle.Boat boat = helper.spawn(EntityType.BOAT, 2, 5, 2);
       Pig passenger = helper.spawn(EntityType.PIG, 2, 6, 2);
       passenger.startRiding(boat);
+      helper.assertTrue(passenger.isPassenger(), "passenger did not board the boat");
       boolean prev = DwurdySharksConfig.SHARKS_ATTACK_BOATS.get();
       try {
          DwurdySharksConfig.SHARKS_ATTACK_BOATS.set(true);
@@ -1088,9 +1095,11 @@ public class DwurdySharksGameTests {
       shark.setInvulnerable(true);
       shark.setNoGravity(true);
       level.addFreshEntity(shark);
+      shark.tick();
       net.minecraft.world.entity.vehicle.Boat chestBoat = helper.spawn(EntityType.CHEST_BOAT, 2, 5, 2);
       Pig passenger = helper.spawn(EntityType.PIG, 2, 6, 2);
       passenger.startRiding(chestBoat);
+      helper.assertTrue(passenger.isPassenger(), "passenger did not board the chest boat");
       boolean prev = DwurdySharksConfig.SHARKS_ATTACK_BOATS.get();
       try {
          DwurdySharksConfig.SHARKS_ATTACK_BOATS.set(true);

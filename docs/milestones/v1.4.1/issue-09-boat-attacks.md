@@ -12,14 +12,19 @@ place sharks along a canal or border and they punish boat crossings.
 
 - New config key `behavior.sharksAttackBoats` (boolean, default `false`).
 - When enabled, any non-tamed entity in the `large_sharks` entity-type tag
-  that is in water:
-  - scans every 20 ticks (staggered by entity id) for `Boat`/`ChestBoat`
-    entities **with at least one passenger** within its effective
-    `FOLLOW_RANGE` (so `aggroFollowRangeMultiplier` applies);
-  - paths toward the nearest occupied boat;
-  - when within ~2.5 blocks, damages the boat via
-    `boat.hurt(damageSources().mobAttack(mob), max(2, attackDamage * 0.25))`
-    — roughly 2–3 rams to break a vanilla boat.
+  that is waterborne:
+  - every tick: checks for occupied boats already within ~2.5 blocks and
+    rams them — `boat.hurt(mobAttack, max(2, attackDamage * 0.25))`;
+  - every 20 ticks (staggered by entity id): wide scan within effective
+    `FOLLOW_RANGE` (so `aggroFollowRangeMultiplier` applies) and paths
+    toward the nearest occupied boat.
+- Why two cadences: vanilla boat damage decays 1/tick, so hits spaced 20
+  ticks apart can never accumulate the >40 damage needed to break a boat.
+  The every-tick in-reach ram breaks a boat in ~3 hits; the staggered wide
+  scan keeps the expensive query cheap.
+- "Waterborne" = `isInWaterOrBubble()` OR water within ~1 block under the
+  bounding box — ramming a floating boat puts the shark's box right at the
+  waterline, where the plain water check reads false (found in live test).
 - Empty boats are ignored (harbor decorations are not targets).
 - Tamed sharks never attack boats. Named/persistent sharks DO — deliberate
   border markers are the primary use case.
