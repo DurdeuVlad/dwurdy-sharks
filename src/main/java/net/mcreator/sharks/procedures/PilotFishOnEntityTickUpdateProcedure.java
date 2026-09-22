@@ -9,7 +9,7 @@ public class PilotFishOnEntityTickUpdateProcedure {
    public static void execute(LevelAccessor world, Entity entity) {
       if (entity != null) {
          if (entity instanceof PilotFishEntity && !entity.isInWaterOrBubble()) {
-            DryoutProcedure.dryTick(entity, 320, 600);
+            DryoutProcedure.dryTick(entity);
          } else if (entity.isInWaterOrBubble() && entity instanceof LivingEntity _entity) {
             DryoutProcedure.wetTick(_entity);
          }

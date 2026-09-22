@@ -1,5 +1,6 @@
 package net.mcreator.sharks.procedures;
 
+import net.mcreator.sharks.init.DwurdySharksConfig;
 import net.mcreator.sharks.init.DwurdySharksModMobEffects;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -12,13 +13,18 @@ public final class DryoutProcedure {
    private DryoutProcedure() {
    }
 
-   public static void dryTick(Entity entity, int delayTicks, int durationTicks) {
+   public static void dryTick(Entity entity) {
+      int delayTicks = DwurdySharksConfig.DRYOUT_DELAY_TICKS.get();
+      if (delayTicks <= 0) {
+         return;
+      }
       if (entity instanceof LivingEntity living && !entity.level().isClientSide()) {
          CompoundTag data = living.getPersistentData();
          int dryTicks = data.getInt(DRY_TICKS_TAG) + 1;
          data.putInt(DRY_TICKS_TAG, dryTicks);
          if (dryTicks >= delayTicks && !living.hasEffect(DwurdySharksModMobEffects.DRYOUT_EFFECT)) {
-            living.addEffect(new MobEffectInstance(DwurdySharksModMobEffects.DRYOUT_EFFECT, durationTicks, 0, true, false));
+            living.addEffect(new MobEffectInstance(DwurdySharksModMobEffects.DRYOUT_EFFECT,
+               DwurdySharksConfig.DRYOUT_DURATION_TICKS.get(), 0, true, false));
          }
       }
    }

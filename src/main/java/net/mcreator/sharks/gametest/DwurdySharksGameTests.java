@@ -877,6 +877,42 @@ public class DwurdySharksGameTests {
       }
    }
 
+   @GameTest(template = "pool", batch = "config", timeoutTicks = 300)
+   public static void configDryoutTimings(GameTestHelper helper) {
+      ServerLevel level = helper.getLevel();
+      level.getServer().setDifficulty(Difficulty.NORMAL, true);
+      int prevDelay = DwurdySharksConfig.DRYOUT_DELAY_TICKS.get();
+      int prevDuration = DwurdySharksConfig.DRYOUT_DURATION_TICKS.get();
+      BlockPos pos = helper.absolutePos(new BlockPos(2, 1, 2));
+      DwurdySharksConfig.DRYOUT_DELAY_TICKS.set(20);
+      DwurdySharksConfig.DRYOUT_DURATION_TICKS.set(100);
+      BullSharkEntity shark = DwurdySharksModEntities.BULL_SHARK.get().create(level);
+      shark.moveTo(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, 0.0F, 0.0F);
+      shark.setPersistenceRequired();
+      shark.setInvulnerable(true);
+      level.addFreshEntity(shark);
+      helper.runAtTickTime(130L, () -> {
+         DwurdySharksConfig.DRYOUT_DELAY_TICKS.set(prevDelay);
+         DwurdySharksConfig.DRYOUT_DURATION_TICKS.set(prevDuration);
+      });
+      helper.runAtTickTime(60L, () -> {
+         helper.assertTrue(shark.hasEffect(DwurdySharksModMobEffects.DRYOUT_EFFECT),
+            "beached shark lacked dryout effect 40 ticks after configured 20-tick delay");
+         shark.discard();
+         DwurdySharksConfig.DRYOUT_DELAY_TICKS.set(0);
+         BullSharkEntity disabled = DwurdySharksModEntities.BULL_SHARK.get().create(level);
+         disabled.moveTo(pos.getX() + 2.5, pos.getY(), pos.getZ() + 0.5, 0.0F, 0.0F);
+         disabled.setPersistenceRequired();
+         disabled.setInvulnerable(true);
+         level.addFreshEntity(disabled);
+         helper.runAtTickTime(120L, () -> {
+            helper.assertTrue(!disabled.hasEffect(DwurdySharksModMobEffects.DRYOUT_EFFECT),
+               "dryoutDelayTicks=0 still applied the dryout effect");
+            helper.succeed();
+         });
+      });
+   }
+
    private static void scheduleEvery(GameTestHelper helper, long intervalTicks, Runnable task) {
       task.run();
       scheduleNext(helper, intervalTicks, task);

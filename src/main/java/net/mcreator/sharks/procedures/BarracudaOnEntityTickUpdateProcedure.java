@@ -14,7 +14,7 @@ public class BarracudaOnEntityTickUpdateProcedure {
                ((BarracudaEntity)entity).setAnimation("land");
             }
 
-            DryoutProcedure.dryTick(entity, 600, 600);
+            DryoutProcedure.dryTick(entity);
          } else if (entity.isInWaterRainOrBubble() && entity instanceof LivingEntity _entity) {
             DryoutProcedure.wetTick(_entity);
          }
