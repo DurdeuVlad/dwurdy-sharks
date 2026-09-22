@@ -8,7 +8,7 @@ stop clustering but can't bound total population across a large ocean.
 
 ## Expectation
 
-- New gamerules `largeSharkGlobalCap` and `ambientFishGlobalCap`, default
+- New gamerules `dwurdySharksLargeSharkGlobalCap` and `dwurdySharksAmbientFishGlobalCap`, default
   `-1` = "inherit config".
 - New config keys `population.largeSharkGlobalCap` and
   `population.ambientFishGlobalCap` (int, default `0` = unlimited, range
@@ -19,7 +19,7 @@ stop clustering but can't bound total population across a large ocean.
   non-exempt entities of the same group tag. Same exemptions as local caps
   (tamed, named, persistence-required, bucket, breeding).
 - Manual spawns (`/summon`, eggs, dispensers) respect the global cap only when
-  `enforceCapForManualSpawns` is on — one switch governs both cap families.
+  `dwurdySharksEnforceCapForManualSpawns` is on — one switch governs both cap families.
 
 ## Acceptance criteria
 
@@ -30,7 +30,7 @@ stop clustering but can't bound total population across a large ocean.
 - [ ] Gamerule `-1` inherits config; gamerule `>= 0` overrides it live;
       effective `0` disables.
 - [ ] GameTests: (a) with global cap N, the N+1st wild spawn in a *different*
-      radius is refused; (b) tamed/named exempt; (c) `enforceCapForManualSpawns`
+      radius is refused; (b) tamed/named exempt; (c) `dwurdySharksEnforceCapForManualSpawns`
       gates manual spawns against the global cap; (d) gamerule override wins
       over config.
 

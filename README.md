@@ -56,7 +56,7 @@ Dwurdy Sharks keeps the original content and compatibility surface while restori
 
 ### 🆕 New in 1.3.0
 
-- **`aggressiveSharks` gamerule** (opt-in, `false` by default): large predatory sharks — great white, bull, tiger, mako, megalodon, and more — actively hunt players. Filter feeders and tamed sharks stay passive. See [docs/GAMERULES.md](docs/GAMERULES.md).
+- **`dwurdySharksAggressiveSharks` gamerule** (opt-in, `false` by default): large predatory sharks — great white, bull, tiger, mako, megalodon, and more — actively hunt players. Filter feeders and tamed sharks stay passive. See [docs/GAMERULES.md](docs/GAMERULES.md).
 - **In-game effect descriptions** for the nine custom mob effects, on the effects screen and potion tooltips.
 - **Simplified Chinese localization** (`zh_cn`) covering all 157 lang keys.
 - **Shader-friendly rendering**: sharks render in the cutout pass, fixing invisible sharks above water with shader packs such as Iris "makeup-ultrafast".
