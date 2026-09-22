@@ -42,6 +42,10 @@
 
 Only the NeoForge 1.21.1 target is currently verified. Do not mix this file's instructions with a different Minecraft version or loader.
 
+### Server configuration
+
+`dwurdysharks-server.toml` (per world, in `<world>/serverconfig/`) controls damage and speed multipliers (global + per-species), per-species health overrides, whole-dimension population caps, dryout timing, item eating, and despawn distance. Per-world live knobs stay as gamerules (`aggressiveSharks`, local/global caps — a gamerule of `-1` inherits the config default). Full reference: `docs/CONFIG.md` and `docs/GAMERULES.md` in the repo.
+
 ### Installation
 
 1. Install Minecraft 1.21.1 with NeoForge 21.1.x.
