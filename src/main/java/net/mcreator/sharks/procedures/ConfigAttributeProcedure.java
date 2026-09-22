@@ -16,6 +16,8 @@ public final class ConfigAttributeProcedure {
       ResourceLocation.fromNamespaceAndPath("dwurdysharks", "config_speed");
    private static final ResourceLocation HEALTH_MODIFIER_ID =
       ResourceLocation.fromNamespaceAndPath("dwurdysharks", "config_health");
+   private static final ResourceLocation AGGRO_RANGE_MODIFIER_ID =
+      ResourceLocation.fromNamespaceAndPath("dwurdysharks", "config_aggro_range");
 
    private ConfigAttributeProcedure() {
    }
@@ -29,6 +31,7 @@ public final class ConfigAttributeProcedure {
       }
       applySpeed(living);
       applyHealth(living);
+      applyAggroRange(living);
    }
 
    private static void applySpeed(LivingEntity living) {
@@ -59,6 +62,20 @@ public final class ConfigAttributeProcedure {
          new AttributeModifier(HEALTH_MODIFIER_ID, override - health.getBaseValue(), AttributeModifier.Operation.ADD_VALUE));
       if (living.getHealth() > living.getMaxHealth()) {
          living.setHealth(living.getMaxHealth());
+      }
+   }
+
+   private static void applyAggroRange(LivingEntity living) {
+      AttributeInstance range = living.getAttribute(Attributes.FOLLOW_RANGE);
+      if (range == null) {
+         return;
+      }
+      double multiplier = DwurdySharksConfig.AGGRO_FOLLOW_RANGE_MULTIPLIER.get();
+      if (multiplier == 1.0) {
+         range.removeModifier(AGGRO_RANGE_MODIFIER_ID);
+      } else {
+         range.addOrUpdateTransientModifier(
+            new AttributeModifier(AGGRO_RANGE_MODIFIER_ID, multiplier - 1.0, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
       }
    }
 }
