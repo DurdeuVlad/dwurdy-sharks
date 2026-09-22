@@ -26,7 +26,7 @@ public final class SharkDespawnProcedure {
          return;
       }
       int distance = DwurdySharksConfig.HARD_DESPAWN_DISTANCE_BLOCKS.get();
-      if (distance <= 0) {
+      if (distance <= 0 || mob.level().getNearestPlayer(mob, -1.0) == null) {
          return;
       }
       if (mob.level().getNearestPlayer(mob, distance) == null) {

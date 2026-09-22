@@ -1003,6 +1003,34 @@ public class DwurdySharksGameTests {
       });
    }
 
+   @GameTest(template = "pool", batch = "config", timeoutTicks = 400)
+   public static void configDespawnNoPlayers(GameTestHelper helper) {
+      ServerLevel level = helper.getLevel();
+      level.getServer().setDifficulty(Difficulty.NORMAL, true);
+      level.getGameRules().getRule(DwurdySharksModGameRules.AGGRESSIVE_SHARKS).set(false, level.getServer());
+      fillPool(helper);
+      int prevDistance = DwurdySharksConfig.HARD_DESPAWN_DISTANCE_BLOCKS.get();
+      DwurdySharksConfig.HARD_DESPAWN_DISTANCE_BLOCKS.set(64);
+      BlockPos wildPos = helper.absolutePos(new BlockPos(2, 2, 2));
+      BullSharkEntity wild = DwurdySharksModEntities.BULL_SHARK.get().create(level);
+      wild.moveTo(wildPos.getX() + 0.5, wildPos.getY(), wildPos.getZ() + 0.5, 0.0F, 0.0F);
+      level.addFreshEntity(wild);
+      helper.runAtTickTime(20L, () -> {
+         for (ServerPlayer p : new ArrayList<>(level.players())) {
+            level.removePlayerImmediately(p, Entity.RemovalReason.DISCARDED);
+         }
+      });
+      helper.runAtTickTime(170L, () -> {
+         DwurdySharksConfig.HARD_DESPAWN_DISTANCE_BLOCKS.set(prevDistance);
+      });
+      helper.runAtTickTime(160L, () -> {
+         helper.assertTrue(level.players().isEmpty(), "players remained in the level; no-player precondition not met");
+         helper.assertTrue(!wild.isRemoved() && wild.isAlive(),
+            "wild bull shark was discarded with no players online; hard despawn must require a player in the dimension");
+         helper.succeed();
+      });
+   }
+
    private static void scheduleEvery(GameTestHelper helper, long intervalTicks, Runnable task) {
       task.run();
       scheduleNext(helper, intervalTicks, task);
