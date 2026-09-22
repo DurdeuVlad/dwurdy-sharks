@@ -180,4 +180,19 @@ public final class DwurdySharksConfig {
       ModConfigSpec.DoubleValue override = SPECIES_HEALTH_OVERRIDES.get(speciesKey(type));
       return override == null ? 0.0 : override.get();
    }
+
+   @Nullable
+   public static ModConfigSpec.DoubleValue speciesDamageMultiplierValue(String speciesKey) {
+      return SPECIES_DAMAGE_MULTIPLIERS.get(speciesKey);
+   }
+
+   @Nullable
+   public static ModConfigSpec.DoubleValue speciesHealthOverrideValue(String speciesKey) {
+      return SPECIES_HEALTH_OVERRIDES.get(speciesKey);
+   }
+
+   @Nullable
+   public static ModConfigSpec.DoubleValue speciesSpeedMultiplierValue(String speciesKey) {
+      return SPECIES_SPEED_MULTIPLIERS.get(speciesKey);
+   }
 }
