@@ -6,6 +6,7 @@ import net.mcreator.sharks.init.DwurdySharksEntityTypeTags;
 import net.mcreator.sharks.init.DwurdySharksBiomeTags;
 import net.mcreator.sharks.init.DwurdySharksConfig;
 import net.mcreator.sharks.init.DwurdySharksModItems;
+import net.mcreator.sharks.procedures.SharkAttackBoatProcedure;
 import net.mcreator.sharks.procedures.StopRidingBoatProcedure;
 import net.mcreator.sharks.procedures.EatKrillProcedure;
 import net.mcreator.sharks.procedures.WhaleSharkEntityIsHurtProcedure;
@@ -207,6 +208,7 @@ public class WhaleSharkEntity extends PathfinderMob implements GeoEntity {
       super.baseTick();
       WhaleSharkOnEntityTickUpdateProcedure.execute(this.level(), this);
       EatKrillProcedure.execute(this.level(), this.getX(), this.getY(), this.getZ(), this);
+      SharkAttackBoatProcedure.execute(this.level(), this.getX(), this.getY(), this.getZ(), this);
       StopRidingBoatProcedure.execute(this);
    }
 
